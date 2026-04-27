@@ -1,8 +1,8 @@
-import type { Route } from "./+types/Home";
+import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Coolours" },
+    { title: "Coolours - Home" },
     {
       name: "description",
       content:

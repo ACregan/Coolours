@@ -1,12 +1,12 @@
-import type { Route } from "./+types/CreateEdit";
+import type { Route } from "./+types/create-edit";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Coolours" },
+    { title: "Coolours - Create" },
     {
       name: "description",
       content:
-        "A Colour Swatch Tool that doesnt badger you for your card details after every click. 100% Enshittification-Free Guaranteed.",
+        "A Colour Swatch Tool that doesn't badger you for your card details after every click. 100% Enshittification-Free Guaranteed.",
     },
   ];
 }
