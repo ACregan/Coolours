@@ -1,0 +1,17 @@
+:root{
+  --heading-font-color: #f00;
+}
+
+.coreLayout_container{
+  min-height: 100dvh;
+}
+
+.headerHeading{
+  font-family: "Playwrite NO", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2rem;
+  color: var(--heading-font-color);
+  text-shadow: 0 0 0.1rem var(--heading-font-color);
+}
