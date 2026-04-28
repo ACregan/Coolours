@@ -61,3 +61,14 @@ li {
   font-size: 1.6rem;
   margin: 0.55rem 0;
 }
+
+/* -= UI ELEMENTS =- */
+
+button {
+  font-family:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+}
