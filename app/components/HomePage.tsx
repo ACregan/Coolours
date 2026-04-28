@@ -1,9 +1,11 @@
 import React from "react";
 import useLocalStorage from "~/hooks/useLocalStorage";
 import styles from "./HomePage.module.css";
+import { isCloserToWhite } from "~/utilities/utilities";
 
 type swatchType = {
   hex: string;
+  label?: string;
 };
 
 type swatchItemType = {
@@ -62,6 +64,16 @@ const initialData: swatchListTypes = {
         { hex: "7768AE" },
       ],
     },
+    {
+      title: "Neonpoleon Dynamite",
+      colours: [
+        { hex: "9B5DE5" },
+        { hex: "F15BB5" },
+        { hex: "FEE440" },
+        { hex: "00BBF9" },
+        { hex: "00F5D4" },
+      ],
+    },
   ],
 };
 
@@ -84,7 +96,15 @@ const HomePage = () => {
                   style={{ backgroundColor: `#${colour.hex}` }}
                   className={styles.swatch}
                 >
-                  {colour.hex}
+                  <span
+                    className={
+                      isCloserToWhite(colour.hex)
+                        ? styles.colourHex_light
+                        : styles.colourHex_dark
+                    }
+                  >
+                    #{colour.hex}
+                  </span>
                 </div>
               ))}
             </div>

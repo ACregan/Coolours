@@ -41,4 +41,21 @@
   order: 0;
   flex: 1 1 auto;
   align-self: auto;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.colourHex {
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 1rem;
+}
+.colourHex_dark {
+  composes: colourHex;
+  color: white;
+}
+.colourHex_light {
+  composes: colourHex;
+  color: black;
 }
