@@ -1,0 +1,44 @@
+/* -= ALL SWATCHES CONTAINER =- */
+.swatchListContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.swatchListItemContainer {
+  order: 0;
+  flex: 1 1 auto;
+  align-self: auto;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: stretch;
+
+  box-sizing: border-box;
+  min-height: 30%;
+  padding: 1rem 2rem 3rem 2rem;
+}
+
+/* -= INDIVIDUAL ITEM =- */
+
+.swatchesContainer {
+  order: 0;
+  flex: 1 1 auto;
+  align-self: auto;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: stretch;
+}
+
+.swatch {
+  order: 0;
+  flex: 1 1 auto;
+  align-self: auto;
+}

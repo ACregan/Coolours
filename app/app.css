@@ -4,7 +4,60 @@ body {
     "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+  margin: 0;
+  padding: 0;
+
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+/* -= REM HACK =- */
+html {
+  font-size: 62.5%;
+}
+
+/* -= TYPOGRAPHY =- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 6rem;
+  margin: 1.75rem 0;
+}
+h2 {
+  font-size: 5.5rem;
+  margin: 1.5rem 0;
+}
+h3 {
+  font-size: 4.75rem;
+  margin: 1.25rem 0;
+}
+h4 {
+  font-size: 4rem;
+  margin: 1rem 0;
+}
+h5 {
+  font-size: 3.25rem;
+  margin: 0.75rem 0;
+}
+h6 {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+}
+
+p,
+li {
+  font-size: 1.6rem;
+  margin: 0.55rem 0;
 }

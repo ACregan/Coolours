@@ -1,17 +1,60 @@
-:root{
-  --heading-font-color: #f00;
+:root {
+  --heading-font-color: rgb(255, 165, 29);
 }
 
-.coreLayout_container{
+.coreLayout_container {
   min-height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: stretch;
 }
 
-.headerHeading{
+.coreLayout_container > header {
+  order: 0;
+  flex: 0 1 7.5rem;
+  align-self: auto;
+
+  display: flex;
+  align-items: center;
+
+  background: #005975;
+  padding: 0 2rem;
+}
+.coreLayout_container > main {
+  order: 0;
+  flex: 1 1 auto;
+  align-self: auto;
+
+  display: flex;
+  align-items: stretch;
+
+  overflow-y: scroll;
+}
+
+.headerHeading {
+  position: relative;
+  display: inline-block;
   font-family: "Playwrite NO", cursive;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  font-size: 2rem;
+  font-size: 3rem;
   color: var(--heading-font-color);
   text-shadow: 0 0 0.1rem var(--heading-font-color);
+  margin: 0;
+  transform: translateY(-0.5rem);
+}
+.headerHeading::after {
+  content: "";
+  position: absolute;
+  bottom: 0.4rem;
+  left: 0.3rem;
+  right: 0;
+  height: 0.3rem;
+  border-radius: 0.15rem 0.15rem 0.15rem 0.15rem;
+  background: var(--heading-font-color);
 }
