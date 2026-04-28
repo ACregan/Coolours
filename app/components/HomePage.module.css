@@ -43,19 +43,25 @@
   align-self: auto;
 
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
 }
+.closerToWhite {
+  color: black;
+}
+.closerToBlack {
+  color: white;
+}
+
 .colourHex {
   font-size: 2rem;
   font-weight: 600;
-  padding: 1rem;
+  margin: 0.5rem;
 }
-.colourHex_dark {
-  composes: colourHex;
-  color: white;
-}
-.colourHex_light {
-  composes: colourHex;
-  color: black;
+
+.humanReadableName {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
 }

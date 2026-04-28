@@ -1,4 +1,5 @@
 import React from "react";
+import colorNamer from "color-namer";
 import useLocalStorage from "~/hooks/useLocalStorage";
 import styles from "./HomePage.module.css";
 import { isCloserToWhite } from "~/utilities/utilities";
@@ -90,23 +91,25 @@ const HomePage = () => {
           <div className={styles.swatchListItemContainer} key={swatch.title}>
             <h5>{swatch.title}</h5>
             <div className={styles.swatchesContainer}>
-              {swatch.colours.map((colour) => (
-                <div
-                  key={colour.hex}
-                  style={{ backgroundColor: `#${colour.hex}` }}
-                  className={styles.swatch}
-                >
-                  <span
-                    className={
-                      isCloserToWhite(colour.hex)
-                        ? styles.colourHex_light
-                        : styles.colourHex_dark
-                    }
+              {swatch.colours.map((colour) => {
+                console.log(colorNamer(colour.hex));
+                const colorNamerNames = colorNamer(colour.hex, {
+                  pick: ["ntc"],
+                });
+                const humanReadableColourName = colorNamerNames.ntc[0].name;
+                return (
+                  <div
+                    key={colour.hex}
+                    style={{ backgroundColor: `#${colour.hex}` }}
+                    className={`${styles.swatch} ${isCloserToWhite(colour.hex) ? styles.closerToWhite : styles.closerToBlack}`}
                   >
-                    #{colour.hex}
-                  </span>
-                </div>
-              ))}
+                    <span className={styles.colourHex}>#{colour.hex}</span>
+                    <span className={styles.humanReadableName}>
+                      {humanReadableColourName}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         );
