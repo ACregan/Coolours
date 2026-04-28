@@ -1,5 +1,5 @@
 import React from "react";
-import colorNamer from "color-namer";
+import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
 import useLocalStorage from "~/hooks/useLocalStorage";
 import styles from "./HomePage.module.css";
 import { isCloserToWhite } from "~/utilities/utilities";
@@ -84,6 +84,8 @@ const HomePage = () => {
 
   const colourSwatchData = swatches?.swatches || initialData.swatches;
 
+  initColors(ORIGINAL_COLORS);
+
   return (
     <div className={styles.swatchListContainer}>
       {colourSwatchData.map((swatch) => {
@@ -92,11 +94,14 @@ const HomePage = () => {
             <h5>{swatch.title}</h5>
             <div className={styles.swatchesContainer}>
               {swatch.colours.map((colour) => {
-                console.log(colorNamer(colour.hex));
-                const colorNamerNames = colorNamer(colour.hex, {
-                  pick: ["ntc"],
-                });
-                const humanReadableColourName = colorNamerNames.ntc[0].name;
+                // console.log(colorNamer(colour.hex));
+                // const colorNamerNames = colorNamer(colour.hex, {
+                //   pick: ["ntc"],
+                // });
+                // const humanReadableColourName = colorNamerNames.ntc[0].name;
+                const colorNamerNames = getColorName(colour.hex);
+                const humanReadableColourName = colorNamerNames.name;
+
                 return (
                   <div
                     key={colour.hex}

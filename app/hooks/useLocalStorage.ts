@@ -6,28 +6,37 @@ type DispatchAction<T> = T | ((prevState: T) => T);
 //   const [count, setCount, clearCount] = useLocalStorage<number>("counter", 0);
 
 export default function useLocalStorage<T>(key: string, initialValue: T) {
+  // SSR escape hatch
+  const isClient = typeof window !== "undefined";
+
   function setItem(key: string, value: unknown) {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (err) {
-      console.error(err);
+    if (isClient) {
+      try {
+        window.localStorage.setItem(key, JSON.stringify(value));
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
   function getItem<T>(key: string): T | undefined {
-    try {
-      const data = window.localStorage.getItem(key);
-      return data ? (JSON.parse(data) as T) : undefined;
-    } catch (err) {
-      console.error(err);
+    if (isClient) {
+      try {
+        const data = window.localStorage.getItem(key);
+        return data ? (JSON.parse(data) as T) : undefined;
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
   function removeItem(key: string) {
-    try {
-      window.localStorage.removeItem(key);
-    } catch (err) {
-      console.error(err);
+    if (isClient) {
+      try {
+        window.localStorage.removeItem(key);
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
