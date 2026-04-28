@@ -39,4 +39,14 @@ function isCloserToWhite(hex: string): boolean {
   return distToWhite < distToBlack;
 }
 
-export { isCloserToWhite };
+/**
+ * Generates a random color hex code.
+ *
+ * @returns A random hex color string in the format '#RRGGBB'.
+ */
+function generateRandomColor(): string {
+  const randomValue = Math.floor(Math.random() * 16777215);
+  return `#${randomValue.toString(16).padStart(6, "0")}`;
+}
+
+export { isCloserToWhite, generateRandomColor };
