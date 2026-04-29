@@ -1,0 +1,59 @@
+.swatch {
+  position: relative;
+
+  order: 0;
+  flex: 1 1 100px;
+  align-self: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.closerToWhite {
+  color: black;
+}
+.closerToBlack {
+  color: white;
+}
+
+.colourHex {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0.5rem;
+}
+
+.humanReadableName {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.hoverCaptureContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.addBefore {
+  left: 0;
+  transform: translateX(-1.5rem);
+}
+.addAfter {
+  right: 0;
+  transform: translateX(1.5rem);
+}
+.addButton {
+  flex: 0 0 auto;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hoverCaptureContainer:hover > .addButton {
+  opacity: 1;
+}

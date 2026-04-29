@@ -1,4 +1,4 @@
-import HomePage from "~/components/HomePage";
+import HomePage from "~/components/HomePage/HomePage";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {

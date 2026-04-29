@@ -1,3 +1,4 @@
+import { CreateColourSet } from "~/components/CreateColourSet/CreateColourSet";
 import type { Route } from "./+types/create";
 
 export function meta({}: Route.MetaArgs) {
@@ -12,5 +13,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function CreateEdit() {
-  return <h1>Create-Edit Page</h1>;
+  return <CreateColourSet />;
 }

@@ -3,20 +3,11 @@ import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
 import useLocalStorage from "~/hooks/useLocalStorage";
 import styles from "./HomePage.module.css";
 import { isCloserToWhite } from "~/utilities/utilities";
-
-type swatchType = {
-  hex: string;
-  label?: string;
-};
-
-type swatchItemType = {
-  title: string;
-  colours: swatchType[];
-};
-
-type swatchListTypes = {
-  swatches: swatchItemType[];
-};
+import type {
+  swatchType,
+  swatchItemType,
+  swatchListTypes,
+} from "~/types/commonTypes";
 
 const initialData: swatchListTypes = {
   swatches: [
@@ -94,11 +85,6 @@ const HomePage = () => {
             <h5>{swatch.title}</h5>
             <div className={styles.swatchesContainer}>
               {swatch.colours.map((colour) => {
-                // console.log(colorNamer(colour.hex));
-                // const colorNamerNames = colorNamer(colour.hex, {
-                //   pick: ["ntc"],
-                // });
-                // const humanReadableColourName = colorNamerNames.ntc[0].name;
                 const colorNamerNames = getColorName(colour.hex);
                 const humanReadableColourName = colorNamerNames.name;
 

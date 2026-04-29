@@ -1,3 +1,5 @@
+import type { swatchType } from "~/types/commonTypes";
+
 /**
  * Determines if a given hex color is closer to white than to
  * black in RGB color space.
@@ -46,7 +48,56 @@ function isCloserToWhite(hex: string): boolean {
  */
 function generateRandomColor(): string {
   const randomValue = Math.floor(Math.random() * 16777215);
-  return `#${randomValue.toString(16).padStart(6, "0")}`;
+  return `${randomValue.toString(16).padStart(6, "0")}`;
 }
 
-export { isCloserToWhite, generateRandomColor };
+/**
+ * Generates a gradient of colors between two hex colors, including the start and end colors.
+ *
+ * @param hex1 - The starting hex color string.
+ * @param hex2 - The ending hex color string.
+ * @param steps - The number of intermediate colors to generate.
+ * @returns An array of objects with hex color strings representing the gradient.
+ */
+function generateColorGradient(
+  hex1: string,
+  hex2: string,
+  steps: number,
+): swatchType[] {
+  // Helper to parse hex to RGB
+  const parseHex = (hex: string): { r: number; g: number; b: number } => {
+    hex = hex.replace("#", "");
+    if (hex.length === 3) {
+      hex = hex
+        .split("")
+        .map((char) => char + char)
+        .join("");
+    }
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    return { r, g, b };
+  };
+
+  // Helper to convert RGB to hex
+  const rgbToHex = (r: number, g: number, b: number): string => {
+    const toHex = (n: number) => Math.round(n).toString(16).padStart(2, "0");
+    return `${toHex(r)}${toHex(g)}${toHex(b)}`;
+  };
+
+  const start = parseHex(hex1);
+  const end = parseHex(hex2);
+  const colors: swatchType[] = [];
+
+  for (let i = 0; i <= steps + 1; i++) {
+    const t = i / (steps + 1);
+    const r = start.r + (end.r - start.r) * t;
+    const g = start.g + (end.g - start.g) * t;
+    const b = start.b + (end.b - start.b) * t;
+    colors.push({ hex: rgbToHex(r, g, b) });
+  }
+
+  return colors;
+}
+
+export { isCloserToWhite, generateRandomColor, generateColorGradient };
