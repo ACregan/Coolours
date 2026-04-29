@@ -100,4 +100,34 @@ function generateColorGradient(
   return colors;
 }
 
-export { isCloserToWhite, generateRandomColor, generateColorGradient };
+/**
+ * Creates a debounced version of a function that delays execution
+ * until after the specified wait time has elapsed since the last call.
+ *
+ * @param func - The function to debounce.
+ * @param wait - The number of milliseconds to wait before executing.
+ * @returns A debounced function.
+ */
+function debounce<T extends (...args: unknown[]) => unknown>(
+  func: T,
+  wait: number,
+): (...args: Parameters<T>) => void {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return (...args: Parameters<T>) => {
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func(...args);
+      timeoutId = null;
+    }, wait);
+  };
+}
+
+export {
+  isCloserToWhite,
+  generateRandomColor,
+  generateColorGradient,
+  debounce,
+};

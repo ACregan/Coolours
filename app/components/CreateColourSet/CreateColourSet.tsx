@@ -78,6 +78,20 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
     setSwatchesList(newSwatchesList);
   }
 
+  function editSwatch(hex: string, indexToEdit: number) {
+    const clonedSwatchesList = swatchesList;
+    console.log("edit", indexToEdit);
+    console.log("hex", hex);
+    const hexWithoutHash = hex.replace("#", "");
+    const updatedSwatchesList = [
+      ...clonedSwatchesList.slice(0, indexToEdit),
+      { hex: hexWithoutHash },
+      ...clonedSwatchesList.slice(indexToEdit + 1),
+    ];
+    console.log(updatedSwatchesList);
+    setSwatchesList(updatedSwatchesList);
+  }
+
   // TODO: Content Editable H1
   return (
     <div className={styles.createContainer}>
@@ -100,6 +114,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
                 index={i}
                 addSwatch={addSwatch}
                 removeSwatch={removeSwatch}
+                editSwatch={editSwatch}
               />
             );
           })}

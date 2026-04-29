@@ -1,13 +1,15 @@
 import React from "react";
-import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
-import { isCloserToWhite } from "~/utilities/utilities";
+import { HexColorPicker } from "react-colorful";
+import { debounce, isCloserToWhite } from "~/utilities/utilities";
 import styles from "./ColourSwatch.module.css";
+
 interface ColourSwatchProps {
   hex: string;
   label?: string;
   index: number;
   addSwatch: Function;
   removeSwatch: Function;
+  editSwatch: Function;
 }
 
 interface AddSwatchButtonProps {
@@ -35,7 +37,10 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
   index,
   addSwatch,
   removeSwatch,
+  editSwatch,
 }) => {
+  function openColourPicker() {}
+
   return (
     <div
       style={{ backgroundColor: `#${hex}` }}
@@ -44,6 +49,11 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
       {index === 0 ? (
         <AddSwatchButton addSwatch={addSwatch} index={index} />
       ) : null}
+      <HexColorPicker
+        color={hex}
+        onChange={debounce((e) => editSwatch(e, index), 200)}
+      />
+      <button onClick={() => openColourPicker()}>EDIT</button>
       <button onClick={() => removeSwatch(index)}>DEL</button>
       <span className={styles.colourHex}>#{hex}</span>
       {label ? <span className={styles.humanReadableName}>{label}</span> : null}
