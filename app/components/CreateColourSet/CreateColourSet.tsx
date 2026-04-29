@@ -26,6 +26,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
     4,
   );
 
+  const [swatchesName, setSwatchesName] = useState("Untitled Swatch");
   const [swatchesList, setSwatchesList] = useState(
     randomlyGeneratedSixColourSet,
   );
@@ -80,7 +81,12 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
   // TODO: Content Editable H1
   return (
     <div className={styles.createContainer}>
-      <h5>Create Colour Set</h5>
+      <input
+        className={styles.editableSwatchSetLabelInput}
+        type="text"
+        value={swatchesName}
+        onChange={(e) => setSwatchesName(e.target.value)}
+      ></input>
       {isClient ? (
         <ColourSwatchContainer>
           {swatchesList.map((colour, i) => {

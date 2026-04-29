@@ -8,3 +8,16 @@
   width: 100%;
   padding: 0 2rem 2rem 2rem;
 }
+
+.editableSwatchSetLabelInput {
+  font-family:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 3.25rem;
+  font-weight: 700;
+  margin: 1rem 0;
+  border: none;
+}
+
+.editableSwatchSetLabelInput:focus {
+}
