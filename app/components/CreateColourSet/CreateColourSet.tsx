@@ -46,13 +46,13 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
       const nextColour = clonedSwatchesList[index];
 
       // Generate a new colour midpoint between the before and after colours
+      // NOTE: This returns an array with the 'before', (new) midpoint and
+      // 'after' colours...
       const newColour = generateColorGradient(
         selectedColour.hex,
         nextColour.hex,
         1,
       );
-      // NOTE: The above returns an array with the 'before', (new) midpoint and 'after' colours...
-
       // ... so we need to slice those out of the clonedSwatchesList when we
       // generate the new swatch list
       newSwatchesList = [
@@ -92,7 +92,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
     setSwatchesList(updatedSwatchesList);
   }
 
-  // TODO: Content Editable H1
   return (
     <div className={styles.createContainer}>
       <input
@@ -108,7 +107,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
             const humanReadableColourName = colorNamerNames.name;
             return (
               <ColourSwatch
-                key={colour.hex}
+                key={i}
                 hex={colour.hex}
                 label={humanReadableColourName}
                 index={i}

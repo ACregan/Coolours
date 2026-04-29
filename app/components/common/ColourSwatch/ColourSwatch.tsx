@@ -1,7 +1,8 @@
-import React from "react";
-import { HexColorPicker } from "react-colorful";
+import React, { useState, useRef } from "react";
+import { HexColorPicker, HexColorInput } from "react-colorful";
 import { debounce, isCloserToWhite } from "~/utilities/utilities";
 import styles from "./ColourSwatch.module.css";
+import { useClickOutside } from "~/hooks/useClickOutside";
 
 interface ColourSwatchProps {
   hex: string;
@@ -39,7 +40,14 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
   removeSwatch,
   editSwatch,
 }) => {
-  function openColourPicker() {}
+  const [pickerOpen, setPickerOpen] = useState(false);
+  function openColourPicker() {
+    setPickerOpen(!pickerOpen);
+  }
+
+  const pickerContainerRef = useRef<HTMLDivElement | undefined>(undefined);
+
+  useClickOutside(pickerContainerRef, () => setPickerOpen(false));
 
   return (
     <div
@@ -49,10 +57,18 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
       {index === 0 ? (
         <AddSwatchButton addSwatch={addSwatch} index={index} />
       ) : null}
-      <HexColorPicker
-        color={hex}
-        onChange={debounce((e) => editSwatch(e, index), 200)}
-      />
+      {pickerOpen ? (
+        <div
+          className={styles.colourPickerContainer}
+          ref={pickerContainerRef as React.RefObject<HTMLDivElement>}
+        >
+          <HexColorPicker
+            color={hex}
+            onChange={debounce((e) => editSwatch(e, index), 200)}
+          />
+          <HexColorInput color={hex} onChange={(e) => editSwatch(e, index)} />
+        </div>
+      ) : null}
       <button onClick={() => openColourPicker()}>EDIT</button>
       <button onClick={() => removeSwatch(index)}>DEL</button>
       <span className={styles.colourHex}>#{hex}</span>
