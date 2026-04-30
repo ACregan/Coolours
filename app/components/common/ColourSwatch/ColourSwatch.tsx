@@ -1,6 +1,10 @@
 import React, { useState, useRef } from "react";
 import { HexColorPicker, HexColorInput } from "react-colorful";
-import { debounce, isCloserToWhite } from "~/utilities/utilities";
+import {
+  debounce,
+  isCloserToWhite,
+  copyToClipboard,
+} from "~/utilities/utilities";
 import styles from "./ColourSwatch.module.css";
 import { useClickOutside } from "~/hooks/useClickOutside";
 
@@ -64,11 +68,22 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         >
           <HexColorPicker
             color={hex}
-            onChange={debounce((e) => editSwatch(e, index), 200)}
+            onChange={debounce((e) => editSwatch(e, index), 10)}
           />
           <HexColorInput color={hex} onChange={(e) => editSwatch(e, index)} />
         </div>
       ) : null}
+      <button
+        onClick={() =>
+          copyToClipboard(
+            `#${hex}`,
+            () => console.log("Copy to clipboard: SUCCESS"),
+            () => console.log("Copy to clipboard: FAILURE"),
+          )
+        }
+      >
+        COPY
+      </button>
       <button onClick={() => openColourPicker()}>EDIT</button>
       <button onClick={() => removeSwatch(index)}>DEL</button>
       <span className={styles.colourHex}>#{hex}</span>

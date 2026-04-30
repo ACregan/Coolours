@@ -3,7 +3,7 @@
 }
 
 .coreLayout_container {
-  min-height: 100dvh;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;

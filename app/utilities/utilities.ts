@@ -1,5 +1,7 @@
 import type { swatchType } from "~/types/commonTypes";
 
+/* -= COLOUR UTILITIES =- */
+
 /**
  * Determines if a given hex color is closer to white than to
  * black in RGB color space.
@@ -100,6 +102,8 @@ function generateColorGradient(
   return colors;
 }
 
+/* -= GENERAL UTILITIES =- */
+
 /**
  * Creates a debounced version of a function that delays execution
  * until after the specified wait time has elapsed since the last call.
@@ -125,9 +129,31 @@ function debounce<T extends (...args: unknown[]) => unknown>(
   };
 }
 
+/**
+ * Writes a given string of text to the users clipboard
+ * @param newClip (string) - To be copied to the users clipboard
+ * @param successCB (function) - To be called on successful update of clipboard
+ * @param failureCB (function) - To be called on failure to update clipboard
+ */
+function copyToClipboard(
+  newClip: string = "",
+  successCB: Function = () => {},
+  failureCB: Function = () => {},
+) {
+  navigator.clipboard.writeText(newClip).then(
+    () => {
+      successCB();
+    },
+    () => {
+      failureCB();
+    },
+  );
+}
+
 export {
   isCloserToWhite,
   generateRandomColor,
   generateColorGradient,
   debounce,
+  copyToClipboard,
 };

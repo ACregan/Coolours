@@ -26,7 +26,7 @@
 
 .swatchesContainer {
   order: 0;
-  flex: 1 1 auto;
+  flex: 1 1 0px;
   align-self: auto;
 
   display: flex;
@@ -39,7 +39,7 @@
 
 .swatch {
   order: 0;
-  flex: 1 1 auto;
+  flex: 1 1 0;
   align-self: auto;
 
   display: flex;

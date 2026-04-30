@@ -12,6 +12,23 @@ import type {
 const initialData: swatchListTypes = {
   swatches: [
     {
+      title: "Very Nice",
+      colours: [
+        {
+          hex: "ffdb00",
+        },
+        {
+          hex: "3dd12c",
+        },
+        {
+          hex: "0096f3",
+        },
+        {
+          hex: "e82a37",
+        },
+      ],
+    },
+    {
       title: "Foggy Morning Forest",
       colours: [
         { hex: "CAD2C5" },
