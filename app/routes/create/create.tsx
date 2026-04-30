@@ -3,7 +3,7 @@ import type { Route } from "./+types/create";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Coolours - Create" },
+    { title: "Coolours - Create New Swatch" },
     {
       name: "description",
       content:

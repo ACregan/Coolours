@@ -31,6 +31,27 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
     randomlyGeneratedSixColourSet,
   );
 
+  function moveSwatch(index: number, direction: "left" | "right") {
+    const currentIndex = index;
+    const targetIndex = direction === "left" ? index - 1 : index + 1;
+
+    if (
+      currentIndex < 0 ||
+      currentIndex >= swatchesList.length ||
+      targetIndex < 0 ||
+      targetIndex >= swatchesList.length
+    ) {
+      return;
+    }
+
+    const newSwatchesList = [...swatchesList];
+    const temp = newSwatchesList[currentIndex];
+    newSwatchesList[currentIndex] = newSwatchesList[targetIndex];
+    newSwatchesList[targetIndex] = temp;
+
+    setSwatchesList(newSwatchesList);
+  }
+
   function addSwatch(index: number) {
     const clonedSwatchesList = swatchesList;
     let newSwatchesList = [];
@@ -114,6 +135,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
                 addSwatch={addSwatch}
                 removeSwatch={removeSwatch}
                 editSwatch={editSwatch}
+                moveSwatch={moveSwatch}
               />
             );
           })}

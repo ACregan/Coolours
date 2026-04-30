@@ -15,6 +15,7 @@ interface ColourSwatchProps {
   addSwatch: Function;
   removeSwatch: Function;
   editSwatch: Function;
+  moveSwatch: Function;
 }
 
 interface AddSwatchButtonProps {
@@ -43,6 +44,7 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
   addSwatch,
   removeSwatch,
   editSwatch,
+  moveSwatch,
 }) => {
   const [pickerOpen, setPickerOpen] = useState(false);
   function openColourPicker() {
@@ -73,6 +75,10 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
           <HexColorInput color={hex} onChange={(e) => editSwatch(e, index)} />
         </div>
       ) : null}
+      <div>
+        <button onClick={() => moveSwatch(index, "left")}>LEFT</button>
+        <button onClick={() => moveSwatch(index, "right")}>RIGHT</button>
+      </div>
       <button
         onClick={() =>
           copyToClipboard(

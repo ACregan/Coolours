@@ -14,8 +14,9 @@
 }
 
 .coreLayout_container > header {
+  min-height: 7.5rem;
   order: 0;
-  flex: 0 1 7.5rem;
+  flex: 0 0 7.5rem;
   align-self: auto;
 
   display: flex;
