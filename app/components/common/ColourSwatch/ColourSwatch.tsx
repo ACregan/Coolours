@@ -7,6 +7,7 @@ import {
 } from "~/utilities/utilities";
 import styles from "./ColourSwatch.module.css";
 import { useClickOutside } from "~/hooks/useClickOutside";
+import SvgIcon, { SvgImageList } from "../SvgIcon/SvgIcon";
 
 interface ColourSwatchProps {
   hex: string;
@@ -76,10 +77,21 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         </div>
       ) : null}
       <div>
-        <button onClick={() => moveSwatch(index, "left")}>LEFT</button>
-        <button onClick={() => moveSwatch(index, "right")}>RIGHT</button>
+        <button
+          className={styles.swatchButton}
+          onClick={() => moveSwatch(index, "left")}
+        >
+          <SvgIcon name={SvgImageList.ArrowBack} />
+        </button>
+        <button
+          className={styles.swatchButton}
+          onClick={() => moveSwatch(index, "right")}
+        >
+          <SvgIcon name={SvgImageList.ArrowForward} />
+        </button>
       </div>
       <button
+        className={styles.swatchButton}
         onClick={() =>
           copyToClipboard(
             `#${hex}`,
@@ -88,10 +100,20 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
           )
         }
       >
-        COPY
+        <SvgIcon name={SvgImageList.Copy} />
       </button>
-      <button onClick={() => openColourPicker()}>EDIT</button>
-      <button onClick={() => removeSwatch(index)}>DEL</button>
+      <button
+        className={styles.swatchButton}
+        onClick={() => openColourPicker()}
+      >
+        <SvgIcon name={SvgImageList.Palette} />
+      </button>
+      <button
+        className={styles.swatchButton}
+        onClick={() => removeSwatch(index)}
+      >
+        <SvgIcon name={SvgImageList.Delete} />
+      </button>
       <span className={styles.colourHex}>#{hex}</span>
       {label ? <span className={styles.humanReadableName}>{label}</span> : null}
       <AddSwatchButton addSwatch={addSwatch} index={index + 1} />

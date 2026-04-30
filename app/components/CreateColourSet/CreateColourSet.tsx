@@ -88,10 +88,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
 
   function removeSwatch(indexToRemove: number) {
     const clonedSwatchesList = swatchesList;
-    console.log(
-      "array without selected",
-      clonedSwatchesList.filter((_, index) => index !== indexToRemove),
-    );
     const newSwatchesList = clonedSwatchesList.filter(
       (_, index) => index !== indexToRemove,
     );
@@ -101,15 +97,12 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
 
   function editSwatch(hex: string, indexToEdit: number) {
     const clonedSwatchesList = swatchesList;
-    console.log("edit", indexToEdit);
-    console.log("hex", hex);
     const hexWithoutHash = hex.replace("#", "");
     const updatedSwatchesList = [
       ...clonedSwatchesList.slice(0, indexToEdit),
       { hex: hexWithoutHash },
       ...clonedSwatchesList.slice(indexToEdit + 1),
     ];
-    console.log(updatedSwatchesList);
     setSwatchesList(updatedSwatchesList);
   }
 

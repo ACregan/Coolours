@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
 import styles from "./core-layout.module.css";
+import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 
 export default function CoreLayout() {
   const navigate = useNavigate();
@@ -10,22 +11,28 @@ export default function CoreLayout() {
     if (location.pathname === "/") {
       return (
         <button
-          className={styles.createButton}
+          className={styles.headerButton}
           onClick={() => navigate("/create")}
           type="button"
         >
-          + CREATE
+          <div className={styles.buttonIconContainer}>
+            <SvgIcon name={SvgImageList.Plus} />
+          </div>
+          <div className={styles.buttonTextContainer}>CREATE</div>
         </button>
       );
     }
     if (location.pathname === "/create") {
       return (
         <button
-          className={styles.createButton}
+          className={styles.headerButton}
           onClick={() => navigate("/")}
           type="button"
         >
-          HOME
+          <div className={styles.buttonIconContainer}>
+            <SvgIcon name={SvgImageList.Home} />
+          </div>
+          <div className={styles.buttonTextContainer}>HOME</div>
         </button>
       );
     }
