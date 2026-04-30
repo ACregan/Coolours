@@ -22,7 +22,7 @@ export default function CoreLayout() {
         </button>
       );
     }
-    if (location.pathname === "/create") {
+    if (location.pathname.includes("/create")) {
       return (
         <button
           className={styles.headerButton}

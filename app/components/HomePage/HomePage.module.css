@@ -22,6 +22,19 @@
   padding: 1rem 2rem 3rem 2rem;
 }
 
+.swatchTitleContainer {
+  display: flex;
+}
+.swatchName {
+  flex: 1 1 auto;
+}
+.swatchLink {
+  flex: 0 0 3rem;
+  height: 3rem;
+  width: 3rem;
+  align-self: center;
+}
+
 /* -= INDIVIDUAL ITEM =- */
 
 .swatchesContainer {

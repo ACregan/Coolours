@@ -8,11 +8,21 @@ import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
 import styles from "./CreateColourSet.module.css";
 import ColourSwatch from "../common/ColourSwatch/ColourSwatch";
 import ColourSwatchContainer from "../common/ColourSwatchContainer/ColourSwatchContainer";
+import { useNavigate } from "react-router";
+import type { swatchType } from "~/types/commonTypes";
 
-interface CreateColourSetProps {}
+interface CreateColourSetProps {
+  swatchesFromUrl?: swatchType[];
+  swatchesNameFromUrl?: string;
+}
 
-export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
+export const CreateColourSet: React.FC<CreateColourSetProps> = ({
+  swatchesFromUrl,
+  swatchesNameFromUrl,
+}) => {
   const [isClient, setIsClient] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsClient(true);
@@ -26,10 +36,37 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = () => {
     4,
   );
 
-  const [swatchesName, setSwatchesName] = useState("Untitled Swatch");
-  const [swatchesList, setSwatchesList] = useState(
-    randomlyGeneratedSixColourSet,
+  const initialColourSet = swatchesFromUrl || randomlyGeneratedSixColourSet;
+
+  const [swatchesName, setSwatchesName] = useState(
+    swatchesNameFromUrl || "Untitled Swatch",
   );
+  const [swatchesList, setSwatchesList] = useState(initialColourSet);
+
+  // SYNC SWATCHLIST TO URL BAR
+  useEffect(() => {
+    let swatchesUrlString = "";
+    // Push swatches to 'swatchesUrlString' like so "ff0000-00ff00-0000ff"
+    swatchesList.map(
+      (swatch) => (swatchesUrlString = `${swatchesUrlString}-${swatch.hex}`),
+    );
+    // Strip leading dash where required
+    const swatchesUrlStringWithoutLeadingDash = swatchesUrlString.replace(
+      /^-+/,
+      "",
+    );
+    // Create UrlString (without) params
+    const partiallyComposedUrlString = `/create/${swatchesUrlStringWithoutLeadingDash}`;
+    // Create params
+    const partiallyComposedParamsString = `?name=${encodeURIComponent(swatchesName.trim())}`;
+    // Compose them
+    const fullyComposedUrlString =
+      partiallyComposedUrlString + partiallyComposedParamsString;
+
+    // Call navigate with updated path & params, replace so
+    // we dont end up with a huge navigation history tree
+    navigate(fullyComposedUrlString, { replace: true });
+  }, [swatchesList, swatchesName]);
 
   function moveSwatch(index: number, direction: "left" | "right") {
     const currentIndex = index;

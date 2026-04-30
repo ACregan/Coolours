@@ -6,6 +6,7 @@ type swatchType = {
 type swatchItemType = {
   title: string;
   colours: swatchType[];
+  url?: string;
 };
 
 type swatchListTypes = {

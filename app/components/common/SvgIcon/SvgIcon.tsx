@@ -8,6 +8,7 @@ export const SvgImageList = {
   ArrowForward: "ArrowForward",
   Home: "Home",
   Plus: "Plus",
+  Link: "Link",
 } as const;
 
 export type SvgImageListTypes = keyof typeof SvgImageList;
@@ -100,6 +101,16 @@ const SvgIcon: React.FC<SVGiconProp> = ({
           fill={fill}
         >
           <path d="M427-100.78V-427H100.78v-106H427v-326.22h106V-533h326.22v106H533v326.22H427Z" />
+        </svg>
+      );
+    case SvgImageList.Link:
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          fill={fill}
+        >
+          <path d="M206.78-100.78q-44.3 0-75.15-30.85-30.85-30.85-30.85-75.15v-546.44q0-44.3 30.85-75.15 30.85-30.85 75.15-30.85H480v106H206.78v546.44h546.44V-480h106v273.22q0 44.3-30.85 75.15-30.85 30.85-75.15 30.85H206.78ZM405.52-332 332-405.52l347.69-347.7H560v-106h299.22V-560h-106v-119.69L405.52-332Z" />
         </svg>
       );
 
