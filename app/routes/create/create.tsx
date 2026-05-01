@@ -1,6 +1,7 @@
 import { CreateColourSet } from "~/components/CreateColourSet/CreateColourSet";
 import type { Route } from "./+types/create";
 import { useLoaderData } from "react-router";
+import { isValidHexColor } from "~/utilities/utilities";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -26,11 +27,11 @@ export default function CreateEdit({ params }: Route.LoaderArgs) {
   const { swatchName } = data;
 
   const swatchesFromUrlAsArrayOfStrings = params?.swatches?.split("-");
-  const swatchesFromUrlAsArrayOfObjects = swatchesFromUrlAsArrayOfStrings?.map(
-    (hexString) => {
-      return { hex: hexString };
-    },
-  );
+  const swatchesFromUrlAsArrayOfObjects =
+    swatchesFromUrlAsArrayOfStrings?.flatMap((hexString) => {
+      // Only return a value if it is a valid Hex Colour String
+      return isValidHexColor(hexString) ? { hex: hexString } : [];
+    });
 
   return (
     <CreateColourSet

@@ -150,10 +150,21 @@ function copyToClipboard(
   );
 }
 
+/**
+ * Validates that a string is a valid 6-character hex color code.
+ *
+ * @param hex - The string to validate.
+ * @returns True if the string is a valid 6-character hex color, false otherwise.
+ */
+function isValidHexColor(hex: string): boolean {
+  return /^#?[0-9A-Fa-f]{6}$/.test(hex);
+}
+
 export {
   isCloserToWhite,
   generateRandomColor,
   generateColorGradient,
+  isValidHexColor,
   debounce,
   copyToClipboard,
 };
