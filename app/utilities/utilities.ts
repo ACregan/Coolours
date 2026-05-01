@@ -1,4 +1,5 @@
 import type { swatchType } from "~/types/commonTypes";
+import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
 
 /* -= COLOUR UTILITIES =- */
 
@@ -160,6 +161,43 @@ function isValidHexColor(hex: string): boolean {
   return /^#?[0-9A-Fa-f]{6}$/.test(hex);
 }
 
+/**
+ * Generates a CSS string with custom properties for each color in the list,
+ * where each color is defined as a CSS variable with its name and hex value.
+ *
+ * @param colourList - An array of color swatches to export.
+ * @returns A string containing CSS custom properties in the format '--colour-name: #hex;'.
+ */
+function generateExportCSS(colourList: swatchType[]) {
+  initColors(ORIGINAL_COLORS);
+  let cssContent = "";
+  colourList.map((colour) => {
+    const colourName = getColorName(colour.hex)
+      .name.replace(" ", "-")
+      .toLowerCase();
+    cssContent = `${cssContent}--${colourName}: #${colour.hex};\n`;
+  });
+  return cssContent;
+}
+
+/**
+ * Generates a JavaScript object string representation of the color list,
+ * where each color is keyed by its name and valued by its hex code.
+ *
+ * @param colourList - An array of color swatches to export.
+ * @returns A string containing a JavaScript object literal with color names as keys and hex values as values.
+ */
+function generateExportJS(colourList: swatchType[]) {
+  initColors(ORIGINAL_COLORS);
+  let jsContent = "{\n";
+  colourList.map((colour) => {
+    const colourName = getColorName(colour.hex).name.replace(" ", "");
+    jsContent = `${jsContent}    "${colourName}": "#${colour.hex}",\n`;
+  });
+  jsContent = `${jsContent}}`;
+  return jsContent;
+}
+
 export {
   isCloserToWhite,
   generateRandomColor,
@@ -167,4 +205,6 @@ export {
   isValidHexColor,
   debounce,
   copyToClipboard,
+  generateExportCSS,
+  generateExportJS,
 };

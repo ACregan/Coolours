@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
+  copyToClipboard,
   generateColorGradient,
+  generateExportCSS,
+  generateExportJS,
   generateRandomColor,
   isCloserToWhite,
 } from "~/utilities/utilities";
@@ -10,6 +13,8 @@ import ColourSwatch from "../common/ColourSwatch/ColourSwatch";
 import ColourSwatchContainer from "../common/ColourSwatchContainer/ColourSwatchContainer";
 import { useNavigate } from "react-router";
 import type { swatchType } from "~/types/commonTypes";
+import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
+import Modal from "../common/Modal/Modal";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -143,14 +148,31 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setSwatchesList(updatedSwatchesList);
   }
 
+  const [modalOpen, setModalOpen] = useState(true);
+  const [exportAs, setExportAs] = useState<"CSS" | "JS" | null>(null);
+  const closeModal = () => {
+    setModalOpen(false);
+    setExportAs(null);
+  };
+
   return (
     <div className={styles.createContainer}>
-      <input
-        className={styles.editableSwatchSetLabelInput}
-        type="text"
-        value={swatchesName}
-        onChange={(e) => setSwatchesName(e.target.value)}
-      ></input>
+      <div className={styles.swatchNameAndButtonsContainer}>
+        <input
+          className={styles.editableSwatchSetLabelInput}
+          type="text"
+          value={swatchesName}
+          onChange={(e) => setSwatchesName(e.target.value)}
+        ></input>
+        <button
+          className={styles.swatchActionButton}
+          type="button"
+          onClick={() => setModalOpen(true)}
+        >
+          <SvgIcon name={SvgImageList.Export} />
+          <span>EXPORT</span>
+        </button>
+      </div>
       {isClient ? (
         <ColourSwatchContainer>
           {swatchesList.map((colour, i) => {
@@ -171,6 +193,93 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           })}
         </ColourSwatchContainer>
       ) : null}
+
+      <Modal
+        title={`Export as${exportAs === null ? "..." : ` ${exportAs}`}`}
+        open={modalOpen}
+        onClose={() => closeModal()}
+      >
+        <div className={styles.exportModalContentContainer}>
+          {exportAs === null && (
+            <div className={styles.exportButtonsContainer}>
+              <button
+                className={styles.exportButton}
+                onClick={() => setExportAs("CSS")}
+              >
+                <span className={styles.exportButtonIcon}>
+                  <SvgIcon name={SvgImageList.Css} />
+                </span>
+                <span className={styles.exportButtonLabel}>CSS Variables</span>
+              </button>
+              <button
+                className={styles.exportButton}
+                onClick={() => setExportAs("JS")}
+              >
+                <span className={styles.exportButtonIcon}>
+                  <SvgIcon name={SvgImageList.Js} />
+                </span>
+                <span className={styles.exportButtonLabel}>
+                  JSON / Javascript
+                </span>
+              </button>
+            </div>
+          )}
+          {exportAs === "JS" && (
+            <div className={styles.codeForExport}>
+              <pre>
+                <code>{generateExportJS(swatchesList)}</code>
+              </pre>
+              <div className={styles.exportButtonContainer}>
+                <button
+                  type="button"
+                  className={styles.exportBackButton}
+                  onClick={() => setExportAs(null)}
+                >
+                  <SvgIcon name={SvgImageList.ArrowBack} />
+                  Back
+                </button>
+                <button
+                  type="button"
+                  className={styles.exportCopyToClipboardButton}
+                  onClick={() =>
+                    copyToClipboard(generateExportJS(swatchesList))
+                  }
+                >
+                  <SvgIcon name={SvgImageList.Copy} />
+                  Copy To Clipboard
+                </button>
+              </div>
+            </div>
+          )}
+          {exportAs === "CSS" && (
+            <div className={styles.codeForExport}>
+              <pre>
+                <code>{generateExportCSS(swatchesList)}</code>
+              </pre>
+              <div className={styles.exportButtonContainer}>
+                <button
+                  type="button"
+                  className={styles.exportBackButton}
+                  onClick={() => setExportAs(null)}
+                >
+                  <SvgIcon name={SvgImageList.ArrowBack} />
+                  Back
+                </button>
+                <button
+                  type="button"
+                  className={styles.exportCopyToClipboardButton}
+                  onClick={() =>
+                    copyToClipboard(generateExportCSS(swatchesList))
+                  }
+                >
+                  <SvgIcon name={SvgImageList.Copy} />
+                  Copy To Clipboard
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 };
