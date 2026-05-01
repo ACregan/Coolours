@@ -148,7 +148,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setSwatchesList(updatedSwatchesList);
   }
 
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const [exportAs, setExportAs] = useState<"CSS" | "JS" | null>(null);
   const closeModal = () => {
     setModalOpen(false);
