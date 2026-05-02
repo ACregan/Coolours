@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   extractPalette,
   type ColorWithMetadata,
@@ -49,6 +49,44 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
   };
 
   // FILE IMPORT
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadedFilePreview, setUploadedFilePreview] = useState<string | null>(
+    null,
+  );
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // e.target.files is an array-like object
+    if (e.target.files && e.target.files[0]) {
+      setUploadedFile(e.target.files[0]);
+    } else {
+      setUploadedFile(null);
+    }
+  };
+
+  useEffect(() => {
+    if (!uploadedFile) {
+      setUploadedFilePreview(null);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(uploadedFile);
+    setUploadedFilePreview(objectUrl);
+
+    return () => {
+      URL.revokeObjectURL(objectUrl);
+    };
+  }, [uploadedFile]);
+
+  const getPaletteFromFile = async () => {
+    // FROM URL (working - when file is not behind CORS)
+    if (!uploadedFile) return;
+    const colors = await extractPalette(uploadedFile, {
+      colorCount: +numberOfSwatches,
+      format: "hex",
+    });
+
+    setExtractedPalette(colors);
+  };
 
   // EXTRACTED PALETTE
   const [extractedPalette, setExtractedPalette] = useState<
@@ -59,6 +97,8 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
     setImageUrl("");
     setNumberOfSwatches(defaultNumberOfSwatches);
     setExtractedPalette([]);
+    setUploadedFile(null);
+    setUploadedFilePreview(null);
     onClose();
   };
 
@@ -95,6 +135,7 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
             </button>
           </div>
         )}
+
         {importAs === "URL" && (
           <div className={styles.importFromURLContainer}>
             <div className={styles.importFormContainer}>
@@ -135,6 +176,87 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
               className={styles.generateButton}
               onClick={() => getPaletteFromUrl()}
               disabled={!imageUrl}
+            >
+              <span className={styles.generateButtonIcon}>
+                <SvgIcon name={SvgImageList.Palette} />
+              </span>
+              Generate Colour Palette
+            </button>
+            {extractedPalette.length > 0 ? (
+              <>
+                <div className={styles.extractedPaletteContainer}>
+                  {extractedPalette.map((colourHex, i) => (
+                    <div
+                      key={`colourHex_${i}`}
+                      className={styles.extractedPaletteSwatch}
+                      style={{
+                        background:
+                          typeof colourHex === "string"
+                            ? colourHex
+                            : colourHex.color,
+                      }}
+                    ></div>
+                  ))}
+                </div>
+                <Link
+                  className={styles.openInNewTabLink}
+                  to={convertArrayOfHexesIntoUrlPath(
+                    extractedPalette.map((colourHex) =>
+                      typeof colourHex === "string"
+                        ? colourHex
+                        : colourHex.color,
+                    ),
+                  )}
+                  target="_blank"
+                >
+                  <button type="button" className={styles.openInNewTabButton}>
+                    Open In New Tab
+                  </button>
+                </Link>
+              </>
+            ) : null}
+          </div>
+        )}
+        {importAs === "FILE" && (
+          <div className={styles.importFromURLContainer}>
+            <div className={styles.importFormContainer}>
+              <label>Image URL</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                placeholder="Paste Image URL"
+              />
+            </div>
+            <div className={styles.importPreviewContainer}>
+              {uploadedFile ? (
+                <img
+                  id="imagePreview"
+                  src={uploadedFilePreview || undefined}
+                  className={styles.imagePreview}
+                />
+              ) : (
+                <div>Upload Image File Using The Input Above</div>
+              )}
+            </div>
+            <div className={styles.numberOfSwatchesContainer}>
+              <label htmlFor="numberOfSwatchesRange">Number Of Swatches</label>
+              <div className={styles.numberOfSwatchesInputWrapper}>
+                <input
+                  id="numberOfSwatchesRange"
+                  type="range"
+                  min={2}
+                  max={12}
+                  value={numberOfSwatches}
+                  onChange={(e) => setNumberOfSwatches(e.target.value)}
+                />
+                <span>{numberOfSwatches}</span>
+              </div>
+            </div>
+            <button
+              className={styles.generateButton}
+              onClick={() => getPaletteFromFile()}
+              disabled={!uploadedFile}
             >
               <span className={styles.generateButtonIcon}>
                 <SvgIcon name={SvgImageList.Palette} />
