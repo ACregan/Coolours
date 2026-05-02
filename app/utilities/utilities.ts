@@ -204,6 +204,16 @@ function convertArrayOfHexesIntoArrayOfObjects(arrayOfHexes: string[]) {
   });
 }
 
+function convertArrayOfHexesIntoUrlPath(arrayOfHexes: string[]) {
+  let urlString = `/create/`;
+  arrayOfHexes.map((hex: string) => {
+    urlString = `${urlString}${hex.substring(1)}-`;
+  });
+  const urlStringWithoutTrailingDash = urlString.slice(0, -1);
+  const urlStringWithDefaultLabel = `${urlStringWithoutTrailingDash}?name=Colours%20From%20Image`;
+  return urlStringWithDefaultLabel;
+}
+
 // async function downloadImageAndConvertToBase64(
 //   imageurl: string,
 // ): Promise<string> {
@@ -259,4 +269,5 @@ export {
   // downloadImageAndConvertToBase64,
   // convertImageElementToBase64,
   convertArrayOfHexesIntoArrayOfObjects,
+  convertArrayOfHexesIntoUrlPath,
 };

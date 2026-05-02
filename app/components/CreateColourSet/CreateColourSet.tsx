@@ -15,7 +15,7 @@ import { useNavigate } from "react-router";
 import type { swatchType } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import Modal from "../common/Modal/Modal";
-import PaletteFromImage from "./PaletteFromImage/PaletteFromImage";
+import PaletteFromImageModal from "./PaletteFromImage/PaletteFromImage";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -160,8 +160,10 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   // PALETTE FROM IMAGE MODAL
   const [paletteFromImageModalOpen, setPaletteFromImageModalOpen] =
     useState(false);
+  const [importAs, setImportAs] = useState<"URL" | "FILE" | null>(null);
   const closePaletteFromImageModal = () => {
     setPaletteFromImageModalOpen(false);
+    setImportAs(null);
   };
 
   return (
@@ -211,6 +213,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         </ColourSwatchContainer>
       ) : null}
 
+      {/* TODO: Make this a self-contained component much like <PaletteFromImage /> */}
       <Modal
         title={`Export as${exportAs === null ? "..." : ` ${exportAs}`}`}
         open={exportModalOpen}
@@ -298,13 +301,12 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         </div>
       </Modal>
 
-      <Modal
-        title={`Import Palette from Image`}
-        open={paletteFromImageModalOpen}
-        onClose={() => closePaletteFromImageModal()}
-      >
-        <PaletteFromImage />
-      </Modal>
+      <PaletteFromImageModal
+        modalOpen={paletteFromImageModalOpen}
+        onClose={closePaletteFromImageModal}
+        importAs={importAs}
+        setImportAs={setImportAs}
+      />
     </div>
   );
 };

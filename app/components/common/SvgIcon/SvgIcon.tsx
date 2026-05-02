@@ -14,6 +14,8 @@ export const SvgImageList = {
   Close: "Close",
   Export: "Export",
   Dropper: "Dropper",
+  Image: "Image",
+  ImageUp: "ImageUp",
 } as const;
 
 export type SvgImageListTypes = keyof typeof SvgImageList;
@@ -171,6 +173,26 @@ const SvgIcon: React.FC<SVGiconProp> = ({
           viewBox="0 -960 960 960"
         >
           <path d="M120-120v-190l358-358-58-56 58-56 76 76 124-124q5-5 12.5-8t15.5-3 15 3 13 8l94 94q5 6 8 13t3 15-3 15.5-8 12.5L705-555l76 78-57 57-56-58-358 358zm80-80h78l332-334-76-76-334 332zm447-410 96-96-37-37-96 96zm0 0-37-37z"></path>
+        </svg>
+      );
+    case SvgImageList.ImageUp:
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill={fill}
+          viewBox="0 -960 960 960"
+        >
+          <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h320v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120zm40-160h480L570-480 450-320l-90-120zm480-280v-167l-64 63-56-56 160-160 160 160-56 56-64-63v167z"></path>
+        </svg>
+      );
+    case SvgImageList.Image:
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill={fill}
+          viewBox="0 -960 960 960"
+        >
+          <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120zm0-80h560v-560H200zm40-80h480L570-480 450-320l-90-120zm-40 80v-560z"></path>
         </svg>
       );
 

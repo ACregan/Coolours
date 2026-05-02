@@ -15,7 +15,13 @@ const Modal = ({ open, title = "Modal", children, onClose }: ModalProps) => {
 
   // When open, Click Outside Modal should close it
   const modalRef = useRef<HTMLDivElement | null>(null);
-  useClickOutside(modalRef as React.RefObject<HTMLDivElement | HTMLElement | undefined>, () => onClose());
+  useClickOutside(
+    modalRef as React.RefObject<HTMLDivElement | HTMLElement | undefined>,
+    () => {
+      console.log("DERP");
+      onClose();
+    },
+  );
 
   return (
     <div className={styles.modalContainer}>
