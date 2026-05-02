@@ -198,6 +198,55 @@ function generateExportJS(colourList: swatchType[]) {
   return jsContent;
 }
 
+function convertArrayOfHexesIntoArrayOfObjects(arrayOfHexes: string[]) {
+  arrayOfHexes.map((hex: string) => {
+    return { hex: hex };
+  });
+}
+
+// async function downloadImageAndConvertToBase64(
+//   imageurl: string,
+// ): Promise<string> {
+//   const response = await fetch(imageurl);
+//   const blob = await response.blob();
+//   return new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.onload = () => {
+//       const result = reader.result as string;
+//       const base64 = result.split(",")[1];
+//       resolve(base64);
+//     };
+//     reader.onerror = reject;
+//     reader.readAsDataURL(blob);
+//   });
+// }
+
+// async function convertImageElementToBase64(
+//   imageId: string,
+// ): Promise<string> {
+//   const imageElement = document.getElementById(imageId);
+//   if (!imageElement) {
+//     throw new Error(`Image element with id "${imageId}" not found.`);
+//   }
+
+//   if (!(imageElement instanceof HTMLImageElement)) {
+//     throw new Error(`Element with id "${imageId}" is not an HTMLImageElement.`);
+//   }
+
+//   const canvas = document.createElement("canvas");
+//   canvas.width = imageElement.naturalWidth;
+//   canvas.height = imageElement.naturalHeight;
+
+//   const context = canvas.getContext("2d");
+//   if (!context) {
+//     throw new Error("Unable to get canvas rendering context.");
+//   }
+
+//   context.drawImage(imageElement, 0, 0);
+//   const dataUrl = canvas.toDataURL("image/png");
+//   return dataUrl.split(",")[1];
+// }
+
 export {
   isCloserToWhite,
   generateRandomColor,
@@ -207,4 +256,7 @@ export {
   copyToClipboard,
   generateExportCSS,
   generateExportJS,
+  // downloadImageAndConvertToBase64,
+  // convertImageElementToBase64,
+  convertArrayOfHexesIntoArrayOfObjects,
 };

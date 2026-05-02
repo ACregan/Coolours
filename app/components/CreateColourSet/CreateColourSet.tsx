@@ -15,6 +15,7 @@ import { useNavigate } from "react-router";
 import type { swatchType } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import Modal from "../common/Modal/Modal";
+import PaletteFromImage from "./PaletteFromImage/PaletteFromImage";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -148,11 +149,19 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setSwatchesList(updatedSwatchesList);
   }
 
-  const [modalOpen, setModalOpen] = useState(false);
+  // EXPORT MODAL
+  const [exportModalOpen, setExportModalOpen] = useState(false);
   const [exportAs, setExportAs] = useState<"CSS" | "JS" | null>(null);
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeExportModal = () => {
+    setExportModalOpen(false);
     setExportAs(null);
+  };
+
+  // PALETTE FROM IMAGE MODAL
+  const [paletteFromImageModalOpen, setPaletteFromImageModalOpen] =
+    useState(false);
+  const closePaletteFromImageModal = () => {
+    setPaletteFromImageModalOpen(false);
   };
 
   return (
@@ -167,7 +176,15 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         <button
           className={styles.swatchActionButton}
           type="button"
-          onClick={() => setModalOpen(true)}
+          onClick={() => setPaletteFromImageModalOpen(true)}
+        >
+          <SvgIcon name={SvgImageList.Dropper} />
+          <span>IMPORT</span>
+        </button>
+        <button
+          className={styles.swatchActionButton}
+          type="button"
+          onClick={() => setExportModalOpen(true)}
         >
           <SvgIcon name={SvgImageList.Export} />
           <span>EXPORT</span>
@@ -196,8 +213,8 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
       <Modal
         title={`Export as${exportAs === null ? "..." : ` ${exportAs}`}`}
-        open={modalOpen}
-        onClose={() => closeModal()}
+        open={exportModalOpen}
+        onClose={() => closeExportModal()}
       >
         <div className={styles.exportModalContentContainer}>
           {exportAs === null && (
@@ -279,6 +296,14 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
             </div>
           )}
         </div>
+      </Modal>
+
+      <Modal
+        title={`Import Palette from Image`}
+        open={paletteFromImageModalOpen}
+        onClose={() => closePaletteFromImageModal()}
+      >
+        <PaletteFromImage />
       </Modal>
     </div>
   );
