@@ -1,6 +1,7 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useRef } from "react";
 import styles from "./Modal.module.css";
 import SvgIcon, { SvgImageList } from "../SvgIcon/SvgIcon";
+import { useClickOutside } from "~/hooks/useClickOutside";
 
 type ModalProps = {
   open: boolean;
@@ -12,9 +13,13 @@ type ModalProps = {
 const Modal = ({ open, title = "Modal", children, onClose }: ModalProps) => {
   if (!open) return null;
 
+  // When open, Click Outside Modal should close it
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  useClickOutside(modalRef as React.RefObject<HTMLDivElement | HTMLElement | undefined>, () => onClose());
+
   return (
     <div className={styles.modalContainer}>
-      <div className={styles.modalWindow}>
+      <div className={styles.modalWindow} ref={modalRef}>
         <header className={styles.modalHeader}>
           <h6>{title}</h6>
           <button type="button" onClick={onClose}>
