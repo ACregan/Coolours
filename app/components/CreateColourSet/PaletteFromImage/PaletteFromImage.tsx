@@ -7,8 +7,7 @@ import styles from "./PaletteFromImage.module.css";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import Modal from "~/components/common/Modal/Modal";
 import { convertArrayOfHexesIntoUrlPath } from "~/utilities/utilities";
-import { Link, useNavigate } from "react-router";
-// import { convertImageElementToBase64 } from "~/utilities/utilities";
+import { Link } from "react-router";
 
 type PaletteFromImageModalProps = {
   modalOpen: boolean;
@@ -23,7 +22,6 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
   importAs,
   setImportAs,
 }) => {
-  const navigate = useNavigate();
   // URL IMPORT
   const [imageUrl, setImageUrl] = useState("");
   const defaultNumberOfSwatches = "6";
