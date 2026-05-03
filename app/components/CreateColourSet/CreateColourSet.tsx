@@ -212,6 +212,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         <button
           className={styles.swatchActionButton}
           type="button"
+          disabled={swatchesList.every((swatch) => swatch.locked === true)}
           onClick={() => randomiseUnlockedSwatches()}
         >
           <SvgIcon name={SvgImageList.Palette} />
