@@ -26,7 +26,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   swatchesFromUrl,
   swatchesNameFromUrl,
 }) => {
-  const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
   const initialColourSet = swatchesFromUrl || randomlyGeneratedSixColourSet;
 
-  const [swatchesName, setSwatchesName] = useState(
+  const [swatchesName, setSwatchesName] = useState<string>(
     swatchesNameFromUrl || "Untitled Swatch",
   );
   const [swatchesList, setSwatchesList] = useState(initialColourSet);
@@ -184,7 +184,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   }
 
   // EXPORT MODAL
-  const [exportModalOpen, setExportModalOpen] = useState(false);
+  const [exportModalOpen, setExportModalOpen] = useState<boolean>(false);
   const [exportAs, setExportAs] = useState<"CSS" | "JS" | null>(null);
   const closeExportModal = () => {
     setExportModalOpen(false);
@@ -193,7 +193,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
   // PALETTE FROM IMAGE MODAL
   const [paletteFromImageModalOpen, setPaletteFromImageModalOpen] =
-    useState(false);
+    useState<boolean>(false);
   const [importAs, setImportAs] = useState<"URL" | "FILE" | null>(null);
   const closePaletteFromImageModal = () => {
     setPaletteFromImageModalOpen(false);
