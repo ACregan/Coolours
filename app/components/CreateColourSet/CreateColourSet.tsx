@@ -49,6 +49,40 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   );
   const [swatchesList, setSwatchesList] = useState(initialColourSet);
 
+  // Toggle Lock
+  const toggleLockSwatch = (index: number) => {
+    const cloneSwatchesList = swatchesList;
+    const itemsBeforeIndex = cloneSwatchesList.slice(0, index);
+    const indexItem = cloneSwatchesList[index];
+    const itemsAfterIndex = cloneSwatchesList.slice(index + 1);
+    setSwatchesList([
+      ...itemsBeforeIndex,
+      {
+        ...indexItem,
+        locked: indexItem.locked ? false : true,
+      },
+      ...itemsAfterIndex,
+    ]);
+  };
+
+  // Randomise Unlocked Swatches
+  const randomiseUnlockedSwatches = () => {
+    const cloneSwatchesList = swatchesList;
+    const randomisedUnlockedSwatchList = cloneSwatchesList.map((swatch) => {
+      const isSwatchLocked = swatch.locked === true;
+      if (isSwatchLocked) {
+        return {
+          ...swatch,
+        };
+      }
+      return {
+        ...swatch,
+        hex: generateRandomColor(),
+      };
+    });
+    setSwatchesList(randomisedUnlockedSwatchList);
+  };
+
   // SYNC SWATCHLIST TO URL BAR
   useEffect(() => {
     let swatchesUrlString = "";
@@ -178,6 +212,14 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         <button
           className={styles.swatchActionButton}
           type="button"
+          onClick={() => randomiseUnlockedSwatches()}
+        >
+          <SvgIcon name={SvgImageList.Palette} />
+          <span>RANDOMISE UNLOCKED</span>
+        </button>
+        <button
+          className={styles.swatchActionButton}
+          type="button"
           onClick={() => setPaletteFromImageModalOpen(true)}
         >
           <SvgIcon name={SvgImageList.Dropper} />
@@ -207,6 +249,8 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
                 removeSwatch={removeSwatch}
                 editSwatch={editSwatch}
                 moveSwatch={moveSwatch}
+                isSwatchLocked={colour?.locked ? true : false}
+                toggleLockSwatch={() => toggleLockSwatch(i)}
               />
             );
           })}

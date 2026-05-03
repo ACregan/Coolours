@@ -1,6 +1,7 @@
 type swatchType = {
   hex: string;
   label?: string;
+  locked?: boolean;
 };
 
 type swatchItemType = {

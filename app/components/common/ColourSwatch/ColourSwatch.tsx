@@ -17,6 +17,8 @@ interface ColourSwatchProps {
   removeSwatch: Function;
   editSwatch: Function;
   moveSwatch: Function;
+  isSwatchLocked: boolean;
+  toggleLockSwatch: Function;
 }
 
 interface AddSwatchButtonProps {
@@ -46,6 +48,8 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
   removeSwatch,
   editSwatch,
   moveSwatch,
+  isSwatchLocked,
+  toggleLockSwatch,
 }) => {
   const [pickerOpen, setPickerOpen] = useState(false);
   function openColourPicker() {
@@ -90,6 +94,16 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
           <SvgIcon name={SvgImageList.ArrowForward} />
         </button>
       </div>
+      <button
+        className={styles.swatchButton}
+        onClick={() => toggleLockSwatch(index)}
+      >
+        <SvgIcon
+          name={
+            isSwatchLocked ? SvgImageList.LockLocked : SvgImageList.LockUnlocked
+          }
+        />
+      </button>
       <button
         className={styles.swatchButton}
         onClick={() =>
