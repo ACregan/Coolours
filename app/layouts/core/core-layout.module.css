@@ -1,5 +1,6 @@
 :root {
   --heading-font-color: rgb(255, 165, 29);
+  --anthony-cregan-lobster-red: #ff006f;
 }
 
 .coreLayout_container {
@@ -25,6 +26,21 @@
 
   background: #005975;
   padding: 0 2rem;
+}
+.coreLayout_container > header > svg {
+  height: 6.5rem;
+  fill: var(--heading-font-color);
+  filter: drop-shadow(3px 5px 0px rgb(0 0 0 / 0.6));
+  /* fill: linear-gradient(
+    90deg,
+    rgba(42, 123, 155, 1) 0%,
+    rgba(87, 199, 133, 1) 14%,
+    rgba(237, 221, 83, 1) 29%,
+    rgba(237, 121, 83, 1) 42%,
+    rgba(237, 98, 83, 1) 57%,
+    rgba(175, 83, 237, 1) 71%,
+    rgba(11, 245, 2, 1) 88%
+  ); */
 }
 .coreLayout_container > main {
   order: 0;

@@ -9,6 +9,7 @@ import type {
   swatchListTypes,
 } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
+import { Link } from "react-router";
 
 const initialData: swatchListTypes = {
   swatches: [
@@ -141,6 +142,52 @@ const HomePage = () => {
           </div>
         );
       })}
+      <footer>
+        <div className={styles.leftCell}>
+          <Link to="https://perpetualsummer.ltd/" target="_blank">
+            <SvgIcon name={SvgImageList.PerpetualSummer} fill="white" />
+          </Link>
+        </div>
+        <div className={styles.centerCell}></div>
+        <div className={styles.rightCell}>
+          <p>A fun project by</p>
+          <Link to="https://www.anthonycregan.co.uk/" target="_blank">
+            <div className={styles.acLogoContainer}>
+              <div className={styles.acLogoWrapper}>
+                <SvgIcon name={SvgImageList.AnthonyCregan} />
+              </div>
+              <p>
+                Anthony
+                <br />
+                Cregan
+              </p>
+            </div>
+          </Link>
+          <div className={styles.socialLinks}>
+            <Link to="https://github.com/acregan" target="_blank">
+              <SvgIcon name={SvgImageList.Github} fill="white" />
+            </Link>
+            <Link
+              to="https://www.linkedin.com/in/anthony-cregan-64965267/"
+              target="_blank"
+            >
+              <SvgIcon name={SvgImageList.LinkedIn} fill="white" />
+            </Link>
+            <Link
+              to="https://stackoverflow.com/users/3626334/anthony-cregan"
+              target="_blank"
+            >
+              <SvgIcon name={SvgImageList.StackOverflow} fill="white" />
+            </Link>
+            <Link
+              to="https://bsky.app/profile/anthonycregan.dev"
+              target="_blank"
+            >
+              <SvgIcon name={SvgImageList.BlueSky} fill="white" />
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

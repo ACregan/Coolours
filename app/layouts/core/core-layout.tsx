@@ -41,14 +41,12 @@ export default function CoreLayout() {
   return (
     <div className={styles.coreLayout_container}>
       <header>
-        <h1 className={styles.headerHeading}>Coolour!</h1>
+        <SvgIcon name={SvgImageList.CooloursLogo} />
         <TopMenuButton />
       </header>
       <main>
         <Outlet />
       </main>
-      {/* <footer>
-      </footer> */}
     </div>
   );
 }

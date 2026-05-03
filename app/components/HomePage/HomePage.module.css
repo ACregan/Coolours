@@ -78,3 +78,72 @@
   font-weight: 600;
   margin: 0 0 1rem 0;
 }
+
+/* FOOTER */
+footer {
+  display: flex;
+  background: black;
+  padding: 2rem;
+}
+footer > div {
+  flex: 1 1 0px;
+}
+
+.leftCell {
+  display: flex;
+  align-items: center;
+}
+.leftCell > a > svg {
+  height: 10rem;
+}
+.centerCell {
+}
+.rightCell {
+  flex: 0 1 auto;
+
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.rightCell > p {
+  /* "A fun project by" */
+  font-size: 1.2rem;
+}
+.rightCell > a {
+  text-decoration: none;
+}
+.rightCell > a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--anthony-cregan-lobster-red);
+}
+.rightCell > a > .acLogoContainer {
+  display: flex;
+  flex-direction: row;
+}
+.rightCell > a > .acLogoContainer > .acLogoWrapper {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.rightCell > a > .acLogoContainer > .acLogoWrapper > svg {
+  width: 6rem;
+  height: 6rem;
+  fill: var(--anthony-cregan-lobster-red);
+}
+.rightCell > a > .acLogoContainer > p {
+  margin-left: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.socialLinks {
+  margin-top: 1rem;
+}
+.socialLinks > a > svg {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
+}
+.socialLinks > a > svg:hover {
+  fill: var(--anthony-cregan-lobster-red);
+}
