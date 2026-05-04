@@ -8,6 +8,7 @@ import {
 import styles from "./ColourSwatch.module.css";
 import { useClickOutside } from "~/hooks/useClickOutside";
 import SvgIcon, { SvgImageList } from "../SvgIcon/SvgIcon";
+import { useToast } from "../Toast/ToastProvider";
 
 interface ColourSwatchProps {
   hex: string;
@@ -60,6 +61,8 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
 
   useClickOutside(pickerContainerRef, () => setPickerOpen(false));
 
+  const { addToast } = useToast();
+
   return (
     <div
       style={{ backgroundColor: `#${hex}` }}
@@ -109,8 +112,8 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         onClick={() =>
           copyToClipboard(
             `#${hex}`,
-            () => console.log("Copy to clipboard: SUCCESS"),
-            () => console.log("Copy to clipboard: FAILURE"),
+            () => addToast(`Copied to clipboard: "#${hex}"`),
+            () => addToast("Copy to clipboard not supported."),
           )
         }
       >

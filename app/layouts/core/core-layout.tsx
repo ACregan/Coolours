@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
 import styles from "./core-layout.module.css";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
+import { ToastProvider } from "~/components/common/Toast/ToastProvider";
 
 export default function CoreLayout() {
   const navigate = useNavigate();
@@ -39,14 +40,16 @@ export default function CoreLayout() {
   };
 
   return (
-    <div className={styles.coreLayout_container}>
-      <header>
-        <SvgIcon name={SvgImageList.CooloursLogo} />
-        <TopMenuButton />
-      </header>
-      <main>
-        <Outlet />
-      </main>
-    </div>
+    <ToastProvider>
+      <div className={styles.coreLayout_container}>
+        <header>
+          <SvgIcon name={SvgImageList.CooloursLogo} />
+          <TopMenuButton />
+        </header>
+        <main>
+          <Outlet />
+        </main>
+      </div>
+    </ToastProvider>
   );
 }
