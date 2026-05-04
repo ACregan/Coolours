@@ -97,7 +97,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
       /^-+/,
       "",
     );
-    // Create UrlString (without) params
+    // Create UrlString (without params)
     const partiallyComposedUrlString = `/create/${swatchesUrlStringWithoutLeadingDash}`;
     // Create params
     const partiallyComposedParamsString = `?name=${encodeURIComponent(swatchesName.trim())}`;
@@ -213,16 +213,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           value={swatchesName}
           onChange={(e) => setSwatchesName(e.target.value)}
         ></input>
-
-        {/* TEMP ADD TOAST BUTTON */}
-        <button
-          className={styles.swatchActionButton}
-          type="button"
-          onClick={() => addToast("TOAST?")}
-        >
-          <SvgIcon name={SvgImageList.Palette} />
-          <span>TOAST?</span>
-        </button>
 
         <button
           className={styles.swatchActionButton}

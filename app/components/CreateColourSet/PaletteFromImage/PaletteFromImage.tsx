@@ -8,6 +8,7 @@ import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import Modal from "~/components/common/Modal/Modal";
 import { convertArrayOfHexesIntoUrlPath } from "~/utilities/utilities";
 import { Link } from "react-router";
+import { useToast } from "~/components/common/Toast/ToastProvider";
 
 type PaletteFromImageModalProps = {
   modalOpen: boolean;
@@ -22,6 +23,7 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
   importAs,
   setImportAs,
 }) => {
+  const { addToast } = useToast();
   // URL IMPORT
   const [imageUrl, setImageUrl] = useState("");
   const defaultNumberOfSwatches = "6";
@@ -43,6 +45,10 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       setExtractedPalette(colors);
       setIsPending(false);
     } catch (error: any) {
+      // console.error(error);
+      addToast(
+        "ERROR DOWNLOADING IMAGE. Try downloading the image and upload the file manually.",
+      );
       setIsPending(false);
       setErrorMessage(error);
     }
@@ -57,6 +63,12 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
     // const imageAsBase64 = await convertImageElementToBase64(`imagePreview`);
     // const colors = await extractPalette(imageAsBase64);
   };
+
+  // TEMP WHILE WE DEBUG THESE CORS ISSUES
+  useEffect(() => {
+    console.log("ERROR RECEIVED:");
+    console.log(errorMessage);
+  }, [errorMessage]);
 
   // FILE IMPORT
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -99,6 +111,7 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       setExtractedPalette(colors);
       setIsPending(false);
     } catch (error: any) {
+      console.log("ERROR IN: getPaletteFromFile");
       setIsPending(false);
       setErrorMessage(error);
     }
