@@ -16,6 +16,8 @@ import type { swatchType } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import Modal from "../common/Modal/Modal";
 import PaletteFromImageModal from "./PaletteFromImage/PaletteFromImage";
+import { useToast } from "../common/Toast/ToastProvider";
+import ExportAsModal from "./ExportAsModal/ExportAsModal";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -200,6 +202,8 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setImportAs(null);
   };
 
+  const { addToast } = useToast();
+
   return (
     <div className={styles.createContainer}>
       <div className={styles.swatchNameAndButtonsContainer}>
@@ -209,6 +213,17 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           value={swatchesName}
           onChange={(e) => setSwatchesName(e.target.value)}
         ></input>
+
+        {/* TEMP ADD TOAST BUTTON */}
+        <button
+          className={styles.swatchActionButton}
+          type="button"
+          onClick={() => addToast("TOAST?")}
+        >
+          <SvgIcon name={SvgImageList.Palette} />
+          <span>TOAST?</span>
+        </button>
+
         <button
           className={styles.swatchActionButton}
           type="button"
@@ -258,93 +273,13 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         </ColourSwatchContainer>
       ) : null}
 
-      {/* TODO: Make this a self-contained component much like <PaletteFromImage /> */}
-      <Modal
-        title={`Export as${exportAs === null ? "..." : ` ${exportAs}`}`}
-        open={exportModalOpen}
-        onClose={() => closeExportModal()}
-      >
-        <div className={styles.exportModalContentContainer}>
-          {exportAs === null && (
-            <div className={styles.exportButtonsContainer}>
-              <button
-                className={styles.exportButton}
-                onClick={() => setExportAs("CSS")}
-              >
-                <span className={styles.exportButtonIcon}>
-                  <SvgIcon name={SvgImageList.Css} />
-                </span>
-                <span className={styles.exportButtonLabel}>CSS Variables</span>
-              </button>
-              <button
-                className={styles.exportButton}
-                onClick={() => setExportAs("JS")}
-              >
-                <span className={styles.exportButtonIcon}>
-                  <SvgIcon name={SvgImageList.Js} />
-                </span>
-                <span className={styles.exportButtonLabel}>
-                  JSON / Javascript
-                </span>
-              </button>
-            </div>
-          )}
-          {exportAs === "JS" && (
-            <div className={styles.codeForExport}>
-              <pre>
-                <code>{generateExportJS(swatchesList)}</code>
-              </pre>
-              <div className={styles.exportButtonContainer}>
-                <button
-                  type="button"
-                  className={styles.exportBackButton}
-                  onClick={() => setExportAs(null)}
-                >
-                  <SvgIcon name={SvgImageList.ArrowBack} />
-                  Back
-                </button>
-                <button
-                  type="button"
-                  className={styles.exportCopyToClipboardButton}
-                  onClick={() =>
-                    copyToClipboard(generateExportJS(swatchesList))
-                  }
-                >
-                  <SvgIcon name={SvgImageList.Copy} />
-                  Copy To Clipboard
-                </button>
-              </div>
-            </div>
-          )}
-          {exportAs === "CSS" && (
-            <div className={styles.codeForExport}>
-              <pre>
-                <code>{generateExportCSS(swatchesList)}</code>
-              </pre>
-              <div className={styles.exportButtonContainer}>
-                <button
-                  type="button"
-                  className={styles.exportBackButton}
-                  onClick={() => setExportAs(null)}
-                >
-                  <SvgIcon name={SvgImageList.ArrowBack} />
-                  Back
-                </button>
-                <button
-                  type="button"
-                  className={styles.exportCopyToClipboardButton}
-                  onClick={() =>
-                    copyToClipboard(generateExportCSS(swatchesList))
-                  }
-                >
-                  <SvgIcon name={SvgImageList.Copy} />
-                  Copy To Clipboard
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </Modal>
+      <ExportAsModal
+        modalOpen={exportModalOpen}
+        onClose={closeExportModal}
+        exportAs={exportAs}
+        setExportAs={setExportAs}
+        swatchesList={swatchesList}
+      />
 
       <PaletteFromImageModal
         modalOpen={paletteFromImageModalOpen}

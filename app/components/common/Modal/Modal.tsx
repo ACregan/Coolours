@@ -18,7 +18,6 @@ const Modal = ({ open, title = "Modal", children, onClose }: ModalProps) => {
   useClickOutside(
     modalRef as React.RefObject<HTMLDivElement | HTMLElement | undefined>,
     () => {
-      console.log("DERP");
       onClose();
     },
   );

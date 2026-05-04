@@ -1,0 +1,64 @@
+.exportModalContentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40rem;
+}
+
+.exportButtonsContainer {
+  display: flex;
+  width: 100%;
+}
+.exportButton {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 2rem;
+  cursor: pointer;
+}
+.exportButton:last-of-type {
+  margin-right: 0;
+}
+.exportButtonIcon {
+  width: 6rem;
+  height: 6rem;
+  margin: 1rem 0;
+}
+.exportButtonLabel {
+  width: 8rem;
+}
+
+.codeForExport {
+  width: 100%;
+}
+.codeForExport > pre {
+  background: #46494c;
+  color: #00f5d4;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.codeForExport > pre > code {
+  font-size: 1.6rem;
+}
+
+.exportButtonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.exportBackButton {
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+}
+.exportCopyToClipboardButton {
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+}
+.exportBackButton > svg,
+.exportCopyToClipboardButton > svg {
+  height: 2rem;
+  margin-right: 0.5rem;
+}
