@@ -28,12 +28,26 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
   const [numberOfSwatches, setNumberOfSwatches] = useState<string>(
     defaultNumberOfSwatches,
   );
+
+  // ASYNC STATE
+  const [isPending, setIsPending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+
   const getPaletteFromUrl = async () => {
+    try {
+      setIsPending(true);
+      const colors = await extractPalette(imageUrl, {
+        colorCount: +numberOfSwatches,
+        format: "hex",
+      });
+      setExtractedPalette(colors);
+      setIsPending(false);
+    } catch (error: any) {
+      setIsPending(false);
+      setErrorMessage(error);
+    }
+
     // FROM URL (working - when file is not behind CORS)
-    const colors = await extractPalette(imageUrl, {
-      colorCount: +numberOfSwatches,
-      format: "hex",
-    });
 
     // FROM URL-TO-BASE64 (Again, working - when file is not behind CORS)
     // const imageAsBase64 = await downloadImageAndConvertToBase64(imageUrl);
@@ -42,8 +56,6 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
     // FROM IMAGE ELEMENT TO BASE64 (Not working - even when file is not behind CORS)
     // const imageAsBase64 = await convertImageElementToBase64(`imagePreview`);
     // const colors = await extractPalette(imageAsBase64);
-
-    setExtractedPalette(colors);
   };
 
   // FILE IMPORT
@@ -78,12 +90,18 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
   const getPaletteFromFile = async () => {
     // FROM URL (working - when file is not behind CORS)
     if (!uploadedFile) return;
-    const colors = await extractPalette(uploadedFile, {
-      colorCount: +numberOfSwatches,
-      format: "hex",
-    });
-
-    setExtractedPalette(colors);
+    try {
+      setIsPending(true);
+      const colors = await extractPalette(uploadedFile, {
+        colorCount: +numberOfSwatches,
+        format: "hex",
+      });
+      setExtractedPalette(colors);
+      setIsPending(false);
+    } catch (error: any) {
+      setIsPending(false);
+      setErrorMessage(error);
+    }
   };
 
   // EXTRACTED PALETTE
@@ -146,6 +164,12 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
               />
             </div>
             <div className={styles.importPreviewContainer}>
+              {isPending ? (
+                <div className={styles.loaderContainer}>
+                  <span className={styles.loader}></span>
+                  <h6>Generating Palette, Please Wait</h6>
+                </div>
+              ) : null}
               {imageUrl ? (
                 <img
                   id="imagePreview"
@@ -227,6 +251,12 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
               />
             </div>
             <div className={styles.importPreviewContainer}>
+              {isPending ? (
+                <div className={styles.loaderContainer}>
+                  <span className={styles.loader}></span>
+                  <h6>Generating Palette, Please Wait</h6>
+                </div>
+              ) : null}
               {uploadedFile ? (
                 <img
                   id="imagePreview"
