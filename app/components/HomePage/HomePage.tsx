@@ -14,22 +14,28 @@ import { Link } from "react-router";
 const initialData: swatchListTypes = {
   swatches: [
     {
-      title: "Very Nice",
+      title: "Coolourful",
       colours: [
         {
-          hex: "ffdb00",
+          hex: "ffbf10",
         },
         {
-          hex: "3dd12c",
+          hex: "e40e52",
         },
         {
-          hex: "0096f3",
+          hex: "008ae6",
         },
         {
-          hex: "e82a37",
+          hex: "dc1de8",
+        },
+        {
+          hex: "e6f456",
+        },
+        {
+          hex: "3a9c69",
         },
       ],
-      url: "create/ffdb00-3dd12c-0096f3-e82a37?name=Very%20Nice",
+      url: "create/ffbf10-e40e52-008ae6-dc1de8-e6f456-3a9c69?name=Coolourful",
     },
     {
       title: "Foggy Morning Forest",
@@ -46,6 +52,24 @@ const initialData: swatchListTypes = {
         { hex: "2F3E46" },
       ],
       url: "create/CAD2C5-B9C2B7-A8B1A9-96A19B-85908D-74807E-636F70-515F62-404E54-2F3E46?name=Foggy%20Morning%20Forest",
+    },
+    {
+      title: "Very Nice",
+      colours: [
+        {
+          hex: "ffdb00",
+        },
+        {
+          hex: "3dd12c",
+        },
+        {
+          hex: "0096f3",
+        },
+        {
+          hex: "e82a37",
+        },
+      ],
+      url: "create/ffdb00-3dd12c-0096f3-e82a37?name=Very%20Nice",
     },
     {
       title: "UI Pacific Cyan Highlight",
@@ -79,6 +103,24 @@ const initialData: swatchListTypes = {
         { hex: "7768AE" },
       ],
       url: "create/4D9DE0-E15554-E1BC29-3BB273-7768AE?name=Pastel%20Sauce",
+    },
+    {
+      title: "Retro Cushion",
+      colours: [
+        { hex: "380606" },
+        { hex: "511a15" },
+        { hex: "7a311d" },
+        { hex: "814133" },
+        { hex: "9b4528" },
+        { hex: "9f4f35" },
+        { hex: "c06f32" },
+        { hex: "c98647" },
+        { hex: "f1eeeb" },
+        { hex: "cebba6" },
+        { hex: "a49487" },
+      ],
+
+      url: "create/380606-511a15-7a311d-814133-9b4528-9f4f35-c06f32-c98647-f1eeeb-cebba6-a49487?name=Retro%20Cushion",
     },
     {
       title: "Neonpoleon Dynamite",
