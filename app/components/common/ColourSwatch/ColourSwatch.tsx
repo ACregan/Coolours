@@ -7,7 +7,10 @@ import {
 } from "~/utilities/utilities";
 import styles from "./ColourSwatch.module.css";
 import { useClickOutside } from "~/hooks/useClickOutside";
-import SvgIcon, { SvgImageList } from "../SvgIcon/SvgIcon";
+import SvgIcon, {
+  SvgImageList,
+  type SvgImageListTypes,
+} from "../SvgIcon/SvgIcon";
 import { useToast } from "../Toast/ToastProvider";
 
 interface ColourSwatchProps {
@@ -84,31 +87,31 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         </div>
       ) : null}
       <div>
-        <button
-          className={styles.swatchButton}
+        <SwatchButton
+          icon={SvgImageList.ArrowBack}
+          label="LEFT"
           onClick={() => moveSwatch(index, "left")}
-        >
-          <SvgIcon name={SvgImageList.ArrowBack} />
-        </button>
-        <button
-          className={styles.swatchButton}
-          onClick={() => moveSwatch(index, "right")}
-        >
-          <SvgIcon name={SvgImageList.ArrowForward} />
-        </button>
-      </div>
-      <button
-        className={styles.swatchButton}
-        onClick={() => toggleLockSwatch(index)}
-      >
-        <SvgIcon
-          name={
-            isSwatchLocked ? SvgImageList.LockLocked : SvgImageList.LockUnlocked
-          }
+          labelAlignment="left"
         />
-      </button>
-      <button
-        className={styles.swatchButton}
+
+        <SwatchButton
+          icon={SvgImageList.ArrowForward}
+          label="RIGHT"
+          onClick={() => moveSwatch(index, "right")}
+        />
+      </div>
+
+      <SwatchButton
+        icon={
+          isSwatchLocked ? SvgImageList.LockLocked : SvgImageList.LockUnlocked
+        }
+        label={isSwatchLocked ? "LOCK: On" : "LOCK: Off"}
+        onClick={() => toggleLockSwatch(index)}
+      />
+
+      <SwatchButton
+        icon={SvgImageList.Copy}
+        label="COPY"
         onClick={() =>
           copyToClipboard(
             `#${hex}`,
@@ -116,25 +119,48 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
             () => addToast("Copy to clipboard not supported."),
           )
         }
-      >
-        <SvgIcon name={SvgImageList.Copy} />
-      </button>
-      <button
-        className={styles.swatchButton}
+      />
+
+      <SwatchButton
+        icon={SvgImageList.Palette}
+        label="EDIT"
         onClick={() => openColourPicker()}
-      >
-        <SvgIcon name={SvgImageList.Palette} />
-      </button>
-      <button
-        className={styles.swatchButton}
+      />
+
+      <SwatchButton
+        icon={SvgImageList.Delete}
+        label="DELETE"
         onClick={() => removeSwatch(index)}
-      >
-        <SvgIcon name={SvgImageList.Delete} />
-      </button>
+      />
+
       <span className={styles.colourHex}>#{hex}</span>
       {label ? <span className={styles.humanReadableName}>{label}</span> : null}
       <AddSwatchButton addSwatch={addSwatch} index={index + 1} />
     </div>
+  );
+};
+
+type SwatchButtonsProps = {
+  icon: SvgImageListTypes;
+  label: string;
+  onClick: () => void;
+  labelAlignment?: "left" | "right";
+};
+
+const SwatchButton: React.FC<SwatchButtonsProps> = ({
+  icon,
+  label,
+  onClick,
+  labelAlignment = "right",
+}) => {
+  return (
+    <button
+      className={`${styles.swatchButton} ${labelAlignment === "left" && styles.leftAlignedLabel}`}
+      onClick={onClick}
+    >
+      <SvgIcon name={icon} />
+      <p className={styles.textLabel}>{label}</p>
+    </button>
   );
 };
 
