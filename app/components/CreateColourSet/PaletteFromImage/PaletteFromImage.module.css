@@ -96,6 +96,12 @@
   align-items: center;
   justify-content: center;
 }
+.generateButton:disabled {
+  cursor: not-allowed;
+}
+.generateButton:disabled > span > svg {
+  opacity: 0.2;
+}
 .generateButtonIcon {
   height: 2rem;
   width: 2rem;
