@@ -44,6 +44,7 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       });
       setExtractedPalette(colors);
       setIsPending(false);
+      addToast("Palette Generated Successfully");
     } catch (error: any) {
       // console.error(error);
       addToast(
@@ -110,6 +111,7 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       });
       setExtractedPalette(colors);
       setIsPending(false);
+      addToast("Palette Generated Successfully");
     } catch (error: any) {
       console.log("ERROR IN: getPaletteFromFile");
       setIsPending(false);

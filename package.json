@@ -12,6 +12,7 @@
     "@jimmyclchu/image-palette": "^1.0.0",
     "@react-router/node": "7.14.0",
     "@react-router/serve": "7.14.0",
+    "classnames": "^2.5.1",
     "isbot": "^5.1.36",
     "ntc-ts": "^0.0.8",
     "react": "^19.2.5",

@@ -18,6 +18,7 @@ import Modal from "../common/Modal/Modal";
 import PaletteFromImageModal from "./PaletteFromImage/PaletteFromImage";
 import { useToast } from "../common/Toast/ToastProvider";
 import ExportAsModal from "./ExportAsModal/ExportAsModal";
+import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -214,32 +215,72 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           onChange={(e) => setSwatchesName(e.target.value)}
         ></input>
 
-        <button
-          className={styles.swatchActionButton}
-          type="button"
-          disabled={swatchesList.every((swatch) => swatch.locked === true)}
-          onClick={() => randomiseUnlockedSwatches()}
+        <Tooltip
+          anchorName="Randomise Button"
+          anchorPosition="bottom"
+          anchorContent={
+            <TooltipBubble pointerLocation="top">
+              Change all unlocked colour
+              <br />
+              swatches to a random colour.
+            </TooltipBubble>
+          }
         >
-          <SvgIcon name={SvgImageList.Palette} />
-          <span>RANDOMISE UNLOCKED</span>
-        </button>
-        <button
-          className={styles.swatchActionButton}
-          type="button"
-          onClick={() => setPaletteFromImageModalOpen(true)}
+          <button
+            className={styles.swatchActionButton}
+            type="button"
+            disabled={swatchesList.every((swatch) => swatch.locked === true)}
+            onClick={() => randomiseUnlockedSwatches()}
+            style={{ anchorName: "--randomise-anchor" }}
+          >
+            <SvgIcon name={SvgImageList.Palette} />
+            <span>RANDOMISE UNLOCKED</span>
+          </button>
+        </Tooltip>
+
+        <Tooltip
+          anchorName="Import Button"
+          anchorPosition="bottom"
+          anchorContent={
+            <TooltipBubble pointerLocation="top">
+              Import Colour Palette from
+              <br />
+              Image File or Image URL
+            </TooltipBubble>
+          }
         >
-          <SvgIcon name={SvgImageList.Dropper} />
-          <span>IMPORT</span>
-        </button>
-        <button
-          className={styles.swatchActionButton}
-          type="button"
-          onClick={() => setExportModalOpen(true)}
+          <button
+            className={styles.swatchActionButton}
+            type="button"
+            onClick={() => setPaletteFromImageModalOpen(true)}
+          >
+            <SvgIcon name={SvgImageList.Dropper} />
+            <span>IMPORT</span>
+          </button>
+        </Tooltip>
+
+        <Tooltip
+          anchorName="Export Button"
+          anchorPosition="bottom"
+          anchorContent={
+            <TooltipBubble pointerLocation="top right">
+              Export Colours As CSS Custom
+              <br />
+              Properties or as a JSON Object
+            </TooltipBubble>
+          }
         >
-          <SvgIcon name={SvgImageList.Export} />
-          <span>EXPORT</span>
-        </button>
+          <button
+            className={styles.swatchActionButton}
+            type="button"
+            onClick={() => setExportModalOpen(true)}
+          >
+            <SvgIcon name={SvgImageList.Export} />
+            <span>EXPORT</span>
+          </button>
+        </Tooltip>
       </div>
+
       {isClient ? (
         <ColourSwatchContainer>
           {swatchesList.map((colour, i) => {
