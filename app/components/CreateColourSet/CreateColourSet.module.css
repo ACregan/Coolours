@@ -21,7 +21,12 @@
   font-size: 3.25rem;
   font-weight: 700;
   margin: 1rem 0 1rem 0;
-  border: none;
+  border: 0.2rem solid white;
+  border-radius: 0.4rem;
+}
+.editableSwatchSetLabelInput:hover {
+  border: 0.2rem solid #dfdfdf;
+  border-radius: 0.4rem;
 }
 .swatchActionButton {
   flex: 0 1 auto;
