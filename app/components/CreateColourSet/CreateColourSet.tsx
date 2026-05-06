@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  copyToClipboard,
   generateColorGradient,
-  generateExportCSS,
-  generateExportJS,
   generateRandomColor,
-  isCloserToWhite,
 } from "~/utilities/utilities";
 import { GetColorName } from "hex-color-to-color-name";
 import styles from "./CreateColourSet.module.css";
@@ -14,9 +10,7 @@ import ColourSwatchContainer from "../common/ColourSwatchContainer/ColourSwatchC
 import { useNavigate } from "react-router";
 import type { swatchType } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
-import Modal from "../common/Modal/Modal";
 import PaletteFromImageModal from "./PaletteFromImage/PaletteFromImage";
-import { useToast } from "../common/Toast/ToastProvider";
 import ExportAsModal from "./ExportAsModal/ExportAsModal";
 import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
 
@@ -200,8 +194,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setPaletteFromImageModalOpen(false);
     setImportAs(null);
   };
-
-  const { addToast } = useToast();
 
   return (
     <div className={styles.createContainer}>

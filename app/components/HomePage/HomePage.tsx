@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetColorName } from "hex-color-to-color-name";
-import useLocalStorage from "~/hooks/useLocalStorage";
 import styles from "./HomePage.module.css";
 import { isCloserToWhite } from "~/utilities/utilities";
 import type {
@@ -138,12 +137,7 @@ const initialData: swatchListTypes = {
 };
 
 const HomePage = () => {
-  // TODO: Consider Gettin rid of this, we dont use it
-  // However, It could be useful to persist them in the users browser
-  // so that we can reuse swatches that are saved in localstorage
-  // on the homepage.
-  const [swatches, setSwatches, clearSwatches] =
-    useLocalStorage<swatchListTypes>("swatches", initialData);
+  const [swatches, setSwatches] = useState<swatchListTypes>(initialData);
 
   const colourSwatchData = swatches?.swatches || initialData.swatches;
 
