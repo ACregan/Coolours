@@ -7,11 +7,7 @@ import {
   generateRandomColor,
   isCloserToWhite,
 } from "~/utilities/utilities";
-import {
-  getColorName,
-  initColors,
-  ORIGINAL_COLORS,
-} from "ntc-ts/dist/ntc-ts.js";
+import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
 import styles from "./CreateColourSet.module.css";
 import ColourSwatch from "../common/ColourSwatch/ColourSwatch";
 import ColourSwatchContainer from "../common/ColourSwatchContainer/ColourSwatchContainer";
