@@ -1,5 +1,9 @@
 import type { swatchType } from "~/types/commonTypes";
-import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
+import {
+  getColorName,
+  initColors,
+  ORIGINAL_COLORS,
+} from "ntc-ts/dist/ntc-ts.js";
 
 /* -= COLOUR UTILITIES =- */
 
