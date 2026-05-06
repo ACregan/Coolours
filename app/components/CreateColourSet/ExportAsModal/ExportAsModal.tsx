@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import {
-  extractPalette,
-  type ColorWithMetadata,
-} from "@jimmyclchu/image-palette";
+import React from "react";
 import styles from "./ExportAsModal.module.css";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import Modal from "~/components/common/Modal/Modal";
 import {
-  convertArrayOfHexesIntoUrlPath,
   copyToClipboard,
   generateExportCSS,
   generateExportJS,
 } from "~/utilities/utilities";
-import { Link } from "react-router";
 import { useToast } from "~/components/common/Toast/ToastProvider";
 import type { swatchType } from "~/types/commonTypes";
 
