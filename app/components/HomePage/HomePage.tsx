@@ -1,5 +1,9 @@
 import React from "react";
-import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
+import {
+  getColorName,
+  initColors,
+  ORIGINAL_COLORS,
+} from "ntc-ts/dist/ntc-ts.js";
 import useLocalStorage from "~/hooks/useLocalStorage";
 import styles from "./HomePage.module.css";
 import { isCloserToWhite } from "~/utilities/utilities";
