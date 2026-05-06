@@ -1,5 +1,5 @@
 import type { swatchType } from "~/types/commonTypes";
-import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
+import { GetColorName } from "hex-color-to-color-name";
 
 /* -= COLOUR UTILITIES =- */
 
@@ -169,12 +169,9 @@ function isValidHexColor(hex: string): boolean {
  * @returns A string containing CSS custom properties in the format '--colour-name: #hex;'.
  */
 function generateExportCSS(colourList: swatchType[]) {
-  initColors(ORIGINAL_COLORS);
   let cssContent = "";
   colourList.map((colour) => {
-    const colourName = getColorName(colour.hex)
-      .name.replace(" ", "-")
-      .toLowerCase();
+    const colourName = GetColorName(colour.hex).replace(" ", "-").toLowerCase();
     cssContent = `${cssContent}--${colourName}: #${colour.hex};\n`;
   });
   return cssContent;
@@ -188,10 +185,9 @@ function generateExportCSS(colourList: swatchType[]) {
  * @returns A string containing a JavaScript object literal with color names as keys and hex values as values.
  */
 function generateExportJS(colourList: swatchType[]) {
-  initColors(ORIGINAL_COLORS);
   let jsContent = "{\n";
   colourList.map((colour) => {
-    const colourName = getColorName(colour.hex).name.replace(" ", "");
+    const colourName = GetColorName(colour.hex).replace(" ", "");
     jsContent = `${jsContent}    "${colourName}": "#${colour.hex}",\n`;
   });
   jsContent = `${jsContent}}`;

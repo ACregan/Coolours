@@ -7,7 +7,7 @@ import {
   generateRandomColor,
   isCloserToWhite,
 } from "~/utilities/utilities";
-import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
+import { GetColorName } from "hex-color-to-color-name";
 import styles from "./CreateColourSet.module.css";
 import ColourSwatch from "../common/ColourSwatch/ColourSwatch";
 import ColourSwatchContainer from "../common/ColourSwatchContainer/ColourSwatchContainer";
@@ -36,8 +36,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  initColors(ORIGINAL_COLORS);
 
   const randomlyGeneratedSixColourSet = generateColorGradient(
     generateRandomColor(),
@@ -284,8 +282,8 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
       {isClient ? (
         <ColourSwatchContainer>
           {swatchesList.map((colour, i) => {
-            const colorNamerNames = getColorName(colour.hex);
-            const humanReadableColourName = colorNamerNames.name;
+            const colorNamerNames = GetColorName(colour.hex);
+            const humanReadableColourName = colorNamerNames;
             return (
               <ColourSwatch
                 key={i}

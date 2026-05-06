@@ -1,4 +1,4 @@
-import { CreateColourSet } from "~/components/CreateColourSet/CreateColourSet.client";
+import { CreateColourSet } from "~/components/CreateColourSet/CreateColourSet";
 import type { Route } from "./+types/create";
 import { useLoaderData } from "react-router";
 import { isValidHexColor } from "~/utilities/utilities";

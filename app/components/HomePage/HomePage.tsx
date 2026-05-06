@@ -1,5 +1,5 @@
 import React from "react";
-import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
+import { GetColorName } from "hex-color-to-color-name";
 import useLocalStorage from "~/hooks/useLocalStorage";
 import styles from "./HomePage.module.css";
 import { isCloserToWhite } from "~/utilities/utilities";
@@ -147,8 +147,6 @@ const HomePage = () => {
 
   const colourSwatchData = swatches?.swatches || initialData.swatches;
 
-  initColors(ORIGINAL_COLORS);
-
   return (
     <div className={styles.swatchListContainer}>
       {colourSwatchData.map((swatch) => {
@@ -164,8 +162,8 @@ const HomePage = () => {
             </div>
             <div className={styles.swatchesContainer}>
               {swatch.colours.map((colour) => {
-                const colorNamerNames = getColorName(colour.hex);
-                const humanReadableColourName = colorNamerNames.name;
+                const colorNamerNames = GetColorName(colour.hex);
+                const humanReadableColourName = colorNamerNames;
 
                 return (
                   <div
