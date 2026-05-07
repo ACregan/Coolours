@@ -38,7 +38,7 @@ const AddSwatchButton: React.FC<AddSwatchButtonProps> = ({
       className={`${styles.hoverCaptureContainer} ${index === 0 ? styles.addBefore : styles.addAfter}`}
     >
       <button className={styles.addButton} onClick={() => addSwatch(index)}>
-        +
+        <SvgIcon name={SvgImageList.Plus} fill="white" />
       </button>
     </div>
   );

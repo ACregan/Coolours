@@ -1,3 +1,26 @@
+:root {
+  --starship: #e6f456;
+  --lightning-yellow: #ffbf10;
+  --lightning-yellow_light: #ffd76b;
+  --razzmatazz: #e40e52;
+  --azure-radiance: #008ae6;
+  --science-blue: #0056e3;
+  --orient: #005481;
+
+  /* /create/ PAGE BUTTONS */
+  --create-button-background_border: var(--orient);
+  --create-button-background: var(--science-blue);
+  --create-button-background_hover: var(--azure-radiance);
+
+  /* HEADER */
+  /* --heading-button-color: rgb(255, 165, 29);
+  --heading-button-color_hover: rgb(255, 187, 86); */
+  --heading-button-color: var(--lightning-yellow);
+  --heading-button-color_hover: var(--lightning-yellow_light);
+  /* FOOTER */
+  --anthony-cregan-lobster-red: #ff006f;
+}
+
 html,
 body {
   font-family:

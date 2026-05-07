@@ -16,6 +16,9 @@ const initialData: swatchListTypes = {
       title: "Coolourful",
       colours: [
         {
+          hex: "e6f456",
+        },
+        {
           hex: "ffbf10",
         },
         {
@@ -25,16 +28,13 @@ const initialData: swatchListTypes = {
           hex: "008ae6",
         },
         {
-          hex: "dc1de8",
+          hex: "0056e3",
         },
         {
-          hex: "e6f456",
-        },
-        {
-          hex: "3a9c69",
+          hex: "005481",
         },
       ],
-      url: "create/ffbf10-e40e52-008ae6-dc1de8-e6f456-3a9c69?name=Coolourful",
+      url: "/create/e6f456-ffbf10-e40e52-008ae6-0056e3-005481?name=Coolourful",
     },
     {
       title: "Foggy Morning Forest",
@@ -91,6 +91,18 @@ const initialData: swatchListTypes = {
         { hex: "FD151B" },
       ],
       url: "create/01295F-437F97-849324-FFB30F-FD151B?name=UI%20Button%20Statuses",
+    },
+    {
+      title: "Cyberpunk Clouds",
+      colours: [
+        { hex: "f5e511" },
+        { hex: "1f1220" },
+        { hex: "323161" },
+        { hex: "773070" },
+        { hex: "bc84a2" },
+        { hex: "6b2e35" },
+      ],
+      url: "/create/f5e511-1f1220-323161-773070-bc84a2-6b2e35?name=Cyberpunk%20Clouds",
     },
     {
       title: "Pastel Sauce",

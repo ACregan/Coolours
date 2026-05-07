@@ -44,6 +44,26 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   );
   const [swatchesList, setSwatchesList] = useState(initialColourSet);
 
+  // Listen for 'space' key press
+  const handleKeyDown = (event: KeyboardEvent): void => {
+    const target = event.target as HTMLElement;
+    const isInput =
+      target.tagName === "INPUT" ||
+      target.tagName === "TEXTAREA" ||
+      target.isContentEditable;
+    // ignore if 'space' is pressed when an input is focused
+    if (event.code === "Space" && !isInput) {
+      event.preventDefault();
+      randomiseUnlockedSwatches();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [swatchesList]);
+
   // Toggle Lock
   const toggleLockSwatch = (index: number) => {
     const cloneSwatchesList = swatchesList;
@@ -62,6 +82,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
   // Randomise Unlocked Swatches
   const randomiseUnlockedSwatches = () => {
+    console.log(swatchesList);
     const cloneSwatchesList = swatchesList;
     const randomisedUnlockedSwatchList = cloneSwatchesList.map((swatch) => {
       const isSwatchLocked = swatch.locked === true;
@@ -221,10 +242,12 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
             type="button"
             disabled={swatchesList.every((swatch) => swatch.locked === true)}
             onClick={() => randomiseUnlockedSwatches()}
-            style={{ anchorName: "--randomise-anchor" }}
           >
-            <SvgIcon name={SvgImageList.Palette} />
-            <span>RANDOMISE UNLOCKED</span>
+            <SvgIcon name={SvgImageList.Palette} fill="white" />
+            <span>
+              RANDOMISE <br />
+              UNLOCKED
+            </span>
           </button>
         </Tooltip>
 
@@ -244,7 +267,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
             type="button"
             onClick={() => setPaletteFromImageModalOpen(true)}
           >
-            <SvgIcon name={SvgImageList.Dropper} />
+            <SvgIcon name={SvgImageList.Dropper} fill="white" />
             <span>IMPORT</span>
           </button>
         </Tooltip>
@@ -265,7 +288,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
             type="button"
             onClick={() => setExportModalOpen(true)}
           >
-            <SvgIcon name={SvgImageList.Export} />
+            <SvgIcon name={SvgImageList.Export} fill="white" />
             <span>EXPORT</span>
           </button>
         </Tooltip>

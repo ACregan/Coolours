@@ -43,7 +43,7 @@ export default function CoreLayout() {
     <ToastProvider>
       <div className={styles.coreLayout_container}>
         <header>
-          <SvgIcon name={SvgImageList.CooloursLogo} />
+          <SvgIcon name={SvgImageList.CooloursLogo_plain} fill="#e6f456" />
           <TopMenuButton />
         </header>
         <main>

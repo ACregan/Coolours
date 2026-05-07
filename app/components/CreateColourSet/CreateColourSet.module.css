@@ -28,14 +28,26 @@
   border: 0.2rem solid #dfdfdf;
   border-radius: 0.4rem;
 }
+
 .swatchActionButton {
   flex: 0 1 auto;
 
-  height: 5rem;
+  height: 4.4rem;
   margin-left: 1rem;
 
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-direction: row;
+  align-items: center;
+
+  background: var(--create-button-background);
+  color: white;
+  border-radius: 0.4rem;
+  border: solid 0.2rem var(--create-button-background_border);
+}
+.swatchActionButton:hover {
+  background: var(--create-button-background_hover);
+  border: solid 0.2rem var(--create-button-background);
 }
 .swatchActionButton:disabled {
   cursor: not-allowed;
@@ -45,6 +57,7 @@
 }
 .swatchActionButton > svg {
   height: 3rem;
+  margin-right: 0.5rem;
 }
 .swatchActionButton > span {
   font-size: 1rem;

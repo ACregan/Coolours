@@ -53,23 +53,7 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       setIsPending(false);
       setErrorMessage(error);
     }
-
-    // FROM URL (working - when file is not behind CORS)
-
-    // FROM URL-TO-BASE64 (Again, working - when file is not behind CORS)
-    // const imageAsBase64 = await downloadImageAndConvertToBase64(imageUrl);
-    // const colors = await extractPalette(imageAsBase64);
-
-    // FROM IMAGE ELEMENT TO BASE64 (Not working - even when file is not behind CORS)
-    // const imageAsBase64 = await convertImageElementToBase64(`imagePreview`);
-    // const colors = await extractPalette(imageAsBase64);
   };
-
-  // TEMP WHILE WE DEBUG THESE CORS ISSUES
-  useEffect(() => {
-    console.log("ERROR RECEIVED:");
-    console.log(errorMessage);
-  }, [errorMessage]);
 
   // FILE IMPORT
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
