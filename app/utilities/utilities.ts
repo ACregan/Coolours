@@ -171,7 +171,10 @@ function isValidHexColor(hex: string): boolean {
 function generateExportCSS(colourList: swatchType[]) {
   let cssContent = "";
   colourList.map((colour) => {
-    const colourName = GetColorName(colour.hex).replace(" ", "-").toLowerCase();
+    const colourName = GetColorName(colour.hex)
+      .replace(/[^0-9a-z-A-Z ]/g, "") // Remove all non-alphabet-chars
+      .replaceAll(" ", "-") // Remove all spaces and replace with dash
+      .toLowerCase(); // convert to lower case as is convention in css custom properties
     cssContent = `${cssContent}--${colourName}: #${colour.hex};\n`;
   });
   return cssContent;
@@ -187,7 +190,9 @@ function generateExportCSS(colourList: swatchType[]) {
 function generateExportJS(colourList: swatchType[]) {
   let jsContent = "{\n";
   colourList.map((colour) => {
-    const colourName = GetColorName(colour.hex).replace(" ", "");
+    const colourName = GetColorName(colour.hex)
+      .replace(/[^0-9a-z-A-Z ]/g, "")
+      .replaceAll(" ", "");
     jsContent = `${jsContent}    "${colourName}": "#${colour.hex}",\n`;
   });
   jsContent = `${jsContent}}`;
