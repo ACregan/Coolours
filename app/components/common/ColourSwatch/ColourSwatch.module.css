@@ -114,7 +114,7 @@
 .swatchButton > .textLabel {
   position: absolute;
   left: calc(100% + 1rem);
-  width: 10rem;
+  width: auto;
   color: black;
   text-align: left;
   font-size: 1.2rem;
