@@ -34,7 +34,7 @@ const initialData: swatchListTypes = {
           hex: "005481",
         },
       ],
-      url: "/create/e6f456-ffbf10-e40e52-008ae6-0056e3-005481?name=Coolourful",
+      url: "create/e6f456-ffbf10-e40e52-008ae6-0056e3-005481?name=Coolourful",
     },
     {
       title: "Foggy Morning Forest",
@@ -102,7 +102,7 @@ const initialData: swatchListTypes = {
         { hex: "bc84a2" },
         { hex: "6b2e35" },
       ],
-      url: "/create/f5e511-1f1220-323161-773070-bc84a2-6b2e35?name=Cyberpunk%20Clouds",
+      url: "create/f5e511-1f1220-323161-773070-bc84a2-6b2e35?name=Cyberpunk%20Clouds",
     },
     {
       title: "Pastel Sauce",
@@ -144,6 +144,25 @@ const initialData: swatchListTypes = {
       ],
 
       url: "create/9B5DE5-F15BB5-FEE440-00BBF9-00F5D4?name=Neonpoleon%20Dynamite",
+    },
+    {
+      title: "Spectral",
+      colours: [
+        { hex: "37b49a" },
+        { hex: "3dbdd9" },
+        { hex: "2893c8" },
+        { hex: "1369b6" },
+        { hex: "72457c" },
+        { hex: "d12141" },
+        { hex: "e85521" },
+        { hex: "ff8800" },
+        { hex: "f1b82c" },
+        { hex: "e3e758" },
+        { hex: "8ac959" },
+        { hex: "30aa5a" },
+      ],
+
+      url: "create/37b49a-3dbdd9-2893c8-1369b6-72457c-d12141-e85521-ff8800-f1b82c-e3e758-8ac959-30aa5a?name=Untitled%20Swatch",
     },
   ],
 };
