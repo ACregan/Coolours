@@ -23,10 +23,37 @@
   margin: 1rem 0 1rem 0;
   border: 0.2rem solid white;
   border-radius: 0.4rem;
+  color: black;
+  background: white;
+  transition:
+    background 0.5s ease-in-out,
+    color 0.5s ease-in-out,
+    border 0.5s ease-in-out;
 }
 .editableSwatchSetLabelInput:hover {
   border: 0.2rem solid #dfdfdf;
   border-radius: 0.4rem;
+}
+.editableSwatchSetLabelInput:focus {
+  border: 0.2rem solid black;
+  border-radius: 0.4rem;
+  outline: none;
+}
+/* DARK MODE */
+.editableSwatchSetLabelInput.darkMode {
+  color: white;
+  border: 0.2rem solid var(--background_dark);
+  background: var(--background_dark);
+}
+.editableSwatchSetLabelInput.darkMode:hover {
+  border: 0.2rem solid #808080;
+  border-radius: 0.4rem;
+}
+.editableSwatchSetLabelInput:focus:hover,
+.editableSwatchSetLabelInput:focus {
+  border: 0.2rem solid white;
+  border-radius: 0.4rem;
+  outline: none;
 }
 
 .swatchActionButton {

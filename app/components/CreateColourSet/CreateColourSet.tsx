@@ -13,6 +13,7 @@ import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import PaletteFromImageModal from "./PaletteFromImage/PaletteFromImage";
 import ExportAsModal from "./ExportAsModal/ExportAsModal";
 import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
+import { useTheme } from "../common/DarkMode/DarkModeContext";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -216,11 +217,13 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setImportAs(null);
   };
 
+  const { darkMode } = useTheme();
+
   return (
     <div className={styles.createContainer}>
       <div className={styles.swatchNameAndButtonsContainer}>
         <input
-          className={styles.editableSwatchSetLabelInput}
+          className={`${styles.editableSwatchSetLabelInput} ${darkMode && styles.darkMode}`}
           type="text"
           value={swatchesName}
           onChange={(e) => setSwatchesName(e.target.value)}

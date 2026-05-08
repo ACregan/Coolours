@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
 import styles from "./core-layout.module.css";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import { ToastProvider } from "~/components/common/Toast/ToastProvider";
+import {
+  ThemeProvider,
+  useTheme,
+} from "~/components/common/DarkMode/DarkModeContext";
 
 interface DarkModeSwitch {
   toggleDarkMode: () => void;
@@ -64,41 +68,45 @@ export default function CoreLayout() {
     }
   };
 
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  // const [darkMode, setDarkMode] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log("CALLED");
-    const browserPrefersDarkMode =
-      window &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
+  // useEffect(() => {
+  //   console.log("CALLED");
+  //   const browserPrefersDarkMode =
+  //     window &&
+  //     window.matchMedia &&
+  //     window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-    console.log("Dark Mode? What say your browser?", browserPrefersDarkMode);
+  //   console.log("Dark Mode? What say your browser?", browserPrefersDarkMode);
 
-    if (browserPrefersDarkMode) {
-      setDarkMode(true);
-    }
-  }, []);
+  //   if (browserPrefersDarkMode) {
+  //     setDarkMode(true);
+  //   }
+  // }, []);
+
+  const { darkMode, toggleDarkMode } = useTheme();
 
   return (
-    <ToastProvider>
-      <div
-        className={`${styles.coreLayout_container} ${darkMode ? styles.darkMode : styles.lightMode}`}
-      >
-        <header>
-          <SvgIcon name={SvgImageList.CooloursLogo_v2} />
-          <div className={styles.headerButtonContainer}>
-            <DarkModeSwitch
-              toggleDarkMode={() => setDarkMode(!darkMode)}
-              darkMode={darkMode}
-            />
-            <TopMenuButton />
-          </div>
-        </header>
-        <main>
-          <Outlet />
-        </main>
-      </div>
-    </ToastProvider>
+    // <ToastProvider>
+    //   <ThemeProvider>
+    <div
+      className={`${styles.coreLayout_container} ${darkMode ? styles.darkMode : styles.lightMode}`}
+    >
+      <header>
+        <SvgIcon name={SvgImageList.CooloursLogo_v2} />
+        <div className={styles.headerButtonContainer}>
+          <DarkModeSwitch
+            toggleDarkMode={() => toggleDarkMode()}
+            darkMode={darkMode}
+          />
+          <TopMenuButton />
+        </div>
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </div>
+    //   </ThemeProvider>
+    // </ToastProvider>
   );
 }

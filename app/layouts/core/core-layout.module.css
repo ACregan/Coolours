@@ -31,13 +31,16 @@
   border-bottom: 0.1rem solid black;
   padding: 0 1rem;
 
-  transition: background 1s ease-in-out;
+  transition: background-color 1s ease-in-out;
 }
+/* THIS GRADIENT TRANSITION DOESNT WORK BECUASE 
+    https://stackoverflow.com/questions/6542212/use-css3-transitions-with-gradient-backgrounds
+*/
 .coreLayout_container.darkMode > header {
   background: linear-gradient(
     45deg,
     var(--header-background-gradient-from_dark),
-    var(--header-background-gradient-to_dark)
+    yellow /* var(--header-background-gradient-to_dark) */
   );
 }
 
@@ -56,6 +59,10 @@
 
   background: white;
   color: black;
+
+  transition:
+    background 0.5s ease-in-out,
+    color 0.5s ease-in-out;
 }
 .coreLayout_container.darkMode > main {
   background: var(--background_dark);
@@ -78,6 +85,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 .darkModeSwitchContainer svg {
   height: 2.8rem;
