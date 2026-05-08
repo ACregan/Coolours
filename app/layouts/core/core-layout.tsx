@@ -1,8 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
 import styles from "./core-layout.module.css";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import { ToastProvider } from "~/components/common/Toast/ToastProvider";
+
+interface DarkModeSwitch {
+  toggleDarkMode: () => void;
+  darkMode: boolean;
+}
+
+const DarkModeSwitch: React.FC<DarkModeSwitch> = ({
+  toggleDarkMode,
+  darkMode,
+}) => {
+  return (
+    <div
+      className={styles.darkModeSwitchContainer}
+      onClick={() => toggleDarkMode()}
+    >
+      <SvgIcon name={SvgImageList.DarkMode} />
+      <div
+        className={
+          darkMode ? styles.darkModeSwitch_off : styles.darkModeSwitch_on
+        }
+      ></div>
+      <SvgIcon name={SvgImageList.LightMode} />
+    </div>
+  );
+};
 
 export default function CoreLayout() {
   const navigate = useNavigate();
@@ -39,12 +64,36 @@ export default function CoreLayout() {
     }
   };
 
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log("CALLED");
+    const browserPrefersDarkMode =
+      window &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    console.log("Dark Mode? What say your browser?", browserPrefersDarkMode);
+
+    if (browserPrefersDarkMode) {
+      setDarkMode(true);
+    }
+  }, []);
+
   return (
     <ToastProvider>
-      <div className={styles.coreLayout_container}>
+      <div
+        className={`${styles.coreLayout_container} ${darkMode ? styles.darkMode : styles.lightMode}`}
+      >
         <header>
-          <SvgIcon name={SvgImageList.CooloursLogo_plain} fill="#e6f456" />
-          <TopMenuButton />
+          <SvgIcon name={SvgImageList.CooloursLogo_v2} />
+          <div className={styles.headerButtonContainer}>
+            <DarkModeSwitch
+              toggleDarkMode={() => setDarkMode(!darkMode)}
+              darkMode={darkMode}
+            />
+            <TopMenuButton />
+          </div>
         </header>
         <main>
           <Outlet />

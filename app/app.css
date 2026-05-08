@@ -13,10 +13,21 @@
   --create-button-background_hover: var(--azure-radiance);
 
   /* HEADER */
+  --header-background-gradient-from_dark: #b800e6;
+  --header-background-gradient-to_dark: var(--science-blue);
+
+  --header-background-gradient-from: var(--azure-radiance);
+  --header-background-gradient-to: var(--science-blue);
+  --header-bottom-border-colour: var(--orient);
   /* --heading-button-color: rgb(255, 165, 29);
   --heading-button-color_hover: rgb(255, 187, 86); */
   --heading-button-color: var(--lightning-yellow);
   --heading-button-color_hover: var(--lightning-yellow_light);
+
+  /* BODY */
+  --background_dark: #313131;
+  --color_dark: #ffffff;
+
   /* FOOTER */
   --anthony-cregan-lobster-red: #ff006f;
 }

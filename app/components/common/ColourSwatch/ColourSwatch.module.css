@@ -161,4 +161,5 @@
 .swatchButton:hover > .textLabel {
   opacity: 1;
   transform: translateX(1rem);
+  z-index: 10;
 }

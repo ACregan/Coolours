@@ -146,7 +146,7 @@ const initialData: swatchListTypes = {
       url: "create/9B5DE5-F15BB5-FEE440-00BBF9-00F5D4?name=Neonpoleon%20Dynamite",
     },
     {
-      title: "Spectral",
+      title: "Spectral ZX",
       colours: [
         { hex: "37b49a" },
         { hex: "3dbdd9" },
@@ -162,7 +162,7 @@ const initialData: swatchListTypes = {
         { hex: "30aa5a" },
       ],
 
-      url: "create/37b49a-3dbdd9-2893c8-1369b6-72457c-d12141-e85521-ff8800-f1b82c-e3e758-8ac959-30aa5a?name=Untitled%20Swatch",
+      url: "create/37b49a-3dbdd9-2893c8-1369b6-72457c-d12141-e85521-ff8800-f1b82c-e3e758-8ac959-30aa5a?name=Spectral%20ZX",
     },
   ],
 };
