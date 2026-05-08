@@ -33,14 +33,22 @@
 
   transition: background-color 1s ease-in-out;
 }
+
+/* -=-=-=-=-= TODO: START HERE AND DO THESE FIRST =-=-=-=-=-*/
+
 /* THIS GRADIENT TRANSITION DOESNT WORK BECUASE 
     https://stackoverflow.com/questions/6542212/use-css3-transitions-with-gradient-backgrounds
+*/
+
+/*
+    ALSO: Style the dark mode toggle button to be a bit more colourful
+    It should transition from dark to bright when toggled
 */
 .coreLayout_container.darkMode > header {
   background: linear-gradient(
     45deg,
     var(--header-background-gradient-from_dark),
-    yellow /* var(--header-background-gradient-to_dark) */
+    yellow
   );
 }
 

@@ -9,6 +9,7 @@ import type {
 } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import { Link } from "react-router";
+import { useTheme } from "../common/DarkMode/DarkModeContext";
 
 const initialData: swatchListTypes = {
   swatches: [
@@ -172,6 +173,8 @@ const HomePage = () => {
 
   const colourSwatchData = swatches?.swatches || initialData.swatches;
 
+  const { darkMode } = useTheme();
+
   return (
     <div className={styles.swatchListContainer}>
       {colourSwatchData.map((swatch) => {
@@ -181,7 +184,10 @@ const HomePage = () => {
               <h5 className={styles.swatchName}>{swatch.title}</h5>
               {swatch.url ? (
                 <a href={swatch.url} className={styles.swatchLink}>
-                  <SvgIcon name={SvgImageList.Link} />
+                  <SvgIcon
+                    name={SvgImageList.Link}
+                    fill={darkMode ? "white" : "black"}
+                  />
                 </a>
               ) : null}
             </div>

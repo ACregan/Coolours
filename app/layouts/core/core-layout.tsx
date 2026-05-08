@@ -68,27 +68,9 @@ export default function CoreLayout() {
     }
   };
 
-  // const [darkMode, setDarkMode] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   console.log("CALLED");
-  //   const browserPrefersDarkMode =
-  //     window &&
-  //     window.matchMedia &&
-  //     window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  //   console.log("Dark Mode? What say your browser?", browserPrefersDarkMode);
-
-  //   if (browserPrefersDarkMode) {
-  //     setDarkMode(true);
-  //   }
-  // }, []);
-
   const { darkMode, toggleDarkMode } = useTheme();
 
   return (
-    // <ToastProvider>
-    //   <ThemeProvider>
     <div
       className={`${styles.coreLayout_container} ${darkMode ? styles.darkMode : styles.lightMode}`}
     >
@@ -106,7 +88,5 @@ export default function CoreLayout() {
         <Outlet />
       </main>
     </div>
-    //   </ThemeProvider>
-    // </ToastProvider>
   );
 }
