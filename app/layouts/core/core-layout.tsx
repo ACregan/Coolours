@@ -77,11 +77,11 @@ export default function CoreLayout() {
       <header>
         <SvgIcon name={SvgImageList.CooloursLogo_v2} />
         <div className={styles.headerButtonContainer}>
+          <TopMenuButton />
           <DarkModeSwitch
             toggleDarkMode={() => toggleDarkMode()}
             darkMode={darkMode}
           />
-          <TopMenuButton />
         </div>
       </header>
       <main>

@@ -94,6 +94,10 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  margin-left: 1rem;
+}
+.darkModeSwitchContainer:hover {
+  box-shadow: 0 0 0 0.3rem black;
 }
 .darkModeSwitchContainer svg {
   height: 2.8rem;
@@ -132,8 +136,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  margin-left: 1rem;
 }
 .headerButton:hover {
   background: var(--heading-button-color_hover);
