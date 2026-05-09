@@ -115,3 +115,30 @@ label {
     "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+/* GLOBAL RESPONSIVE STYLES */
+/* > 2k */
+@media screen and (min-width: 1921px) {
+  html {
+    font-size: 100%;
+  }
+}
+
+/* > 3k */
+@media screen and (min-width: 2881px) {
+  html {
+    font-size: 150%;
+  }
+}
+/* > 4k */
+@media screen and (min-width: 3841px) {
+  html {
+    font-size: 200%;
+  }
+}
+/* > 5k */
+@media screen and (min-width: 5761px) {
+  html {
+    font-size: 300%;
+  }
+}
