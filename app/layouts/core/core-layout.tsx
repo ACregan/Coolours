@@ -1,37 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
+import React from "react";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import styles from "./core-layout.module.css";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
-import { ToastProvider } from "~/components/common/Toast/ToastProvider";
-import {
-  ThemeProvider,
-  useTheme,
-} from "~/components/common/DarkMode/DarkModeContext";
-
-interface DarkModeSwitch {
-  toggleDarkMode: () => void;
-  darkMode: boolean;
-}
-
-const DarkModeSwitch: React.FC<DarkModeSwitch> = ({
-  toggleDarkMode,
-  darkMode,
-}) => {
-  return (
-    <div
-      className={styles.darkModeSwitchContainer}
-      onClick={() => toggleDarkMode()}
-    >
-      <SvgIcon name={SvgImageList.DarkMode} />
-      <div
-        className={
-          darkMode ? styles.darkModeSwitch_off : styles.darkModeSwitch_on
-        }
-      ></div>
-      <SvgIcon name={SvgImageList.LightMode} />
-    </div>
-  );
-};
+import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
+import DarkModeSwitch from "./DarkModeSwitch/DarkModeSwitch";
 
 export default function CoreLayout() {
   const navigate = useNavigate();

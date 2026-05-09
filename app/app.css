@@ -17,7 +17,7 @@
   --header-background-gradient-to_dark: var(--science-blue);
 
   --header-background-gradient-from: var(--azure-radiance);
-  --header-background-gradient-to: var(--science-blue);
+  --header-background-gradient-to: #013c9b;
   --header-bottom-border-colour: var(--orient);
   /* --heading-button-color: rgb(255, 165, 29);
   --heading-button-color_hover: rgb(255, 187, 86); */
