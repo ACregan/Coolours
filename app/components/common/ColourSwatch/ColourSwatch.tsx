@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { HexColorPicker, HexColorInput } from "react-colorful";
 import {
   debounce,
@@ -12,8 +12,10 @@ import SvgIcon, {
   type SvgImageListTypes,
 } from "../SvgIcon/SvgIcon";
 import { useToast } from "../Toast/ToastProvider";
+import { useSortable } from "@dnd-kit/react/sortable";
 
 interface ColourSwatchProps {
+  id: string;
   hex: string;
   label?: string;
   index: number;
@@ -45,6 +47,7 @@ const AddSwatchButton: React.FC<AddSwatchButtonProps> = ({
 };
 
 const ColourSwatch: React.FC<ColourSwatchProps> = ({
+  id,
   hex,
   label,
   index,
@@ -55,6 +58,8 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
   isSwatchLocked,
   toggleLockSwatch,
 }) => {
+  const { ref } = useSortable({ id, index });
+
   const [pickerOpen, setPickerOpen] = useState(false);
   function openColourPicker() {
     setPickerOpen(!pickerOpen);
@@ -68,6 +73,7 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
 
   return (
     <div
+      ref={ref}
       style={{ backgroundColor: `#${hex}` }}
       className={`${styles.swatch} ${isCloserToWhite(hex) ? styles.closerToWhite : styles.closerToBlack}`}
     >

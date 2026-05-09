@@ -40,10 +40,19 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
   const initialColourSet = swatchesFromUrl || randomlyGeneratedSixColourSet;
 
+  const initialColourSetWithId = initialColourSet.map((item) => {
+    return {
+      ...item,
+      id: crypto.randomUUID(),
+    };
+  });
+
   const [swatchesName, setSwatchesName] = useState<string>(
     swatchesNameFromUrl || "Untitled Swatch",
   );
-  const [swatchesList, setSwatchesList] = useState(initialColourSet);
+  const [swatchesList, setSwatchesList] = useState<swatchType[]>(
+    initialColourSetWithId,
+  );
 
   // Listen for 'space' key press
   const handleKeyDown = (event: KeyboardEvent): void => {
@@ -59,6 +68,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     }
   };
   useEffect(() => {
+    console.log("swatchesList", swatchesList);
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -151,10 +161,16 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     let newSwatchesList = [];
     if (index === 0) {
       // -= Place new swatch at the start of the array =-
-      newSwatchesList = [{ hex: generateRandomColor() }, ...clonedSwatchesList];
+      newSwatchesList = [
+        { hex: generateRandomColor(), id: crypto.randomUUID() },
+        ...clonedSwatchesList,
+      ];
     } else if (clonedSwatchesList.length === index) {
       // -= Place new swatch at the end of the array =-
-      newSwatchesList = [...clonedSwatchesList, { hex: generateRandomColor() }];
+      newSwatchesList = [
+        ...clonedSwatchesList,
+        { hex: generateRandomColor(), id: crypto.randomUUID() },
+      ];
     } else {
       // -= Place a new swatch in between the selected one and the one after it =-
       const selectedColour = clonedSwatchesList[index - 1];
@@ -194,7 +210,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     const hexWithoutHash = hex.replace("#", "");
     const updatedSwatchesList = [
       ...clonedSwatchesList.slice(0, indexToEdit),
-      { hex: hexWithoutHash },
+      { hex: hexWithoutHash, id: crypto.randomUUID() },
       ...clonedSwatchesList.slice(indexToEdit + 1),
     ];
     setSwatchesList(updatedSwatchesList);
@@ -298,13 +314,17 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
       </div>
 
       {isClient ? (
-        <ColourSwatchContainer>
+        <ColourSwatchContainer
+          swatchesList={swatchesList}
+          setSwatchesList={setSwatchesList}
+        >
           {swatchesList.map((colour, i) => {
             const colorNamerNames = GetColorName(colour.hex);
             const humanReadableColourName = colorNamerNames;
             return (
               <ColourSwatch
-                key={i}
+                id={colour.id}
+                key={colour.id}
                 hex={colour.hex}
                 label={humanReadableColourName}
                 index={i}

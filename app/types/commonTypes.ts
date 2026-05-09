@@ -2,6 +2,7 @@ type swatchType = {
   hex: string;
   label?: string;
   locked?: boolean;
+  id: string;
 };
 
 type swatchItemType = {

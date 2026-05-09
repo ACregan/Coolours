@@ -97,7 +97,10 @@ function generateColorGradient(
     const r = start.r + (end.r - start.r) * t;
     const g = start.g + (end.g - start.g) * t;
     const b = start.b + (end.b - start.b) * t;
-    colors.push({ hex: rgbToHex(r, g, b) });
+    colors.push({
+      hex: rgbToHex(r, g, b),
+      id: crypto.randomUUID(),
+    });
   }
 
   return colors;

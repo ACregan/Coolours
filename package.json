@@ -9,6 +9,8 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@dnd-kit/helpers": "^0.4.0",
+    "@dnd-kit/react": "^0.4.0",
     "@jimmyclchu/image-palette": "^1.0.0",
     "@react-router/node": "7.14.0",
     "@react-router/serve": "7.14.0",
