@@ -58,11 +58,11 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
   isSwatchLocked,
   toggleLockSwatch,
 }) => {
-  const { ref } = useSortable({ id, index });
-
   const [pickerOpen, setPickerOpen] = useState(false);
+  const { ref, handleRef } = useSortable({ id, index, disabled: pickerOpen });
+
   function openColourPicker() {
-    setPickerOpen(!pickerOpen);
+    setPickerOpen(true);
   }
 
   const pickerContainerRef = useRef<HTMLDivElement | undefined>(undefined);
@@ -87,11 +87,19 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         >
           <HexColorPicker
             color={hex}
-            onChange={debounce((e) => editSwatch(e, index), 10)}
+            onChange={debounce((e) => {
+              editSwatch(e, index);
+            }, 10)}
           />
           <HexColorInput color={hex} onChange={(e) => editSwatch(e, index)} />
         </div>
       ) : null}
+
+      <div
+        ref={handleRef}
+        style={{ background: "black", height: 50, width: 50 }}
+      ></div>
+
       <div>
         <SwatchButton
           icon={SvgImageList.ArrowBack}

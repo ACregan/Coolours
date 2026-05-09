@@ -208,9 +208,13 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   function editSwatch(hex: string, indexToEdit: number) {
     const clonedSwatchesList = swatchesList;
     const hexWithoutHash = hex.replace("#", "");
+    const itemInClonedSwatchesList = clonedSwatchesList[indexToEdit];
     const updatedSwatchesList = [
       ...clonedSwatchesList.slice(0, indexToEdit),
-      { hex: hexWithoutHash, id: crypto.randomUUID() },
+      {
+        ...itemInClonedSwatchesList,
+        hex: hexWithoutHash,
+      },
       ...clonedSwatchesList.slice(indexToEdit + 1),
     ];
     setSwatchesList(updatedSwatchesList);
