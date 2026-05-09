@@ -75,6 +75,7 @@ export default function CoreLayout() {
       className={`${styles.coreLayout_container} ${darkMode ? styles.darkMode : styles.lightMode}`}
     >
       <header>
+        <div className={styles.darkModeBackgroundContainer}></div>
         <SvgIcon name={SvgImageList.CooloursLogo_v2} />
         <div className={styles.headerButtonContainer}>
           <TopMenuButton />

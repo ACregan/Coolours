@@ -14,6 +14,8 @@
 }
 
 .coreLayout_container > header {
+  position: relative;
+
   min-height: 7.5rem;
   order: 0;
   flex: 0 0 7.5rem;
@@ -35,25 +37,40 @@
 }
 
 /* -=-=-=-=-= TODO: START HERE AND DO THESE FIRST =-=-=-=-=-*/
-
-/* THIS GRADIENT TRANSITION DOESNT WORK BECUASE 
-    https://stackoverflow.com/questions/6542212/use-css3-transitions-with-gradient-backgrounds
-*/
-
 /*
     ALSO: Style the dark mode toggle button to be a bit more colourful
     It should transition from dark to bright when toggled
 */
 .coreLayout_container.darkMode > header {
+  /* background: linear-gradient(
+    45deg,
+    var(--header-background-gradient-from_dark),
+    yellow
+  ); */
+}
+.darkModeBackgroundContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background: linear-gradient(
     45deg,
     var(--header-background-gradient-from_dark),
     yellow
   );
+  transition: opacity 0.5s ease-in-out;
+}
+.coreLayout_container.lightMode > header > .darkModeBackgroundContainer {
+  opacity: 0;
+}
+.coreLayout_container.darkMode > header > .darkModeBackgroundContainer {
+  opacity: 1;
 }
 
 .coreLayout_container > header > svg {
   height: 4.5rem;
+  z-index: 50;
 }
 .coreLayout_container > main {
   order: 0;
@@ -80,6 +97,7 @@
 .headerButtonContainer {
   display: flex;
   flex-direction: row;
+  z-index: 50;
 }
 
 .darkModeSwitchContainer {
