@@ -1,4 +1,10 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useLayoutEffect,
+} from "react";
 
 interface ThemeContextType {
   darkMode: boolean;
@@ -10,19 +16,20 @@ interface ThemeProviderProps {
   children: React.ReactNode;
 }
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [darkMode, setDarkMode] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      const savedMode = localStorage.getItem("dark-mode");
-      return savedMode === "true" || false;
-    }
-    return false;
-  });
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [haveValueFromLocalStorage, setHaveValueFromLocalStorage] =
+    useState<boolean>(false);
 
+  // INITIAL SYNC With data from LocalStorage
+  useLayoutEffect(() => {
+    const isDarkModeInLocalStorage = window.localStorage.getItem("dark-mode");
+    setHaveValueFromLocalStorage(true);
+    setDarkMode(isDarkModeInLocalStorage === "true");
+  }, []);
+
+  // UPDATE VALUE in LocalStorage
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("dark-mode", JSON.stringify(darkMode));
-    }
-    document.body.className = darkMode ? "dark-mode" : "";
+    window.localStorage.setItem("dark-mode", JSON.stringify(darkMode));
   }, [darkMode]);
 
   const toggleDarkMode = () => {
@@ -31,7 +38,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
-      {children}
+      {haveValueFromLocalStorage && children}
     </ThemeContext.Provider>
   );
 };

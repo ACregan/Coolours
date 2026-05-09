@@ -13,16 +13,14 @@ const DarkModeSwitch: React.FC<DarkModeSwitch> = ({
 }) => {
   return (
     <div
-      className={styles.darkModeSwitchContainer}
+      className={`${styles.darkModeSwitchContainer} ${
+        darkMode ? styles.darkMode_on : styles.darkMode_off
+      }`}
       onClick={() => toggleDarkMode()}
     >
-      <SvgIcon name={SvgImageList.DarkMode} />
-      <div
-        className={
-          darkMode ? styles.darkModeSwitch_off : styles.darkModeSwitch_on
-        }
-      ></div>
-      <SvgIcon name={SvgImageList.LightMode} />
+      <SvgIcon name={SvgImageList.DarkMode} fill="#d8d8d8" />
+      <div className={styles.darkModeSwitch}></div>
+      <SvgIcon name={SvgImageList.LightMode} fill="#ffdb00" />
     </div>
   );
 };
