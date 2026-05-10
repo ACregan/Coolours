@@ -8,6 +8,7 @@ type SwatchButtonsProps = {
   onClick: () => void;
   labelAlignment?: "left" | "right";
   closerToWhite: boolean;
+  disabled?: boolean;
 };
 
 const SwatchButton: React.FC<SwatchButtonsProps> = ({
@@ -16,11 +17,13 @@ const SwatchButton: React.FC<SwatchButtonsProps> = ({
   onClick,
   labelAlignment = "right",
   closerToWhite,
+  disabled,
 }) => {
   return (
     <button
       className={`${styles.swatchButton} ${labelAlignment === "left" && styles.leftAlignedLabel} ${closerToWhite ? styles.closerToWhite : styles.closerToBlack}`}
       onClick={onClick}
+      disabled={disabled}
     >
       <SvgIcon name={icon} />
       <p className={styles.textLabel}>{label}</p>

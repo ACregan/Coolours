@@ -24,6 +24,7 @@ interface ColourSwatchProps {
   index: number;
   addSwatch: Function;
   removeSwatch: Function;
+  disableDelete: boolean;
   editSwatch: Function;
   moveSwatch: Function;
   isSwatchLocked: boolean;
@@ -37,6 +38,7 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
   index,
   addSwatch,
   removeSwatch,
+  disableDelete,
   editSwatch,
   moveSwatch,
   isSwatchLocked,
@@ -134,6 +136,7 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         label="DELETE"
         onClick={() => removeSwatch(index)}
         closerToWhite={isCloserToWhite(hex)}
+        disabled={disableDelete}
       />
 
       <span className={styles.colourHex}>#{normalizeHex(hex)}</span>

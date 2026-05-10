@@ -327,6 +327,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           {swatchesList.map((colour, i) => {
             const colorNamerNames = GetColorName(colour.hex);
             const humanReadableColourName = colorNamerNames;
+            const isLastSwatch = swatchesList.length === 1;
             return (
               <ColourSwatch
                 id={colour.id}
@@ -336,6 +337,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
                 index={i}
                 addSwatch={addSwatch}
                 removeSwatch={removeSwatch}
+                disableDelete={isLastSwatch}
                 editSwatch={editSwatch}
                 moveSwatch={moveSwatch}
                 isSwatchLocked={colour?.locked ? true : false}
