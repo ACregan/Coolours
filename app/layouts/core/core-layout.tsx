@@ -5,6 +5,7 @@ import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
 import DarkModeSwitch from "./DarkModeSwitch/DarkModeSwitch";
 import TopMenuButton from "./TopMenuButton/TopMenuButton";
+import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
 
 export default function CoreLayout() {
   const { darkMode, toggleDarkMode } = useTheme();
@@ -19,7 +20,14 @@ export default function CoreLayout() {
         <div className={styles.headerButtonContainer}>
           <TopMenuButton />
           <DarkModeSwitch
-            toggleDarkMode={() => toggleDarkMode()}
+            toggleDarkMode={() => {
+              toggleDarkMode();
+              trackClientAnalyticsEvent(
+                darkMode
+                  ? "header_toggle_dark_mode_off"
+                  : "header_toggle_dark_mode_on",
+              );
+            }}
             darkMode={darkMode}
           />
         </div>
