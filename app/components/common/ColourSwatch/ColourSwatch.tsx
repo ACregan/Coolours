@@ -95,10 +95,9 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         </div>
       ) : null}
 
-      <div
-        ref={handleRef}
-        style={{ background: "black", height: 50, width: 50 }}
-      ></div>
+      <div ref={handleRef} className={styles.dragHandleContainer}>
+        <SvgIcon name={SvgImageList.DragHandle} />
+      </div>
 
       <div>
         <SwatchButton

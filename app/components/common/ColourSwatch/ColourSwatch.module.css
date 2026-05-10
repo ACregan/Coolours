@@ -95,6 +95,20 @@
   opacity: 1;
 }
 
+/* DRAG HANDLE */
+.dragHandleContainer {
+  height: 5rem;
+  width: 5rem;
+  cursor: grab;
+  margin-bottom: 1rem;
+}
+.closerToWhite .dragHandleContainer > svg {
+  fill: black;
+}
+.closerToBlack .dragHandleContainer > svg {
+  fill: white;
+}
+
 .swatchButton {
   position: relative;
   display: inline-flex;

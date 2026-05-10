@@ -29,6 +29,7 @@ export const SvgImageList = {
   LockUnlocked: "LockUnlocked",
   LightMode: "LightMode",
   DarkMode: "DarkMode",
+  DragHandle: "DragHandle",
 } as const;
 
 export type SvgImageListTypes = keyof typeof SvgImageList;
@@ -543,6 +544,17 @@ const SvgIcon: React.FC<SVGiconProp> = ({
           viewBox="0 -960 960 960"
         >
           <path d="M480-120q-150 0-255-105T120-480t105-255 255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120"></path>
+        </svg>
+      );
+
+    case SvgImageList.DragHandle:
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill={fill}
+          viewBox="0 -960 960 960"
+        >
+          <path d="M360-160q-33 0-56.5-23.5T280-240t23.5-56.5T360-320t56.5 23.5T440-240t-23.5 56.5T360-160m240 0q-33 0-56.5-23.5T520-240t23.5-56.5T600-320t56.5 23.5T680-240t-23.5 56.5T600-160M360-400q-33 0-56.5-23.5T280-480t23.5-56.5T360-560t56.5 23.5T440-480t-23.5 56.5T360-400m240 0q-33 0-56.5-23.5T520-480t23.5-56.5T600-560t56.5 23.5T680-480t-23.5 56.5T600-400M360-640q-33 0-56.5-23.5T280-720t23.5-56.5T360-800t56.5 23.5T440-720t-23.5 56.5T360-640m240 0q-33 0-56.5-23.5T520-720t23.5-56.5T600-800t56.5 23.5T680-720t-23.5 56.5T600-640"></path>
         </svg>
       );
 

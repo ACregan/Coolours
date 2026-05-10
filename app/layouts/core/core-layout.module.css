@@ -29,18 +29,13 @@
     var(--header-background-gradient-from),
     var(--header-background-gradient-to)
   );
-
-  border-bottom: 0.1rem solid black;
+  box-sizing: border-box;
+  border-bottom: 0.2rem solid rgb(16, 0, 95);
   padding: 0 1rem;
 
   transition: background-color 1s ease-in-out;
 }
 
-/* -=-=-=-=-= TODO: START HERE AND DO THESE FIRST =-=-=-=-=-*/
-/*
-    ALSO: Style the dark mode toggle button to be a bit more colourful
-    It should transition from dark to bright when toggled
-*/
 .coreLayout_container.darkMode > header {
   /* background: linear-gradient(
     45deg,
@@ -52,13 +47,15 @@
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
+  bottom: -0.2rem;
   right: 0;
   background: linear-gradient(
     45deg,
     var(--header-background-gradient-from_dark),
     yellow
   );
+  box-sizing: border-box;
+  border-bottom: 0.2rem solid var(--heading-button-color);
   transition: opacity 0.5s ease-in-out;
 }
 .coreLayout_container.lightMode > header > .darkModeBackgroundContainer {

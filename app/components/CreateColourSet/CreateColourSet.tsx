@@ -68,7 +68,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     }
   };
   useEffect(() => {
-    console.log("swatchesList", swatchesList);
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
