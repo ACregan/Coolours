@@ -22,14 +22,19 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   // INITIAL SYNC With data from LocalStorage
   useLayoutEffect(() => {
+    const isDarkModeInBrowser = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
     const isDarkModeInLocalStorage = window.localStorage.getItem("dark-mode");
     setHaveValueFromLocalStorage(true);
-    setDarkMode(isDarkModeInLocalStorage === "true");
+    setDarkMode(
+      isDarkModeInLocalStorage === "true" ? true : isDarkModeInBrowser,
+    );
   }, []);
 
   // UPDATE VALUE in LocalStorage
   useEffect(() => {
-    window.localStorage.setItem("dark-mode", JSON.stringify(darkMode));
+    window.localStorage.setItem("dark-mode", darkMode ? "true" : "false");
   }, [darkMode]);
 
   const toggleDarkMode = () => {
