@@ -48,6 +48,14 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export const meta = () => {
+  return [
+    { property: "og:title", content: "Coolours" },
+    { name: "msapplication-TileColor", content: "#0056e3" },
+    { name: "theme-color", content: "#0056e3" },
+  ];
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

@@ -7,7 +7,7 @@ export function meta({}: Route.MetaArgs) {
     {
       name: "description",
       content:
-        "A Colour Swatch Tool that doesn't badger you for your card details after every click. 100% Enshittification-Free Guaranteed.",
+        "Coolours is a Colour Scheme Generator tool to help you chose and export the perfect colour scheme.",
     },
   ];
 }

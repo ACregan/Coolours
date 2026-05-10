@@ -9,7 +9,7 @@ export function meta({}: Route.MetaArgs) {
     {
       name: "description",
       content:
-        "A Colour Swatch Tool that doesn't badger you for your card details after every click. 100% Enshittification-Free Guaranteed.",
+        "Coolours is a Colour Scheme Generator tool to help you chose and export the perfect colour scheme.",
     },
   ];
 }
@@ -30,7 +30,9 @@ export default function CreateEdit({ params }: Route.LoaderArgs) {
   const swatchesFromUrlAsArrayOfObjects =
     swatchesFromUrlAsArrayOfStrings?.flatMap((hexString) => {
       // Only return a value if it is a valid Hex Colour String
-      return isValidHexColor(hexString) ? { hex: hexString } : [];
+      return isValidHexColor(hexString)
+        ? { hex: hexString, id: crypto.randomUUID() }
+        : [];
     });
 
   return (
