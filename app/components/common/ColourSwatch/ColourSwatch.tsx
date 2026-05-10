@@ -16,6 +16,7 @@ import { useToast } from "../Toast/ToastProvider";
 import { useSortable } from "@dnd-kit/react/sortable";
 import SwatchButton from "./SwatchButton/SwatchButton";
 import AddSwatchButton from "./AddNewSwatchButton/AddNewSwatchButton";
+import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
 
 interface ColourSwatchProps {
   id: string;
@@ -89,7 +90,10 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         <SwatchButton
           icon={SvgImageList.ArrowBack}
           label="LEFT"
-          onClick={() => moveSwatch(index, "left")}
+          onClick={() => {
+            trackClientAnalyticsEvent("move_swatch_left_click");
+            moveSwatch(index, "left");
+          }}
           labelAlignment="left"
           closerToWhite={isCloserToWhite(hex)}
         />
@@ -97,7 +101,10 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         <SwatchButton
           icon={SvgImageList.ArrowForward}
           label="RIGHT"
-          onClick={() => moveSwatch(index, "right")}
+          onClick={() => {
+            trackClientAnalyticsEvent("move_swatch_right_click");
+            moveSwatch(index, "right");
+          }}
           closerToWhite={isCloserToWhite(hex)}
         />
       </div>
@@ -107,34 +114,46 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
           isSwatchLocked ? SvgImageList.LockLocked : SvgImageList.LockUnlocked
         }
         label={isSwatchLocked ? "LOCK: On" : "LOCK: Off"}
-        onClick={() => toggleLockSwatch(index)}
+        onClick={() => {
+          trackClientAnalyticsEvent(
+            isSwatchLocked ? "unlock_swatch_click" : "lock_swatch_click",
+          );
+          toggleLockSwatch(index);
+        }}
         closerToWhite={isCloserToWhite(hex)}
       />
 
       <SwatchButton
         icon={SvgImageList.Copy}
         label="COPY"
-        onClick={() =>
+        onClick={() => {
+          trackClientAnalyticsEvent("copy_colour_to_clipboard_click");
           copyToClipboard(
             `#${hex}`,
             () => addToast(`Copied to clipboard: "#${hex}"`),
             () => addToast("Copy to clipboard not supported."),
-          )
-        }
+          );
+        }}
         closerToWhite={isCloserToWhite(hex)}
       />
 
       <SwatchButton
         icon={SvgImageList.Palette}
         label="EDIT"
-        onClick={() => openColourPicker()}
+        onClick={() => {
+          trackClientAnalyticsEvent("open_colour_picker_click");
+          openColourPicker();
+        }}
         closerToWhite={isCloserToWhite(hex)}
       />
 
       <SwatchButton
         icon={SvgImageList.Delete}
         label="DELETE"
-        onClick={() => removeSwatch(index)}
+        onClick={() => {
+          trackClientAnalyticsEvent("delete_swatch_click");
+          removeSwatch(index);
+        }}
         closerToWhite={isCloserToWhite(hex)}
         disabled={disableDelete}
       />

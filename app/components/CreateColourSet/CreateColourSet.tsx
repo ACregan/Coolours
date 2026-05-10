@@ -15,6 +15,7 @@ import PaletteFromImageModal from "./PaletteFromImage/PaletteFromImage";
 import ExportAsModal from "./ExportAsModal/ExportAsModal";
 import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
 import { useTheme } from "../common/DarkMode/DarkModeContext";
+import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -265,7 +266,10 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
             className={styles.swatchActionButton}
             type="button"
             disabled={swatchesList.every((swatch) => swatch.locked === true)}
-            onClick={() => randomiseUnlockedSwatches()}
+            onClick={() => {
+              trackClientAnalyticsEvent("randomise_unlocked_click");
+              randomiseUnlockedSwatches();
+            }}
           >
             <SvgIcon name={SvgImageList.Palette} fill="white" />
             <span>
@@ -289,7 +293,10 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           <button
             className={styles.swatchActionButton}
             type="button"
-            onClick={() => setPaletteFromImageModalOpen(true)}
+            onClick={() => {
+              trackClientAnalyticsEvent("import_button_click");
+              setPaletteFromImageModalOpen(true);
+            }}
           >
             <SvgIcon name={SvgImageList.Dropper} fill="white" />
             <span>IMPORT</span>
@@ -310,7 +317,10 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           <button
             className={styles.swatchActionButton}
             type="button"
-            onClick={() => setExportModalOpen(true)}
+            onClick={() => {
+              trackClientAnalyticsEvent("export_button_click");
+              setExportModalOpen(true);
+            }}
           >
             <SvgIcon name={SvgImageList.Export} fill="white" />
             <span>EXPORT</span>
