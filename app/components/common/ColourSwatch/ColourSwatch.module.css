@@ -46,6 +46,8 @@
   font-size: 1.4rem;
   font-weight: 600;
   margin: 0 0 1rem 0;
+  height: 4rem;
+  text-align: center;
 }
 
 /* DRAG HANDLE */
