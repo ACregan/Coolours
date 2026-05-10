@@ -56,17 +56,25 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     initialColourSetWithId,
   );
 
-  // Listen for 'space' key press
+  // Listen for 'space', 'i' or 'x' key press
   const handleKeyDown = (event: KeyboardEvent): void => {
     const target = event.target as HTMLElement;
     const isInput =
       target.tagName === "INPUT" ||
       target.tagName === "TEXTAREA" ||
       target.isContentEditable;
-    // ignore if 'space' is pressed when an input is focused
+    // ignore if a key is pressed when an input is focused
     if (event.code === "Space" && !isInput) {
       event.preventDefault();
       randomiseUnlockedSwatches();
+    }
+    if (event.code === "KeyI" && !isInput) {
+      event.preventDefault();
+      setPaletteFromImageModalOpen(true);
+    }
+    if (event.code === "KeyX" && !isInput) {
+      event.preventDefault();
+      setExportModalOpen(true);
     }
   };
   useEffect(() => {
@@ -112,7 +120,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
   // SYNC SWATCHLIST TO URL BAR
   useEffect(() => {
-    console.log(swatchesList);
     let swatchesUrlString = "";
     // Push swatches to 'swatchesUrlString' like so "ff0000-00ff00-0000ff"
     swatchesList.map(
@@ -259,6 +266,8 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
               Change all unlocked colour
               <br />
               swatches to a random colour.
+              <br />
+              <span className="keyboard-key">SPACE BAR</span>
             </TooltipBubble>
           }
         >
@@ -287,6 +296,8 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
               Import Colour Palette from
               <br />
               Image File or Image URL
+              <br />
+              <span className="keyboard-key">I</span>
             </TooltipBubble>
           }
         >
@@ -311,6 +322,8 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
               Export Colours As CSS Custom
               <br />
               Properties or as a JSON Object
+              <br />
+              <span className="keyboard-key">X</span>
             </TooltipBubble>
           }
         >

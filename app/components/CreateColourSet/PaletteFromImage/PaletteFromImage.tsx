@@ -100,7 +100,7 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       setIsPending(false);
       addToast("Palette Generated Successfully");
     } catch (error: any) {
-      console.log("ERROR IN: getPaletteFromFile");
+      console.log("ERROR IN: getPaletteFromFile:", error);
       setIsPending(false);
       setErrorMessage(error);
     }
