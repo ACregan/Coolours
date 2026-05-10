@@ -93,7 +93,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
   // Randomise Unlocked Swatches
   const randomiseUnlockedSwatches = () => {
-    console.log(swatchesList);
     const cloneSwatchesList = swatchesList;
     const randomisedUnlockedSwatchList = cloneSwatchesList.map((swatch) => {
       const isSwatchLocked = swatch.locked === true;
