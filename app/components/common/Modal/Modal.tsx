@@ -8,9 +8,16 @@ type ModalProps = {
   title?: string;
   children: ReactNode;
   onClose: () => void;
+  darkMode?: boolean;
 };
 
-const Modal = ({ open, title = "Modal", children, onClose }: ModalProps) => {
+const Modal = ({
+  open,
+  title = "Modal",
+  children,
+  onClose,
+  darkMode = false,
+}: ModalProps) => {
   if (!open) return null;
 
   // When open, Click Outside Modal should close it
@@ -24,7 +31,10 @@ const Modal = ({ open, title = "Modal", children, onClose }: ModalProps) => {
 
   return (
     <div className={styles.modalContainer}>
-      <div className={styles.modalWindow} ref={modalRef}>
+      <div
+        className={`${styles.modalWindow} ${darkMode ? styles.darkMode : styles.lightMode}`}
+        ref={modalRef}
+      >
         <header className={styles.modalHeader}>
           <h6>{title}</h6>
           <button type="button" onClick={onClose}>

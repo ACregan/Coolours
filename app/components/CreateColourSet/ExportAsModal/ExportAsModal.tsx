@@ -9,6 +9,7 @@ import {
 } from "~/utilities/utilities";
 import { useToast } from "~/components/common/Toast/ToastProvider";
 import type { swatchType } from "~/types/commonTypes";
+import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
 
 type PaletteFromUrlModalProps = {
   modalOpen: boolean;
@@ -26,11 +27,13 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
   swatchesList,
 }) => {
   const { addToast } = useToast();
+  const { darkMode } = useTheme();
   return (
     <Modal
       title={`Export as${exportAs === null ? "..." : ` ${exportAs}`}`}
       open={modalOpen}
       onClose={() => onClose()}
+      darkMode={darkMode}
     >
       <div className={styles.exportModalContentContainer}>
         {exportAs === null && (
@@ -40,7 +43,7 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
               onClick={() => setExportAs("CSS")}
             >
               <span className={styles.exportButtonIcon}>
-                <SvgIcon name={SvgImageList.Css} />
+                <SvgIcon name={SvgImageList.Css} fill={"white"} />
               </span>
               <span className={styles.exportButtonLabel}>CSS Variables</span>
             </button>
@@ -49,7 +52,7 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
               onClick={() => setExportAs("JS")}
             >
               <span className={styles.exportButtonIcon}>
-                <SvgIcon name={SvgImageList.Js} />
+                <SvgIcon name={SvgImageList.Js} fill={"white"} />
               </span>
               <span className={styles.exportButtonLabel}>
                 JSON / Javascript
@@ -68,7 +71,7 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
                 className={styles.exportBackButton}
                 onClick={() => setExportAs(null)}
               >
-                <SvgIcon name={SvgImageList.ArrowBack} />
+                <SvgIcon name={SvgImageList.ArrowBack} fill={"white"} />
                 Back
               </button>
               <button
@@ -79,7 +82,7 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
                   copyToClipboard(generateExportJS(swatchesList));
                 }}
               >
-                <SvgIcon name={SvgImageList.Copy} />
+                <SvgIcon name={SvgImageList.Copy} fill={"white"} />
                 Copy To Clipboard
               </button>
             </div>
@@ -96,7 +99,7 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
                 className={styles.exportBackButton}
                 onClick={() => setExportAs(null)}
               >
-                <SvgIcon name={SvgImageList.ArrowBack} />
+                <SvgIcon name={SvgImageList.ArrowBack} fill={"white"} />
                 Back
               </button>
               <button
@@ -109,7 +112,7 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
                   copyToClipboard(generateExportCSS(swatchesList));
                 }}
               >
-                <SvgIcon name={SvgImageList.Copy} />
+                <SvgIcon name={SvgImageList.Copy} fill={"white"} />
                 Copy To Clipboard
               </button>
             </div>

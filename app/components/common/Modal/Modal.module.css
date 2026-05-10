@@ -7,17 +7,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: rgba(0, 0, 0, 0.5); */
-  /* backdrop-filter: blur(0.3rem); */
+  /* background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.3rem); */
   z-index: 100;
 }
+
 .modalWindow {
-  background: white;
   padding: 2rem;
   border-radius: 1rem;
+  z-index: 200;
+}
+.modalWindow.lightMode {
+  background: white;
   box-shadow: 0 0 0.5rem inset #a7a7a7;
   border: 0.1rem solid rgb(186, 186, 186);
-  z-index: 200;
+}
+.modalWindow.darkMode {
+  background: var(--background_dark);
+  box-shadow: 0 0 0.5rem inset #000000;
+  border: 0.1rem solid rgb(45, 45, 45);
 }
 
 .modalHeader {

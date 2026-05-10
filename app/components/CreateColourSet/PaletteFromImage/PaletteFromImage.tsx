@@ -9,6 +9,7 @@ import Modal from "~/components/common/Modal/Modal";
 import { convertArrayOfHexesIntoUrlPath } from "~/utilities/utilities";
 import { Link } from "react-router";
 import { useToast } from "~/components/common/Toast/ToastProvider";
+import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
 
 type PaletteFromImageModalProps = {
   modalOpen: boolean;
@@ -24,6 +25,8 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
   setImportAs,
 }) => {
   const { addToast } = useToast();
+  const { darkMode } = useTheme();
+
   // URL IMPORT
   const [imageUrl, setImageUrl] = useState("");
   const defaultNumberOfSwatches = "6";
@@ -124,8 +127,11 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       onClose={() => {
         closeModalAndReset();
       }}
+      darkMode={darkMode}
     >
-      <div className={styles.importModalContentContainer}>
+      <div
+        className={`${styles.importModalContentContainer}  ${darkMode ? styles.darkMode : styles.lightMode}`}
+      >
         {importAs === null && (
           <div className={styles.importButtonsContainer}>
             <button
@@ -133,7 +139,10 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
               onClick={() => setImportAs("FILE")}
             >
               <span className={styles.importButtonIcon}>
-                <SvgIcon name={SvgImageList.ImageUp} />
+                <SvgIcon
+                  name={SvgImageList.ImageUp}
+                  fill={darkMode ? "white" : "black"}
+                />
               </span>
               <span className={styles.importButtonLabel}>
                 Upload Image File
@@ -144,7 +153,10 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
               onClick={() => setImportAs("URL")}
             >
               <span className={styles.importButtonIcon}>
-                <SvgIcon name={SvgImageList.Image} />
+                <SvgIcon
+                  name={SvgImageList.Image}
+                  fill={darkMode ? "white" : "black"}
+                />
               </span>
               <span className={styles.importButtonLabel}>Image URL</span>
             </button>
