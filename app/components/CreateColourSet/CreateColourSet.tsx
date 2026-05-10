@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   generateColorGradient,
   generateRandomColor,
+  normalizeHex,
 } from "~/utilities/utilities";
 import { GetColorName } from "hex-color-to-color-name";
 import styles from "./CreateColourSet.module.css";
@@ -111,10 +112,12 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
   // SYNC SWATCHLIST TO URL BAR
   useEffect(() => {
+    console.log(swatchesList);
     let swatchesUrlString = "";
     // Push swatches to 'swatchesUrlString' like so "ff0000-00ff00-0000ff"
     swatchesList.map(
-      (swatch) => (swatchesUrlString = `${swatchesUrlString}-${swatch.hex}`),
+      (swatch) =>
+        (swatchesUrlString = `${swatchesUrlString}-${normalizeHex(swatch.hex)}`),
     );
     // Strip leading dash where required
     const swatchesUrlStringWithoutLeadingDash = swatchesUrlString.replace(

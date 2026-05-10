@@ -4,6 +4,7 @@ import {
   debounce,
   isCloserToWhite,
   copyToClipboard,
+  normalizeHex,
 } from "~/utilities/utilities";
 import styles from "./ColourSwatch.module.css";
 import { useClickOutside } from "~/hooks/useClickOutside";
@@ -146,7 +147,7 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         onClick={() => removeSwatch(index)}
       />
 
-      <span className={styles.colourHex}>#{hex}</span>
+      <span className={styles.colourHex}>#{normalizeHex(hex)}</span>
       {label ? <span className={styles.humanReadableName}>{label}</span> : null}
       <AddSwatchButton addSwatch={addSwatch} index={index + 1} />
     </div>

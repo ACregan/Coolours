@@ -106,6 +106,44 @@ function generateColorGradient(
   return colors;
 }
 
+/**
+ * Normalizes a CSS hex color code to its 6-character form.
+ *
+ * Accepts both 3-character shorthand (#rgb) and full 6-character (#rrggbb) hex
+ * codes, with or without a leading '#'. Returns the color as a 6-character hex
+ * string prefixed with '#'.
+ *
+ * @param {string} hex - The hex color code to normalize (e.g. "#f0a", "abc", "#ff00aa").
+ * @returns {string} The normalized 6-character hex color code, prefixed with '#' (e.g. "#ff00aa").
+ * @throws {Error} If the input is not a valid 3- or 6-character hex color code.
+ *
+ * @example
+ * normalizeHex('#f0a');    // => '#ff00aa'
+ * normalizeHex('#abc');    // => '#aabbcc'
+ * normalizeHex('abc');     // => '#aabbcc'
+ * normalizeHex('#ff00aa'); // => '#ff00aa'
+ * normalizeHex('ff00aa');  // => '#ff00aa'
+ */
+function normalizeHex(hex: string) {
+  // Remove leading # if present
+  const cleaned = hex.startsWith("#") ? hex.slice(1) : hex;
+
+  if (cleaned.length === 3) {
+    // Expand each character: "abc" -> "aabbcc"
+    const expanded = cleaned
+      .split("")
+      .map((c) => c + c)
+      .join("");
+    return expanded.toUpperCase();
+  }
+
+  if (cleaned.length === 6) {
+    return cleaned.toUpperCase();
+  }
+
+  throw new Error(`Invalid hex color: "${hex}"`);
+}
+
 /* -= GENERAL UTILITIES =- */
 
 /**
@@ -178,7 +216,7 @@ function generateExportCSS(colourList: swatchType[]) {
       .replace(/[^0-9a-z-A-Z ]/g, "") // Remove all non-alphabet-chars
       .replaceAll(" ", "-") // Remove all spaces and replace with dash
       .toLowerCase(); // convert to lower case as is convention in css custom properties
-    cssContent = `${cssContent}--${colourName}: #${colour.hex};\n`;
+    cssContent = `${cssContent}--${colourName}: #${normalizeHex(colour.hex)};\n`;
   });
   return cssContent;
 }
@@ -196,7 +234,7 @@ function generateExportJS(colourList: swatchType[]) {
     const colourName = GetColorName(colour.hex)
       .replace(/[^0-9a-z-A-Z ]/g, "")
       .replaceAll(" ", "");
-    jsContent = `${jsContent}    "${colourName}": "#${colour.hex}",\n`;
+    jsContent = `${jsContent}    "${colourName}": "#${normalizeHex(colour.hex)}",\n`;
   });
   jsContent = `${jsContent}}`;
   return jsContent;
@@ -223,6 +261,7 @@ export {
   generateRandomColor,
   generateColorGradient,
   isValidHexColor,
+  normalizeHex,
   debounce,
   copyToClipboard,
   generateExportCSS,
