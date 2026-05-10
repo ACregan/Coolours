@@ -1,0 +1,68 @@
+.swatchButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  width: 4rem;
+  padding: 0;
+  margin-bottom: 2rem;
+  background: none;
+  border-radius: 2rem;
+  transition: border 0.1s ease-in-out;
+}
+.swatchButton.closerToWhite {
+  border: 0.2rem solid rgba(0, 0, 0, 0);
+}
+.swatchButton.closerToWhite:hover {
+  border: 0.2rem solid rgba(0, 0, 0, 1);
+}
+.swatchButton.closerToBlack {
+  border: 0.2rem solid rgba(255, 255, 255, 0);
+}
+.swatchButton.closerToBlack:hover {
+  border: 0.2rem solid rgba(255, 255, 255, 1);
+}
+
+.swatchButton > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+.swatchButton.closerToBlack > svg {
+  fill: white;
+}
+
+.swatchButton > .textLabel {
+  position: absolute;
+  left: calc(100% + 1rem);
+  width: auto;
+  color: black;
+  text-align: left;
+  font-size: 1.2rem;
+  opacity: 0;
+  transform: translateX(-0.5rem);
+  transition:
+    opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+  pointer-events: none;
+}
+.swatchButton.leftAlignedLabel > .textLabel {
+  left: unset;
+  right: calc(100% + 1rem);
+  text-align: right;
+  transform: translateX(0.5rem);
+}
+
+.swatchButton.closerToBlack > .textLabel {
+  color: white;
+}
+
+.swatchButton.leftAlignedLabel:hover > .textLabel {
+  opacity: 1;
+  transform: translateX(-1rem);
+}
+.swatchButton:hover > .textLabel {
+  opacity: 1;
+  transform: translateX(1rem);
+  z-index: 10;
+}

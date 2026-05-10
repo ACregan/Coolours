@@ -1,0 +1,46 @@
+.hoverCaptureContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.addBefore {
+  left: 0;
+  transform: translateX(-1.5rem);
+}
+.addAfter {
+  right: 0;
+  transform: translateX(1.5rem);
+}
+.addButton {
+  flex: 0 0 auto;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+
+  border-radius: 50%;
+  background: black;
+  border: none;
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0);
+}
+.addButton:hover {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 1);
+}
+.addButton > svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.hoverCaptureContainer:hover > .addButton {
+  opacity: 1;
+}

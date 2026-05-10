@@ -27,7 +27,11 @@ const HomePage = () => {
             <div className={styles.swatchTitleContainer}>
               <h5 className={styles.swatchName}>{swatch.title}</h5>
               {swatch.url ? (
-                <a href={swatch.url} className={styles.swatchLink}>
+                <a
+                  href={swatch.url}
+                  className={`${styles.swatchLink} ${darkMode ? styles.darkMode : styles.lightMode}`}
+                >
+                  <span>EDIT COLOURS</span>
                   <SvgIcon
                     name={SvgImageList.Link}
                     fill={darkMode ? "white" : "black"}

@@ -14,6 +14,8 @@ import SvgIcon, {
 } from "../SvgIcon/SvgIcon";
 import { useToast } from "../Toast/ToastProvider";
 import { useSortable } from "@dnd-kit/react/sortable";
+import SwatchButton from "./SwatchButton/SwatchButton";
+import AddSwatchButton from "./AddNewSwatchButton/AddNewSwatchButton";
 
 interface ColourSwatchProps {
   id: string;
@@ -27,25 +29,6 @@ interface ColourSwatchProps {
   isSwatchLocked: boolean;
   toggleLockSwatch: Function;
 }
-
-interface AddSwatchButtonProps {
-  index: number;
-  addSwatch: Function;
-}
-const AddSwatchButton: React.FC<AddSwatchButtonProps> = ({
-  index,
-  addSwatch,
-}) => {
-  return (
-    <div
-      className={`${styles.hoverCaptureContainer} ${index === 0 ? styles.addBefore : styles.addAfter}`}
-    >
-      <button className={styles.addButton} onClick={() => addSwatch(index)}>
-        <SvgIcon name={SvgImageList.Plus} fill="white" />
-      </button>
-    </div>
-  );
-};
 
 const ColourSwatch: React.FC<ColourSwatchProps> = ({
   id,
@@ -106,12 +89,14 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
           label="LEFT"
           onClick={() => moveSwatch(index, "left")}
           labelAlignment="left"
+          closerToWhite={isCloserToWhite(hex)}
         />
 
         <SwatchButton
           icon={SvgImageList.ArrowForward}
           label="RIGHT"
           onClick={() => moveSwatch(index, "right")}
+          closerToWhite={isCloserToWhite(hex)}
         />
       </div>
 
@@ -121,6 +106,7 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
         }
         label={isSwatchLocked ? "LOCK: On" : "LOCK: Off"}
         onClick={() => toggleLockSwatch(index)}
+        closerToWhite={isCloserToWhite(hex)}
       />
 
       <SwatchButton
@@ -133,48 +119,27 @@ const ColourSwatch: React.FC<ColourSwatchProps> = ({
             () => addToast("Copy to clipboard not supported."),
           )
         }
+        closerToWhite={isCloserToWhite(hex)}
       />
 
       <SwatchButton
         icon={SvgImageList.Palette}
         label="EDIT"
         onClick={() => openColourPicker()}
+        closerToWhite={isCloserToWhite(hex)}
       />
 
       <SwatchButton
         icon={SvgImageList.Delete}
         label="DELETE"
         onClick={() => removeSwatch(index)}
+        closerToWhite={isCloserToWhite(hex)}
       />
 
       <span className={styles.colourHex}>#{normalizeHex(hex)}</span>
       {label ? <span className={styles.humanReadableName}>{label}</span> : null}
       <AddSwatchButton addSwatch={addSwatch} index={index + 1} />
     </div>
-  );
-};
-
-type SwatchButtonsProps = {
-  icon: SvgImageListTypes;
-  label: string;
-  onClick: () => void;
-  labelAlignment?: "left" | "right";
-};
-
-const SwatchButton: React.FC<SwatchButtonsProps> = ({
-  icon,
-  label,
-  onClick,
-  labelAlignment = "right",
-}) => {
-  return (
-    <button
-      className={`${styles.swatchButton} ${labelAlignment === "left" && styles.leftAlignedLabel}`}
-      onClick={onClick}
-    >
-      <SvgIcon name={icon} />
-      <p className={styles.textLabel}>{label}</p>
-    </button>
   );
 };
 
