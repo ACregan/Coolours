@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   generateColorGradient,
   generateRandomColor,
@@ -20,6 +20,9 @@ import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
 import useLocalStorage from "~/hooks/useLocalStoragePalettes.client";
 import { isbotMatches } from "isbot";
 import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
+import { useToast } from "../common/Toast/ToastProvider";
+import Modal from "../common/Modal/Modal";
+import OverwriteExistingPaletteModal from "./OverwriteExistingPaletteModal/OverwriteExistingPaletteModal";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -35,7 +38,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   swatchesNameFromUrl,
 }) => {
   const LOCAL_STORAGE_PALETTE_KEY = "saved_palettes";
-  const [palettes, savePalettes, clearPalettes] = useLocalStoragePalettes();
+  const [palettes, savePalettes, removePalette] = useLocalStoragePalettes();
 
   const [isClient, setIsClient] = useState<boolean>(false);
 
@@ -89,11 +92,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     }
     if (event.code === "KeyS" && !isInput) {
       event.preventDefault();
-      savePalettes({
-        title: swatchesName,
-        colours: swatchesList,
-        url: generateUrlPath(swatchesList, swatchesName),
-      });
+      savePaletteToLocalStorage();
     }
   };
   useEffect(() => {
@@ -248,6 +247,41 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setImportAs(null);
   };
 
+  const { addToast } = useToast();
+  const swatchTitleInputRef = useRef<HTMLInputElement | null>(null);
+  const [saveModalOpen, setSaveModalOpen] = useState<boolean>(false);
+  const savePaletteToLocalStorage = () => {
+    if (swatchesName === "Untitled Swatch") {
+      // CHECK if the user has failed to update the swatch name from the default "Untitled Swatch"
+      addToast(
+        "NOT SAVED: Provide A Unique Name For This Palette then try again.",
+      );
+      swatchTitleInputRef.current?.focus();
+    } else if (palettes.some((palette) => palette.title === swatchesName)) {
+      // CHECK if a palette with this name already exists in localStorage
+      // and open a modal to confirm overwrite if it does.
+      setSaveModalOpen(true);
+    } else {
+      // ALL CHECKS PASSED, Proceed to save
+      savePalettes({
+        title: swatchesName,
+        colours: swatchesList,
+        url: generateUrlPath(swatchesList, swatchesName),
+      });
+      addToast("Palette Saved. You can access and edit it from the Homepage");
+    }
+  };
+  const overwritePaletteInLocalStorage = () => {
+    removePalette(swatchesName);
+    savePalettes({
+      title: swatchesName,
+      colours: swatchesList,
+      url: generateUrlPath(swatchesList, swatchesName),
+    });
+    addToast("Palette Saved. You can access and edit it from the Homepage");
+    setSaveModalOpen(false);
+  };
+
   const { darkMode } = useTheme();
 
   return (
@@ -255,6 +289,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
       <div className={styles.swatchNameAndButtonsContainer}>
         <input
           id="swatch-title-input"
+          ref={swatchTitleInputRef}
           className={`${styles.editableSwatchSetLabelInput} ${darkMode && styles.darkMode}`}
           type="text"
           value={swatchesName}
@@ -280,11 +315,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
             onClick={() => {
               trackClientAnalyticsEvent("save_to_device_click");
               // randomiseUnlockedSwatches();
-              savePalettes({
-                title: swatchesName,
-                colours: swatchesList,
-                url: generateUrlPath(swatchesList, swatchesName),
-              });
+              savePaletteToLocalStorage();
             }}
           >
             <SvgIcon name={SvgImageList.Save} fill="white" />
@@ -420,6 +451,14 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         onClose={closePaletteFromImageModal}
         importAs={importAs}
         setImportAs={setImportAs}
+      />
+
+      <OverwriteExistingPaletteModal
+        swatchesName={swatchesName}
+        saveModalOpen={saveModalOpen}
+        setSaveModalOpen={setSaveModalOpen}
+        darkMode={darkMode}
+        overwritePaletteInLocalStorage={overwritePaletteInLocalStorage}
       />
     </div>
   );
