@@ -23,6 +23,7 @@ import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
 import { useToast } from "../common/Toast/ToastProvider";
 import Modal from "../common/Modal/Modal";
 import OverwriteExistingPaletteModal from "./OverwriteExistingPaletteModal/OverwriteExistingPaletteModal";
+import DeletePaletteConfirmationModal from "./DeletePaletteConfirmationModal/DeletePaletteConfirmationModal";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -93,6 +94,10 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     if (event.code === "KeyS" && !isInput) {
       event.preventDefault();
       savePaletteToLocalStorage();
+    }
+    if (event.code === "KeyD" && !isInput) {
+      event.preventDefault();
+      setDeleteModalOpen(true);
     }
   };
   useEffect(() => {
@@ -247,7 +252,10 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setImportAs(null);
   };
 
+  const { darkMode } = useTheme();
   const { addToast } = useToast();
+
+  // SAVE PALETTE TO LOCAL STORAGE
   const swatchTitleInputRef = useRef<HTMLInputElement | null>(null);
   const [saveModalOpen, setSaveModalOpen] = useState<boolean>(false);
   const savePaletteToLocalStorage = () => {
@@ -282,7 +290,13 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setSaveModalOpen(false);
   };
 
-  const { darkMode } = useTheme();
+  // DELETE PALETTE FROM LOCAL STORAGE
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const deletePaletteFromLocalStorage = () => {
+    removePalette(swatchesName);
+    addToast("Palette Sucessfully Deleted From Browser Storage");
+    setDeleteModalOpen(false);
+  };
 
   return (
     <div className={styles.createContainer}>
@@ -295,6 +309,36 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           value={swatchesName}
           onChange={(e) => setSwatchesName(e.target.value)}
         ></input>
+
+        <Tooltip
+          anchorName="Delete From Device"
+          anchorPosition="bottom"
+          anchorContent={
+            <TooltipBubble pointerLocation="top">
+              Delete Palette from the
+              <br />
+              browsers local system storage
+              <br />
+              <span className="keyboard-key">D</span>
+            </TooltipBubble>
+          }
+        >
+          <button
+            className={styles.swatchActionButton}
+            type="button"
+            onClick={() => {
+              trackClientAnalyticsEvent("delete_from_device_click");
+              // randomiseUnlockedSwatches();
+              setDeleteModalOpen(true);
+            }}
+          >
+            <SvgIcon name={SvgImageList.Delete} fill="white" />
+            <span>
+              DELETE FROM <br />
+              DEVICE
+            </span>
+          </button>
+        </Tooltip>
 
         <Tooltip
           anchorName="Save To Device"
@@ -459,6 +503,14 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         setSaveModalOpen={setSaveModalOpen}
         darkMode={darkMode}
         overwritePaletteInLocalStorage={overwritePaletteInLocalStorage}
+      />
+
+      <DeletePaletteConfirmationModal
+        swatchesName={swatchesName}
+        deleteModalOpen={deleteModalOpen}
+        setDeleteModalOpen={setDeleteModalOpen}
+        darkMode={darkMode}
+        deletePaletteFromLocalStorage={deletePaletteFromLocalStorage}
       />
     </div>
   );
