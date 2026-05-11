@@ -1,72 +1,43 @@
 import React, { useState } from "react";
-import { GetColorName } from "hex-color-to-color-name";
 import styles from "./HomePage.module.css";
-import { isCloserToWhite, normalizeHex } from "~/utilities/utilities";
-import type {
-  swatchType,
-  swatchItemType,
-  swatchListTypes,
-} from "~/types/commonTypes";
+import type { swatchItemType } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import { Link } from "react-router";
 import { useTheme } from "../common/DarkMode/DarkModeContext";
 import initialData from "./initialData";
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
+import HomePagePalette from "./HomepagePalette/HomepagePalette";
 
 const HomePage = () => {
-  const [swatches, setSwatches] = useState<swatchListTypes>(initialData);
+  const [palette] = useLocalStoragePalettes();
 
-  const colourSwatchData = swatches?.swatches || initialData.swatches;
+  const colourSwatchData = initialData.swatches;
 
   const { darkMode } = useTheme();
 
   return (
-    <div className={styles.swatchListContainer}>
-      {colourSwatchData.map((swatch) => {
-        return (
-          <div className={styles.swatchListItemContainer} key={swatch.title}>
-            <div className={styles.swatchTitleContainer}>
-              <h5 className={styles.swatchName}>{swatch.title}</h5>
-              {swatch.url ? (
-                <Link
-                  onClick={() => {
-                    trackClientAnalyticsEvent("homepage_click_edit_colours");
-                  }}
-                  to={swatch.url}
-                  className={`${styles.swatchLink} ${darkMode ? styles.darkMode : styles.lightMode}`}
-                >
-                  <span>EDIT COLOURS</span>
-                  <SvgIcon
-                    name={SvgImageList.Link}
-                    fill={darkMode ? "white" : "black"}
-                  />
-                </Link>
-              ) : null}
-            </div>
-            <div className={styles.swatchesContainer}>
-              {swatch.colours.map((colour) => {
-                const colorNamerNames = GetColorName(colour.hex);
-                const humanReadableColourName = colorNamerNames;
+    <div
+      className={`${styles.swatchListContainer} ${darkMode ? styles.darkMode : styles.lightMode}`}
+    >
+      {palette.length > 0 && (
+        <>
+          <h4>Saved Palettes</h4>
+          {palette.map((swatch: swatchItemType) => {
+            return <HomePagePalette {...swatch} darkMode={darkMode} />;
+          })}
+        </>
+      )}
 
-                return (
-                  <div
-                    key={colour.hex}
-                    style={{ backgroundColor: `#${colour.hex}` }}
-                    className={`${styles.swatch} ${isCloserToWhite(colour.hex) ? styles.closerToWhite : styles.closerToBlack}`}
-                  >
-                    <span className={styles.colourHex}>
-                      #{normalizeHex(colour.hex)}
-                    </span>
-                    <span className={styles.humanReadableName}>
-                      {humanReadableColourName}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+      {colourSwatchData && (
+        <>
+          <h4>Example Palettes</h4>
+          {colourSwatchData.map((swatch: swatchItemType) => {
+            return <HomePagePalette {...swatch} darkMode={darkMode} />;
+          })}
+        </>
+      )}
+
       <footer>
         <div className={styles.leftCell}>
           <Link

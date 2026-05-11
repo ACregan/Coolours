@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   generateColorGradient,
   generateRandomColor,
+  generateUrlPath,
   normalizeHex,
 } from "~/utilities/utilities";
 import { GetColorName } from "hex-color-to-color-name";
@@ -16,16 +17,26 @@ import ExportAsModal from "./ExportAsModal/ExportAsModal";
 import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
 import { useTheme } from "../common/DarkMode/DarkModeContext";
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import useLocalStorage from "~/hooks/useLocalStoragePalettes.client";
+import { isbotMatches } from "isbot";
+import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
   swatchesNameFromUrl?: string;
 }
 
+interface savePaletteParams {
+  newPalette: swatchType[];
+}
+
 export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   swatchesFromUrl,
   swatchesNameFromUrl,
 }) => {
+  const LOCAL_STORAGE_PALETTE_KEY = "saved_palettes";
+  const [palettes, savePalettes, clearPalettes] = useLocalStoragePalettes();
+
   const [isClient, setIsClient] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -76,8 +87,17 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
       event.preventDefault();
       setExportModalOpen(true);
     }
+    if (event.code === "KeyS" && !isInput) {
+      event.preventDefault();
+      savePalettes({
+        title: swatchesName,
+        colours: swatchesList,
+        url: generateUrlPath(swatchesList, swatchesName),
+      });
+    }
   };
   useEffect(() => {
+    // console.log(swatchesList);
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -120,28 +140,10 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
 
   // SYNC SWATCHLIST TO URL BAR
   useEffect(() => {
-    let swatchesUrlString = "";
-    // Push swatches to 'swatchesUrlString' like so "ff0000-00ff00-0000ff"
-    swatchesList.map(
-      (swatch) =>
-        (swatchesUrlString = `${swatchesUrlString}-${normalizeHex(swatch.hex)}`),
-    );
-    // Strip leading dash where required
-    const swatchesUrlStringWithoutLeadingDash = swatchesUrlString.replace(
-      /^-+/,
-      "",
-    );
-    // Create UrlString (without params)
-    const partiallyComposedUrlString = `/create/${swatchesUrlStringWithoutLeadingDash}`;
-    // Create params
-    const partiallyComposedParamsString = `?name=${encodeURIComponent(swatchesName.trim())}`;
-    // Compose them
-    const fullyComposedUrlString =
-      partiallyComposedUrlString + partiallyComposedParamsString;
-
+    const generatedUrlString = generateUrlPath(swatchesList, swatchesName);
     // Call navigate with updated path & params, replace so
     // we dont end up with a huge navigation history tree
-    navigate(fullyComposedUrlString, { replace: true });
+    navigate(generatedUrlString, { replace: true });
   }, [swatchesList, swatchesName]);
 
   function moveSwatch(index: number, direction: "left" | "right") {
@@ -252,11 +254,46 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     <div className={styles.createContainer}>
       <div className={styles.swatchNameAndButtonsContainer}>
         <input
+          id="swatch-title-input"
           className={`${styles.editableSwatchSetLabelInput} ${darkMode && styles.darkMode}`}
           type="text"
           value={swatchesName}
           onChange={(e) => setSwatchesName(e.target.value)}
         ></input>
+
+        <Tooltip
+          anchorName="Save To Device"
+          anchorPosition="bottom"
+          anchorContent={
+            <TooltipBubble pointerLocation="top">
+              Save colour palette to the
+              <br />
+              browsers local system storage
+              <br />
+              <span className="keyboard-key">S</span>
+            </TooltipBubble>
+          }
+        >
+          <button
+            className={styles.swatchActionButton}
+            type="button"
+            onClick={() => {
+              trackClientAnalyticsEvent("save_to_device_click");
+              // randomiseUnlockedSwatches();
+              savePalettes({
+                title: swatchesName,
+                colours: swatchesList,
+                url: generateUrlPath(swatchesList, swatchesName),
+              });
+            }}
+          >
+            <SvgIcon name={SvgImageList.Save} fill="white" />
+            <span>
+              SAVE TO <br />
+              DEVICE
+            </span>
+          </button>
+        </Tooltip>
 
         <Tooltip
           anchorName="Randomise Button"

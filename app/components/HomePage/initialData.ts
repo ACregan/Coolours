@@ -3,6 +3,36 @@ import type { swatchListTypes } from "~/types/commonTypes";
 const initialData: swatchListTypes = {
   swatches: [
     {
+      title: "Italian Heraldry",
+      colours: [
+        {
+          hex: "488168",
+          id: "c6fa88b0-843f-4e47-af9c-7c8e5c7de4c1",
+        },
+        {
+          hex: "BCE7E9",
+          id: "b8126843-fe7f-4381-b23b-6d25dc4c4611",
+        },
+        {
+          hex: "08628D",
+          id: "b5861705-a4ac-4ac8-99e7-4224df3bb8ae",
+        },
+        {
+          hex: "741538",
+          id: "0531f42e-bc10-4aba-8d23-4ae647d945b0",
+        },
+        {
+          hex: "FFC226",
+          id: "1d66ab05-3bd8-4b12-ab51-5732239e9dcd",
+        },
+        {
+          hex: "2BFEBF",
+          id: "bbada61e-3ba8-4f6f-a22e-f850ac3e6a43",
+        },
+      ],
+      url: "create/488168-BCE7E9-08628D-741538-FFC226-2BFEBF?name=Italian%20Heraldry",
+    },
+    {
       title: "Coolourful",
       colours: [
         {

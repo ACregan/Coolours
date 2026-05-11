@@ -8,7 +8,7 @@ type swatchType = {
 type swatchItemType = {
   title: string;
   colours: swatchType[];
-  url?: string;
+  url: string;
 };
 
 type swatchListTypes = {

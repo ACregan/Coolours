@@ -256,6 +256,29 @@ function convertArrayOfHexesIntoUrlPath(arrayOfHexes: string[]) {
   return urlStringWithDefaultLabel;
 }
 
+const generateUrlPath = (swatchesList: swatchType[], swatchesName: string) => {
+  let swatchesUrlString = "";
+  // Push swatches to 'swatchesUrlString' like so "ff0000-00ff00-0000ff"
+  swatchesList.map(
+    (swatch) =>
+      (swatchesUrlString = `${swatchesUrlString}-${normalizeHex(swatch.hex)}`),
+  );
+  // Strip leading dash where required
+  const swatchesUrlStringWithoutLeadingDash = swatchesUrlString.replace(
+    /^-+/,
+    "",
+  );
+  // Create UrlString (without params)
+  const partiallyComposedUrlString = `/create/${swatchesUrlStringWithoutLeadingDash}`;
+  // Create params
+  const partiallyComposedParamsString = `?name=${encodeURIComponent(swatchesName.trim())}`;
+  // Compose them
+  const fullyComposedUrlString =
+    partiallyComposedUrlString + partiallyComposedParamsString;
+
+  return fullyComposedUrlString;
+};
+
 export {
   isCloserToWhite,
   generateRandomColor,
@@ -268,4 +291,5 @@ export {
   generateExportJS,
   convertArrayOfHexesIntoArrayOfObjects,
   convertArrayOfHexesIntoUrlPath,
+  generateUrlPath,
 };

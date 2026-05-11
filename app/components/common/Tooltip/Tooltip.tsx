@@ -41,7 +41,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   anchorPosition,
   zIndex = 500,
 }) => {
-  const sanitisedAnchorName = anchorName.replace(" ", "-").toLowerCase();
+  const sanitisedAnchorName = anchorName.replaceAll(" ", "-").toLowerCase();
   return (
     <>
       {Children.map(children, (child) => {

@@ -30,6 +30,7 @@ export const SvgImageList = {
   LightMode: "LightMode",
   DarkMode: "DarkMode",
   DragHandle: "DragHandle",
+  Save: "Save",
 } as const;
 
 export type SvgImageListTypes = keyof typeof SvgImageList;
@@ -555,6 +556,18 @@ const SvgIcon: React.FC<SVGiconProp> = ({
           viewBox="0 -960 960 960"
         >
           <path d="M360-160q-33 0-56.5-23.5T280-240t23.5-56.5T360-320t56.5 23.5T440-240t-23.5 56.5T360-160m240 0q-33 0-56.5-23.5T520-240t23.5-56.5T600-320t56.5 23.5T680-240t-23.5 56.5T600-160M360-400q-33 0-56.5-23.5T280-480t23.5-56.5T360-560t56.5 23.5T440-480t-23.5 56.5T360-400m240 0q-33 0-56.5-23.5T520-480t23.5-56.5T600-560t56.5 23.5T680-480t-23.5 56.5T600-400M360-640q-33 0-56.5-23.5T280-720t23.5-56.5T360-800t56.5 23.5T440-720t-23.5 56.5T360-640m240 0q-33 0-56.5-23.5T520-720t23.5-56.5T600-800t56.5 23.5T680-720t-23.5 56.5T600-640"></path>
+        </svg>
+      );
+
+    case SvgImageList.Save:
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path
+            fill={fill}
+            fillRule="evenodd"
+            d="M18.172 1a2 2 0 0 1 1.414.586l2.828 2.828A2 2 0 0 1 23 5.828V20a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3zM4 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h1v-6a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v6h1a1 1 0 0 0 1-1V6.828a2 2 0 0 0-.586-1.414l-1.828-1.828A2 2 0 0 0 17.172 3H17v2a3 3 0 0 1-3 3h-4a3 3 0 0 1-3-3V3zm13 18v-6a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6zM9 3h6v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"
+            clipRule="evenodd"
+          ></path>
         </svg>
       );
 
