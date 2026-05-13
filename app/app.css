@@ -120,26 +120,26 @@ label {
 /* > 2k */
 @media screen and (min-width: 1921px) {
   html {
-    font-size: 100%;
+    font-size: 85%;
   }
 }
 
 /* > 3k */
 @media screen and (min-width: 2881px) {
   html {
-    font-size: 150%;
+    font-size: 100%;
   }
 }
 /* > 4k */
 @media screen and (min-width: 3841px) {
   html {
-    font-size: 200%;
+    font-size: 150%;
   }
 }
 /* > 5k */
 @media screen and (min-width: 5761px) {
   html {
-    font-size: 300%;
+    font-size: 200%;
   }
 }
 

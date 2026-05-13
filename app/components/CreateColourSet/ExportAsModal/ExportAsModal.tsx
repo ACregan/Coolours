@@ -71,7 +71,10 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
                 className={styles.exportBackButton}
                 onClick={() => setExportAs(null)}
               >
-                <SvgIcon name={SvgImageList.ArrowBack} fill={"white"} />
+                <SvgIcon
+                  name={SvgImageList.ArrowBack}
+                  fill={darkMode ? "black" : "white"}
+                />
                 Back
               </button>
               <button
@@ -82,7 +85,10 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
                   copyToClipboard(generateExportJS(swatchesList));
                 }}
               >
-                <SvgIcon name={SvgImageList.Copy} fill={"white"} />
+                <SvgIcon
+                  name={SvgImageList.Copy}
+                  fill={darkMode ? "black" : "white"}
+                />
                 Copy To Clipboard
               </button>
             </div>
@@ -99,7 +105,10 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
                 className={styles.exportBackButton}
                 onClick={() => setExportAs(null)}
               >
-                <SvgIcon name={SvgImageList.ArrowBack} fill={"white"} />
+                <SvgIcon
+                  name={SvgImageList.ArrowBack}
+                  fill={darkMode ? "black" : "white"}
+                />
                 Back
               </button>
               <button
@@ -112,7 +121,10 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
                   copyToClipboard(generateExportCSS(swatchesList));
                 }}
               >
-                <SvgIcon name={SvgImageList.Copy} fill={"white"} />
+                <SvgIcon
+                  name={SvgImageList.Copy}
+                  fill={darkMode ? "black" : "white"}
+                />
                 Copy To Clipboard
               </button>
             </div>
