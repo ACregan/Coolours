@@ -38,7 +38,6 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
   swatchesFromUrl,
   swatchesNameFromUrl,
 }) => {
-  const LOCAL_STORAGE_PALETTE_KEY = "saved_palettes";
   const [palettes, savePalettes, removePalette] = useLocalStoragePalettes();
 
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -298,6 +297,14 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     setDeleteModalOpen(false);
   };
 
+  // Check if current palette exists in local storage
+  const currentSwatchesAreInLocalStorage = palettes.some((palette) => {
+    return (
+      palette.title === swatchesName &&
+      palette.url === generateUrlPath(swatchesList, swatchesName)
+    );
+  });
+
   return (
     <div className={styles.createContainer}>
       <div className={styles.swatchNameAndButtonsContainer}>
@@ -331,6 +338,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
               // randomiseUnlockedSwatches();
               setDeleteModalOpen(true);
             }}
+            disabled={currentSwatchesAreInLocalStorage === false}
           >
             <SvgIcon name={SvgImageList.Delete} fill="white" />
             <span>
@@ -361,6 +369,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
               // randomiseUnlockedSwatches();
               savePaletteToLocalStorage();
             }}
+            disabled={currentSwatchesAreInLocalStorage === true}
           >
             <SvgIcon name={SvgImageList.Save} fill="white" />
             <span>
