@@ -3,7 +3,6 @@ import {
   generateColorGradient,
   generateRandomColor,
   generateUrlPath,
-  normalizeHex,
 } from "~/utilities/utilities";
 import { GetColorName } from "hex-color-to-color-name";
 import styles from "./CreateColourSet.module.css";
@@ -17,11 +16,8 @@ import ExportAsModal from "./ExportAsModal/ExportAsModal";
 import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
 import { useTheme } from "../common/DarkMode/DarkModeContext";
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
-import useLocalStorage from "~/hooks/useLocalStoragePalettes.client";
-import { isbotMatches } from "isbot";
 import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
 import { useToast } from "../common/Toast/ToastProvider";
-import Modal from "../common/Modal/Modal";
 import OverwriteExistingPaletteModal from "./OverwriteExistingPaletteModal/OverwriteExistingPaletteModal";
 import DeletePaletteConfirmationModal from "./DeletePaletteConfirmationModal/DeletePaletteConfirmationModal";
 
