@@ -28,7 +28,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const isDarkModeInLocalStorage = window.localStorage.getItem("dark-mode");
     setHaveValueFromLocalStorage(true);
     setDarkMode(
-      isDarkModeInLocalStorage === "true" ? true : isDarkModeInBrowser,
+      isDarkModeInLocalStorage !== null
+        ? JSON.parse(isDarkModeInLocalStorage)
+        : isDarkModeInBrowser,
     );
   }, []);
 
