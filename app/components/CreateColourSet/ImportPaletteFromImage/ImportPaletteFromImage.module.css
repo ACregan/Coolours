@@ -13,6 +13,7 @@
 .importButtonsContainer {
   display: flex;
   width: 100%;
+  gap: 2rem;
 }
 
 /* IMPORT FROM URL */

@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-right: 2rem;
   cursor: pointer;
   border-radius: 0.3rem;
   border: none;
@@ -22,9 +21,6 @@
 }
 .button.big:disabled {
   cursor: not-allowed;
-}
-.button.big:last-of-type {
-  margin-right: 0;
 }
 .button.big .buttonIconContainer {
   width: 6rem;
@@ -75,9 +71,6 @@
 .button.little:disabled:hover {
   background: var(--little-big-button-background-light);
   box-shadow: none;
-}
-.button.little:last-of-type {
-  margin-right: 0;
 }
 .button.little .buttonIconContainer {
   width: 2rem;
