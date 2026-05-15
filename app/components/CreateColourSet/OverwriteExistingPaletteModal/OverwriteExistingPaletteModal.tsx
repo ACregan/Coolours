@@ -39,6 +39,7 @@ const OverwriteExistingPaletteModal: React.FC<
           svgIconName={SvgImageList.CircleTick}
           label="YES"
           darkMode={darkMode}
+          status="danger"
         />
         <LittleBigButton
           size="little"
@@ -46,6 +47,7 @@ const OverwriteExistingPaletteModal: React.FC<
           svgIconName={SvgImageList.CircleCross}
           label="NO"
           darkMode={darkMode}
+          status="success"
         />
       </div>
     </Modal>

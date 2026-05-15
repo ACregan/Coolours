@@ -3,6 +3,18 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import LittleBigButton from "./LittleBigButton";
 
+// Mock classnames/bind so cx() returns a plain space-joined string of
+// truthy keys — identical behaviour to the real library, zero side-effects.
+vi.mock("classnames/bind", () => ({
+  default: {
+    bind: (styles: Record<string, string>) => (map: Record<string, boolean>) =>
+      Object.entries(map)
+        .filter(([, v]) => v)
+        .map(([k]) => styles[k] ?? k)
+        .join(" "),
+  },
+}));
+
 vi.mock("./LittleBigButton.module.css", () => ({
   default: {
     button: "button",
@@ -10,6 +22,9 @@ vi.mock("./LittleBigButton.module.css", () => ({
     little: "little",
     darkMode: "darkMode",
     lightMode: "lightMode",
+    success: "success",
+    warning: "warning",
+    danger: "danger",
     buttonIconContainer: "buttonIconContainer",
     buttonLabel: "buttonLabel",
   },
@@ -19,13 +34,10 @@ vi.mock("../SvgIcon/SvgIcon", () => ({
   default: ({ name, fill }: { name: string; fill: string }) => (
     <svg data-testid="svg-icon" data-name={name} data-fill={fill} />
   ),
-  SvgImageList: {},
 }));
 
 const baseProps = {
   size: "big" as const,
-  onClick: vi.fn(),
-  svgIconName: "someIcon" as any,
   label: "Click Me",
   darkMode: false,
 };
@@ -43,7 +55,7 @@ describe("LittleBigButton", () => {
       expect(screen.getByRole("button")).toBeDefined();
     });
 
-    it("renders with type='button' to prevent accidental form submissions", () => {
+    it("always has type='button'", () => {
       render(<LittleBigButton {...baseProps} />);
       expect(screen.getByRole("button").getAttribute("type")).toBe("button");
     });
@@ -54,14 +66,13 @@ describe("LittleBigButton", () => {
     });
 
     it("renders a React node as the label", () => {
-      const label = <span data-testid="custom-label">Custom Node</span>;
-      render(<LittleBigButton {...baseProps} label={label} />);
+      render(
+        <LittleBigButton
+          {...baseProps}
+          label={<span data-testid="custom-label">Node Label</span>}
+        />,
+      );
       expect(screen.getByTestId("custom-label")).toBeDefined();
-    });
-
-    it("renders the SvgIcon", () => {
-      render(<LittleBigButton {...baseProps} />);
-      expect(screen.getByTestId("svg-icon")).toBeDefined();
     });
 
     it("always applies the base 'button' class", () => {
@@ -70,59 +81,21 @@ describe("LittleBigButton", () => {
     });
   });
 
-  // --- Size prop ---
-
-  describe("size prop", () => {
-    it("applies the 'big' class when size is 'big'", () => {
-      render(<LittleBigButton {...baseProps} size="big" />);
-      const button = screen.getByRole("button");
-      expect(button.className).toContain("big");
-      expect(button.className).not.toContain("little");
-    });
-
-    it("applies the 'little' class when size is 'little'", () => {
-      render(<LittleBigButton {...baseProps} size="little" />);
-      const button = screen.getByRole("button");
-      expect(button.className).toContain("little");
-      expect(button.className).not.toContain("big");
-    });
-  });
-
-  // --- Dark mode prop ---
-
-  describe("darkMode prop", () => {
-    it("applies 'darkMode' class when darkMode is true", () => {
-      render(<LittleBigButton {...baseProps} darkMode={true} />);
-      const button = screen.getByRole("button");
-      expect(button.className).toContain("darkMode");
-      expect(button.className).not.toContain("lightMode");
-    });
-
-    it("applies 'lightMode' class when darkMode is false", () => {
-      render(<LittleBigButton {...baseProps} darkMode={false} />);
-      const button = screen.getByRole("button");
-      expect(button.className).toContain("lightMode");
-      expect(button.className).not.toContain("darkMode");
-    });
-
-    it("passes fill='white' to SvgIcon when darkMode is true", () => {
-      render(<LittleBigButton {...baseProps} darkMode={true} />);
-      expect(screen.getByTestId("svg-icon").getAttribute("data-fill")).toBe(
-        "white",
-      );
-    });
-
-    it("passes fill='black' to SvgIcon when darkMode is false", () => {
-      render(<LittleBigButton {...baseProps} darkMode={false} />);
-      expect(screen.getByTestId("svg-icon").getAttribute("data-fill")).toBe(
-        "black",
-      );
-    });
-  });
-
-  // --- svgIconName prop ---
+  // --- svgIconName prop (now optional) ---
 
   describe("svgIconName prop", () => {
+    it("renders the icon container and SvgIcon when svgIconName is provided", () => {
+      render(
+        <LittleBigButton {...baseProps} svgIconName={"arrowRight" as any} />,
+      );
+      expect(screen.getByTestId("svg-icon")).toBeDefined();
+    });
+
+    it("does not render the icon container when svgIconName is omitted", () => {
+      render(<LittleBigButton {...baseProps} />);
+      expect(screen.queryByTestId("svg-icon")).toBeNull();
+    });
+
     it("forwards svgIconName to SvgIcon", () => {
       render(
         <LittleBigButton {...baseProps} svgIconName={"arrowRight" as any} />,
@@ -131,16 +104,132 @@ describe("LittleBigButton", () => {
         "arrowRight",
       );
     });
+
+    it("passes fill='white' to SvgIcon when darkMode is true", () => {
+      render(
+        <LittleBigButton
+          {...baseProps}
+          svgIconName={"arrowRight" as any}
+          darkMode={true}
+        />,
+      );
+      expect(screen.getByTestId("svg-icon").getAttribute("data-fill")).toBe(
+        "white",
+      );
+    });
+
+    it("passes fill='black' to SvgIcon when darkMode is false", () => {
+      render(
+        <LittleBigButton
+          {...baseProps}
+          svgIconName={"arrowRight" as any}
+          darkMode={false}
+        />,
+      );
+      expect(screen.getByTestId("svg-icon").getAttribute("data-fill")).toBe(
+        "black",
+      );
+    });
   });
 
-  // --- onClick prop ---
+  // --- size prop ---
+
+  describe("size prop", () => {
+    it("applies 'big' class and not 'little' when size='big'", () => {
+      render(<LittleBigButton {...baseProps} size="big" />);
+      const { className } = screen.getByRole("button");
+      expect(className).toContain("big");
+      expect(className).not.toContain("little");
+    });
+
+    it("applies 'little' class and not 'big' when size='little'", () => {
+      render(<LittleBigButton {...baseProps} size="little" />);
+      const { className } = screen.getByRole("button");
+      expect(className).toContain("little");
+      expect(className).not.toContain("big");
+    });
+  });
+
+  // --- darkMode prop ---
+
+  describe("darkMode prop", () => {
+    it("applies 'darkMode' class and not 'lightMode' when darkMode=true", () => {
+      render(<LittleBigButton {...baseProps} darkMode={true} />);
+      const { className } = screen.getByRole("button");
+      expect(className).toContain("darkMode");
+      expect(className).not.toContain("lightMode");
+    });
+
+    it("applies 'lightMode' class and not 'darkMode' when darkMode=false", () => {
+      render(<LittleBigButton {...baseProps} darkMode={false} />);
+      const { className } = screen.getByRole("button");
+      expect(className).toContain("lightMode");
+      expect(className).not.toContain("darkMode");
+    });
+  });
+
+  // --- status prop ---
+
+  describe("status prop", () => {
+    it("applies no status class when status is omitted", () => {
+      render(<LittleBigButton {...baseProps} />);
+      const { className } = screen.getByRole("button");
+      expect(className).not.toContain("success");
+      expect(className).not.toContain("warning");
+      expect(className).not.toContain("danger");
+    });
+
+    it("applies 'success' class when status='success'", () => {
+      render(<LittleBigButton {...baseProps} status="success" />);
+      const { className } = screen.getByRole("button");
+      expect(className).toContain("success");
+      expect(className).not.toContain("warning");
+      expect(className).not.toContain("danger");
+    });
+
+    it("applies 'warning' class when status='warning'", () => {
+      render(<LittleBigButton {...baseProps} status="warning" />);
+      const { className } = screen.getByRole("button");
+      expect(className).toContain("warning");
+      expect(className).not.toContain("success");
+      expect(className).not.toContain("danger");
+    });
+
+    it("applies 'danger' class when status='danger'", () => {
+      render(<LittleBigButton {...baseProps} status="danger" />);
+      const { className } = screen.getByRole("button");
+      expect(className).toContain("danger");
+      expect(className).not.toContain("success");
+      expect(className).not.toContain("warning");
+    });
+
+    it("only ever applies one status class at a time", () => {
+      const statuses = ["success", "warning", "danger"] as const;
+      statuses.forEach((status) => {
+        const { unmount } = render(
+          <LittleBigButton {...baseProps} status={status} />,
+        );
+        const { className } = screen.getByRole("button");
+        const applied = statuses.filter((s) => className.includes(s));
+        expect(applied).toHaveLength(1);
+        unmount();
+      });
+    });
+  });
+
+  // --- onClick prop (now optional) ---
 
   describe("onClick prop", () => {
-    it("calls onClick when the button is clicked", () => {
+    it("calls onClick when provided and the button is clicked", () => {
       const onClick = vi.fn();
       render(<LittleBigButton {...baseProps} onClick={onClick} />);
       fireEvent.click(screen.getByRole("button"));
       expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not throw when onClick is omitted and the button is clicked", () => {
+      render(<LittleBigButton {...baseProps} />);
+      expect(() => fireEvent.click(screen.getByRole("button"))).not.toThrow();
     });
 
     it("does not call onClick before any interaction", () => {
@@ -159,7 +248,7 @@ describe("LittleBigButton", () => {
       expect(onClick).toHaveBeenCalledTimes(3);
     });
 
-    it("does not call onClick when the button is disabled", () => {
+    it("does not call onClick when disabled", () => {
       const onClick = vi.fn();
       render(
         <LittleBigButton {...baseProps} onClick={onClick} disabled={true} />,
@@ -179,21 +268,21 @@ describe("LittleBigButton", () => {
       );
     });
 
-    it("is not disabled when disabled is false", () => {
+    it("is not disabled when disabled=false", () => {
       render(<LittleBigButton {...baseProps} disabled={false} />);
       expect((screen.getByRole("button") as HTMLButtonElement).disabled).toBe(
         false,
       );
     });
 
-    it("is disabled when disabled is true", () => {
+    it("is disabled when disabled=true", () => {
       render(<LittleBigButton {...baseProps} disabled={true} />);
       expect((screen.getByRole("button") as HTMLButtonElement).disabled).toBe(
         true,
       );
     });
 
-    it("sets the disabled attribute on the DOM element", () => {
+    it("sets the disabled HTML attribute on the DOM element", () => {
       render(<LittleBigButton {...baseProps} disabled={true} />);
       expect(
         screen.getByRole("button", { hidden: true }).hasAttribute("disabled"),

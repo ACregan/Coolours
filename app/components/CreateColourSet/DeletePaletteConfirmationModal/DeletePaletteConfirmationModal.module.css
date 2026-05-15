@@ -6,3 +6,9 @@
   padding-top: 1rem;
   gap: 1rem;
 }
+.contentContainer {
+  padding: 1rem 0;
+}
+.contentContainer > p > span {
+  font-weight: 600;
+}

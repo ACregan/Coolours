@@ -20,6 +20,9 @@
   background: var(--little-big-button-background-light_hover);
   box-shadow: 0 0 0 0.2rem black;
 }
+.button.big:disabled {
+  cursor: not-allowed;
+}
 .button.big:last-of-type {
   margin-right: 0;
 }
@@ -57,12 +60,21 @@
   /* background: #6b6b6b; */
   background: var(--little-big-button-background-light);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
 }
 .button.little:hover {
   /* background: #7a7a7a; */
   background: var(--little-big-button-background-light_hover);
   box-shadow: 0 0 0 0.2rem black;
+}
+.button.little:disabled {
+  background: var(--little-big-button-background-light);
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+.button.little:disabled:hover {
+  background: var(--little-big-button-background-light);
+  box-shadow: none;
 }
 .button.little:last-of-type {
   margin-right: 0;
@@ -70,7 +82,7 @@
 .button.little .buttonIconContainer {
   width: 2rem;
   height: 2rem;
-  margin: 0;
+  margin: 0 0.5rem 0 0;
 }
 .button.little .buttonIconContainer > svg {
   fill: white;
@@ -99,4 +111,32 @@
 }
 .button.little.darkMode:disabled .buttonLabel {
   opacity: 0.3;
+}
+
+/* STATUS MODIFIERS */
+.button.lightMode.success,
+.button.darkMode.success {
+  background: var(--little-big-button-background-success);
+}
+.button.lightMode.success:hover,
+.button.darkMode.success:hover {
+  background: var(--little-big-button-background-success_hover);
+}
+
+.button.lightMode.warning,
+.button.darkMode.warning {
+  background: var(--little-big-button-background-warning);
+}
+.button.lightMode.warning:hover,
+.button.darkMode.warning:hover {
+  background: var(--little-big-button-background-warning_hover);
+}
+
+.button.lightMode.danger,
+.button.darkMode.danger {
+  background: var(--little-big-button-background-danger);
+}
+.button.lightMode.danger:hover,
+.button.darkMode.danger:hover {
+  background: var(--little-big-button-background-danger_hover);
 }

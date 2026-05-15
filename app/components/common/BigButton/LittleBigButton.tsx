@@ -11,6 +11,7 @@ interface LittleBigButtonProps {
   label: React.ReactNode;
   darkMode: boolean;
   disabled?: boolean;
+  status?: "success" | "warning" | "danger";
 }
 
 const LittleBigButton: React.FC<LittleBigButtonProps> = ({
@@ -20,6 +21,7 @@ const LittleBigButton: React.FC<LittleBigButtonProps> = ({
   label,
   darkMode,
   disabled,
+  status,
 }) => {
   const buttonClasses = cx({
     button: true,
@@ -27,6 +29,9 @@ const LittleBigButton: React.FC<LittleBigButtonProps> = ({
     little: size === "little",
     darkMode: darkMode === true,
     lightMode: darkMode === false,
+    success: status === "success",
+    warning: status === "warning",
+    danger: status === "danger",
   });
   return (
     <button

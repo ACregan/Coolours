@@ -9,6 +9,15 @@
   --orient: #005481;
   --astronaut-blue: #003a59;
 
+  --green-smoke: #a0ac58;
+  --wasabi: #849324;
+
+  --saffron-mango: #fdc449;
+  --sun: #ffb30f;
+
+  --carnation: #fb4d52;
+  --torch-red: #fd151b;
+
   /* /create/ PAGE BUTTONS */
   --create-button-background_border: var(--orient);
   --create-button-background: var(--science-blue);
@@ -20,6 +29,13 @@
   --little-big-button-background-dark: var(--azure-radiance);
   --little-big-button-background-dark_hover: var(--curious-blue);
   --little-big-button-background-dark_disabled: var(--astronaut-blue);
+  /* modifiers */
+  --little-big-button-background-success_hover: var(--green-smoke);
+  --little-big-button-background-success: var(--wasabi);
+  --little-big-button-background-warning_hover: var(--saffron-mango);
+  --little-big-button-background-warning: var(--sun);
+  --little-big-button-background-danger_hover: var(--carnation);
+  --little-big-button-background-danger: var(--torch-red);
 
   /* HEADER */
   --header-background-gradient-from_dark: #b800e6;

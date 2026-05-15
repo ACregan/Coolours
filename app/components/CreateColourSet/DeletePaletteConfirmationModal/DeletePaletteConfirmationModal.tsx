@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./DeletePaletteConfirmationModal.module.css";
 import Modal from "~/components/common/Modal/Modal";
-import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
+import { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import LittleBigButton from "~/components/common/BigButton/LittleBigButton";
 
 interface DeletePaletteConfirmationModalProps {
@@ -23,13 +23,19 @@ const DeletePaletteConfirmationModal: React.FC<
 }) => {
   return (
     <Modal
-      title={`Delete Palette: ${swatchesName}`}
+      title={`Delete Palette?`}
       open={deleteModalOpen}
       onClose={() => {
         setDeleteModalOpen(false);
       }}
       darkMode={darkMode}
     >
+      <div className={styles.contentContainer}>
+        <p>
+          Are you sure you want to delete the palette{" "}
+          <span>"{swatchesName}"</span>?
+        </p>
+      </div>
       <div className={styles.overwriteButtonContainer}>
         <LittleBigButton
           size="little"
@@ -39,6 +45,7 @@ const DeletePaletteConfirmationModal: React.FC<
           svgIconName={SvgImageList.CircleTick}
           label="YES"
           darkMode={darkMode}
+          status="danger"
         />
         <LittleBigButton
           size="little"
@@ -48,6 +55,7 @@ const DeletePaletteConfirmationModal: React.FC<
           svgIconName={SvgImageList.CircleCross}
           label="NO"
           darkMode={darkMode}
+          status="success"
         />
       </div>
     </Modal>
