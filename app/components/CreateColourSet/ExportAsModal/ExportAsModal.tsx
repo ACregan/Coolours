@@ -10,7 +10,7 @@ import {
 import { useToast } from "~/components/common/Toast/ToastProvider";
 import type { swatchType } from "~/types/commonTypes";
 import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
-import BigButton from "~/components/common/BigButton/BigButton";
+import LittleBigButton from "~/components/common/BigButton/LittleBigButton";
 
 type PaletteFromUrlModalProps = {
   modalOpen: boolean;
@@ -39,13 +39,15 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
       <div className={styles.exportModalContentContainer}>
         {exportAs === null && (
           <div className={styles.exportButtonsContainer}>
-            <BigButton
+            <LittleBigButton
+              size="big"
               onClick={() => setExportAs("CSS")}
               svgIconName={SvgImageList.Css}
               label={"CSS Variables"}
               darkMode={darkMode}
             />
-            <BigButton
+            <LittleBigButton
+              size="big"
               onClick={() => setExportAs("JS")}
               svgIconName={SvgImageList.Js}
               label={"JSON / Javascript"}
@@ -59,31 +61,23 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
               <code>{generateExportJS(swatchesList)}</code>
             </pre>
             <div className={styles.exportButtonContainer}>
-              <button
-                type="button"
-                className={styles.exportBackButton}
+              <LittleBigButton
+                size="little"
                 onClick={() => setExportAs(null)}
-              >
-                <SvgIcon
-                  name={SvgImageList.ArrowBack}
-                  fill={darkMode ? "black" : "white"}
-                />
-                Back
-              </button>
-              <button
-                type="button"
-                className={styles.exportCopyToClipboardButton}
+                svgIconName={SvgImageList.ArrowBack}
+                label="Back"
+                darkMode={darkMode}
+              />
+              <LittleBigButton
+                size="little"
                 onClick={() => {
                   addToast("Colours Copied To Clipboard As JS Object");
                   copyToClipboard(generateExportJS(swatchesList));
                 }}
-              >
-                <SvgIcon
-                  name={SvgImageList.Copy}
-                  fill={darkMode ? "black" : "white"}
-                />
-                Copy To Clipboard
-              </button>
+                svgIconName={SvgImageList.Copy}
+                label="Copy To Clipboard"
+                darkMode={darkMode}
+              />
             </div>
           </div>
         )}
@@ -93,33 +87,25 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
               <code>{generateExportCSS(swatchesList)}</code>
             </pre>
             <div className={styles.exportButtonContainer}>
-              <button
-                type="button"
-                className={styles.exportBackButton}
+              <LittleBigButton
+                size="little"
                 onClick={() => setExportAs(null)}
-              >
-                <SvgIcon
-                  name={SvgImageList.ArrowBack}
-                  fill={darkMode ? "black" : "white"}
-                />
-                Back
-              </button>
-              <button
-                type="button"
-                className={styles.exportCopyToClipboardButton}
+                svgIconName={SvgImageList.ArrowBack}
+                label="Back"
+                darkMode={darkMode}
+              />
+              <LittleBigButton
+                size="little"
                 onClick={() => {
                   addToast(
                     "Colours Copied To Clipboard As CSS Custom Properties",
                   );
                   copyToClipboard(generateExportCSS(swatchesList));
                 }}
-              >
-                <SvgIcon
-                  name={SvgImageList.Copy}
-                  fill={darkMode ? "black" : "white"}
-                />
-                Copy To Clipboard
-              </button>
+                svgIconName={SvgImageList.Copy}
+                label="Copy To Clipboard"
+                darkMode={darkMode}
+              />
             </div>
           </div>
         )}

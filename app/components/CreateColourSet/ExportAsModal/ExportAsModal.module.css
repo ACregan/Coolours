@@ -28,18 +28,3 @@
   display: flex;
   justify-content: space-between;
 }
-.exportBackButton {
-  display: flex;
-  align-items: center;
-  justify-self: flex-end;
-}
-.exportCopyToClipboardButton {
-  display: flex;
-  align-items: center;
-  justify-self: flex-end;
-}
-.exportBackButton > svg,
-.exportCopyToClipboardButton > svg {
-  height: 2rem;
-  margin-right: 0.5rem;
-}

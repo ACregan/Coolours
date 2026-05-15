@@ -6,7 +6,7 @@ import Modal from "~/components/common/Modal/Modal";
 import { convertArrayOfHexesIntoUrlPath } from "~/utilities/utilities";
 import { Link } from "react-router";
 import useImportPaletteFromImage from "~/hooks/useImportPaletteFromImage";
-import BigButton from "~/components/common/BigButton/BigButton";
+import LittleBigButton from "~/components/common/BigButton/LittleBigButton";
 
 type PaletteFromImageModalProps = {
   modalOpen: boolean;
@@ -60,14 +60,16 @@ const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       >
         {importAs === null && (
           <div className={styles.importButtonsContainer}>
-            <BigButton
+            <LittleBigButton
+              size="big"
               onClick={() => setImportAs("FILE")}
               svgIconName={SvgImageList.ImageUp}
               label={"Upload Image File"}
               darkMode={darkMode}
             />
 
-            <BigButton
+            <LittleBigButton
+              size="big"
               onClick={() => setImportAs("URL")}
               svgIconName={SvgImageList.Image}
               label={"Image URL"}
@@ -118,16 +120,14 @@ const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
                 <span>{numberOfSwatches}</span>
               </div>
             </div>
-            <button
-              className={styles.generateButton}
+            <LittleBigButton
+              size="little"
+              svgIconName={SvgImageList.Palette}
+              label="Generate Colour Palette"
               onClick={() => getPaletteFromUrl()}
+              darkMode={darkMode}
               disabled={!imageUrl}
-            >
-              <span className={styles.generateButtonIcon}>
-                <SvgIcon name={SvgImageList.Palette} />
-              </span>
-              Generate Colour Palette
-            </button>
+            />
             {extractedPalette.length > 0 ? (
               <>
                 <div className={styles.extractedPaletteContainer}>
@@ -205,16 +205,14 @@ const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
                 <span>{numberOfSwatches}</span>
               </div>
             </div>
-            <button
-              className={styles.generateButton}
+            <LittleBigButton
+              size="little"
+              svgIconName={SvgImageList.Palette}
+              label="Generate Colour Palette"
               onClick={() => getPaletteFromFile()}
+              darkMode={darkMode}
               disabled={!uploadedFile}
-            >
-              <span className={styles.generateButtonIcon}>
-                <SvgIcon name={SvgImageList.Palette} />
-              </span>
-              Generate Colour Palette
-            </button>
+            />
             {extractedPalette.length > 0 ? (
               <>
                 <div className={styles.extractedPaletteContainer}>

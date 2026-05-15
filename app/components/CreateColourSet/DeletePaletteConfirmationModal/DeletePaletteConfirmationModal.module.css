@@ -4,19 +4,5 @@
   align-items: flex-end;
   justify-content: flex-end;
   padding-top: 1rem;
-}
-
-.overwriteButton {
-  display: flex;
-  align-items: center;
-  width: 8rem;
-  margin-left: 1rem;
-}
-.overwriteButton > svg {
-  width: 2rem;
-  flex: 1 1 auto;
-}
-.overwriteButton > span {
-  width: 2rem;
-  flex: 1 1 auto;
+  gap: 1rem;
 }

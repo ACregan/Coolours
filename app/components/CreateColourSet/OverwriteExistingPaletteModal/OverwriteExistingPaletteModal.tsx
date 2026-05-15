@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./OverwriteExistingPaletteModal.module.css";
 import Modal from "~/components/common/Modal/Modal";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
+import LittleBigButton from "~/components/common/BigButton/LittleBigButton";
 
 interface OverwriteExistingPaletteModalProps {
   swatchesName: string;
@@ -30,24 +31,22 @@ const OverwriteExistingPaletteModal: React.FC<
       darkMode={darkMode}
     >
       <div className={styles.overwriteButtonContainer}>
-        <button
-          className={styles.overwriteButton}
-          type="button"
+        <LittleBigButton
+          size="little"
           onClick={() => {
             overwritePaletteInLocalStorage();
           }}
-        >
-          <SvgIcon name={SvgImageList.CircleTick} />
-          <span>YES</span>
-        </button>
-        <button
-          className={styles.overwriteButton}
-          type="button"
+          svgIconName={SvgImageList.CircleTick}
+          label="YES"
+          darkMode={darkMode}
+        />
+        <LittleBigButton
+          size="little"
           onClick={() => setSaveModalOpen(false)}
-        >
-          <SvgIcon name={SvgImageList.CircleCross} />
-          <span>NO</span>
-        </button>
+          svgIconName={SvgImageList.CircleCross}
+          label="NO"
+          darkMode={darkMode}
+        />
       </div>
     </Modal>
   );

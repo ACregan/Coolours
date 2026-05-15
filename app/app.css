@@ -3,14 +3,23 @@
   --lightning-yellow: #ffbf10;
   --lightning-yellow_light: #ffd76b;
   --razzmatazz: #e40e52;
+  --curious-blue: #299deb;
   --azure-radiance: #008ae6;
   --science-blue: #0056e3;
   --orient: #005481;
+  --astronaut-blue: #003a59;
 
   /* /create/ PAGE BUTTONS */
   --create-button-background_border: var(--orient);
   --create-button-background: var(--science-blue);
   --create-button-background_hover: var(--azure-radiance);
+
+  /* Little / Big Buttons */
+  --little-big-button-background-light: var(--azure-radiance);
+  --little-big-button-background-light_hover: var(--curious-blue);
+  --little-big-button-background-dark: var(--azure-radiance);
+  --little-big-button-background-dark_hover: var(--curious-blue);
+  --little-big-button-background-dark_disabled: var(--astronaut-blue);
 
   /* HEADER */
   --header-background-gradient-from_dark: #b800e6;

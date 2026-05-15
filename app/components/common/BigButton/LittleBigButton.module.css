@@ -1,0 +1,102 @@
+/* BIG BUTTON*/
+
+.button.big {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 2rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: none;
+  /* background: #6b6b6b; */
+  background: var(--little-big-button-background-light);
+  color: black;
+  padding: 1rem;
+}
+.button.big:hover {
+  /* background: #7a7a7a; */
+  background: var(--little-big-button-background-light_hover);
+  box-shadow: 0 0 0 0.2rem black;
+}
+.button.big:last-of-type {
+  margin-right: 0;
+}
+.button.big .buttonIconContainer {
+  width: 6rem;
+  height: 6rem;
+  margin: 1rem 0;
+  fill: black;
+}
+.button.big .buttonLabel {
+  width: 8rem;
+}
+
+/* dark mode */
+.button.big.darkMode {
+  background: var(--little-big-button-background-dark);
+  color: white;
+}
+.button.big.darkMode:hover {
+  background: var(--little-big-button-background-dark_hover);
+  color: white;
+}
+
+/* LITTLE BUTTON */
+
+.button.little {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: none;
+  /* background: #6b6b6b; */
+  background: var(--little-big-button-background-light);
+  color: white;
+  padding: 0.5rem 1rem;
+}
+.button.little:hover {
+  /* background: #7a7a7a; */
+  background: var(--little-big-button-background-light_hover);
+  box-shadow: 0 0 0 0.2rem black;
+}
+.button.little:last-of-type {
+  margin-right: 0;
+}
+.button.little .buttonIconContainer {
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+}
+.button.little .buttonIconContainer > svg {
+  fill: white;
+}
+.button.little .buttonLabel {
+  width: auto;
+}
+
+/* dark mode */
+.button.little.darkMode {
+  background: var(--little-big-button-background-dark);
+  color: white;
+}
+.button.little.darkMode:hover {
+  background: var(--little-big-button-background-dark_hover);
+  color: white;
+}
+
+/* disabled */
+.button.little.darkMode:disabled {
+  background: var(--little-big-button-background-dark_disabled);
+  cursor: not-allowed;
+}
+.button.little.darkMode:disabled .buttonIconContainer > svg {
+  opacity: 0.3;
+}
+.button.little.darkMode:disabled .buttonLabel {
+  opacity: 0.3;
+}

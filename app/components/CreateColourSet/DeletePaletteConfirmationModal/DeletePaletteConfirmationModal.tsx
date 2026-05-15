@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./DeletePaletteConfirmationModal.module.css";
 import Modal from "~/components/common/Modal/Modal";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
+import LittleBigButton from "~/components/common/BigButton/LittleBigButton";
 
 interface DeletePaletteConfirmationModalProps {
   swatchesName: string;
@@ -30,24 +31,24 @@ const DeletePaletteConfirmationModal: React.FC<
       darkMode={darkMode}
     >
       <div className={styles.overwriteButtonContainer}>
-        <button
-          className={styles.overwriteButton}
-          type="button"
+        <LittleBigButton
+          size="little"
           onClick={() => {
             deletePaletteFromLocalStorage();
           }}
-        >
-          <SvgIcon name={SvgImageList.CircleTick} />
-          <span>YES</span>
-        </button>
-        <button
-          className={styles.overwriteButton}
-          type="button"
-          onClick={() => setDeleteModalOpen(false)}
-        >
-          <SvgIcon name={SvgImageList.CircleCross} />
-          <span>NO</span>
-        </button>
+          svgIconName={SvgImageList.CircleTick}
+          label="YES"
+          darkMode={darkMode}
+        />
+        <LittleBigButton
+          size="little"
+          onClick={() => {
+            setDeleteModalOpen(false);
+          }}
+          svgIconName={SvgImageList.CircleCross}
+          label="NO"
+          darkMode={darkMode}
+        />
       </div>
     </Modal>
   );
