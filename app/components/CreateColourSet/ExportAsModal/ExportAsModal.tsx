@@ -10,6 +10,7 @@ import {
 import { useToast } from "~/components/common/Toast/ToastProvider";
 import type { swatchType } from "~/types/commonTypes";
 import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
+import BigButton from "~/components/common/BigButton/BigButton";
 
 type PaletteFromUrlModalProps = {
   modalOpen: boolean;
@@ -38,26 +39,18 @@ const PaletteFromUrlModal: React.FC<PaletteFromUrlModalProps> = ({
       <div className={styles.exportModalContentContainer}>
         {exportAs === null && (
           <div className={styles.exportButtonsContainer}>
-            <button
-              className={styles.exportButton}
+            <BigButton
               onClick={() => setExportAs("CSS")}
-            >
-              <span className={styles.exportButtonIcon}>
-                <SvgIcon name={SvgImageList.Css} fill={"white"} />
-              </span>
-              <span className={styles.exportButtonLabel}>CSS Variables</span>
-            </button>
-            <button
-              className={styles.exportButton}
+              svgIconName={SvgImageList.Css}
+              label={"CSS Variables"}
+              darkMode={darkMode}
+            />
+            <BigButton
               onClick={() => setExportAs("JS")}
-            >
-              <span className={styles.exportButtonIcon}>
-                <SvgIcon name={SvgImageList.Js} fill={"white"} />
-              </span>
-              <span className={styles.exportButtonLabel}>
-                JSON / Javascript
-              </span>
-            </button>
+              svgIconName={SvgImageList.Js}
+              label={"JSON / Javascript"}
+              darkMode={darkMode}
+            />
           </div>
         )}
         {exportAs === "JS" && (

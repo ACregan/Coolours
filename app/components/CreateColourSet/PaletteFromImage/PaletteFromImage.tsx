@@ -11,6 +11,7 @@ import { Link } from "react-router";
 import { useToast } from "~/components/common/Toast/ToastProvider";
 import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
 import usePaletteFromimage from "~/hooks/usePaletteFromImage";
+import BigButton from "~/components/common/BigButton/BigButton";
 
 type PaletteFromImageModalProps = {
   modalOpen: boolean;
@@ -64,32 +65,19 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
       >
         {importAs === null && (
           <div className={styles.importButtonsContainer}>
-            <button
-              className={styles.importButton}
+            <BigButton
               onClick={() => setImportAs("FILE")}
-            >
-              <span className={styles.importButtonIcon}>
-                <SvgIcon
-                  name={SvgImageList.ImageUp}
-                  fill={darkMode ? "white" : "black"}
-                />
-              </span>
-              <span className={styles.importButtonLabel}>
-                Upload Image File
-              </span>
-            </button>
-            <button
-              className={styles.importButton}
+              svgIconName={SvgImageList.ImageUp}
+              label={"Upload Image File"}
+              darkMode={darkMode}
+            />
+
+            <BigButton
               onClick={() => setImportAs("URL")}
-            >
-              <span className={styles.importButtonIcon}>
-                <SvgIcon
-                  name={SvgImageList.Image}
-                  fill={darkMode ? "white" : "black"}
-                />
-              </span>
-              <span className={styles.importButtonLabel}>Image URL</span>
-            </button>
+              svgIconName={SvgImageList.Image}
+              label={"Image URL"}
+              darkMode={darkMode}
+            />
           </div>
         )}
 
