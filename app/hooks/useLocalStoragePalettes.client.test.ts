@@ -62,6 +62,22 @@ describe("useLocalStoragePalettes", () => {
     expect(result.current[0]).toEqual([]);
   });
 
+  it("handles localStorage.setItem failures gracefully when saving a palette", () => {
+    const { result } = renderHook(() => useLocalStoragePalettes());
+    const spy = vi
+      .spyOn(window.localStorage, "setItem")
+      .mockImplementation(() => {
+        throw new Error("quota exceeded");
+      });
+
+    act(() => {
+      result.current[1](samplePalette);
+    });
+
+    expect(result.current[0]).toEqual([samplePalette]);
+    spy.mockRestore();
+  });
+
   it("saves a new palette and persists it to localStorage", () => {
     const { result } = renderHook(() => useLocalStoragePalettes());
 

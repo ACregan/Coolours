@@ -43,4 +43,38 @@ describe("SvgIcon", () => {
     expect(path).toBeInTheDocument();
     expect(path).toHaveAttribute("fill", "blue");
   });
+
+  it("renders a broad set of icons so switch cases are covered", () => {
+    const iconNames = [
+      SvgImageList.Delete,
+      SvgImageList.Palette,
+      SvgImageList.Copy,
+      SvgImageList.ArrowBack,
+      SvgImageList.ArrowForward,
+      SvgImageList.Home,
+      SvgImageList.Plus,
+      SvgImageList.Link,
+      SvgImageList.Css,
+      SvgImageList.Image,
+      SvgImageList.ImageUp,
+      SvgImageList.Dropper,
+      SvgImageList.Close,
+      SvgImageList.Export,
+      SvgImageList.DarkMode,
+      SvgImageList.DragHandle,
+      SvgImageList.Save,
+      SvgImageList.CircleTick,
+      SvgImageList.CircleCross,
+    ];
+
+    const { container } = render(
+      <>
+        {iconNames.map((iconName) => (
+          <SvgIcon key={iconName} name={iconName} fill="purple" />
+        ))}
+      </>,
+    );
+
+    expect(container.querySelectorAll("svg").length).toBe(iconNames.length);
+  });
 });

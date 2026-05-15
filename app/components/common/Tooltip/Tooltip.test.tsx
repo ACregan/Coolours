@@ -76,6 +76,20 @@ describe("Tooltip", () => {
     const tooltip = screen.getByText("Tooltip content").parentElement;
     expect(tooltip).toHaveStyle({ zIndex: "1000" });
   });
+
+  it("renders correctly when children are plain text instead of React elements", () => {
+    render(
+      <Tooltip
+        anchorName="Text Anchor"
+        anchorPosition="right"
+        anchorContent={<span>Text anchor content</span>}
+      >
+        Plain text child
+      </Tooltip>,
+    );
+
+    expect(screen.getByText("Text anchor content")).toBeInTheDocument();
+  });
 });
 
 describe("TooltipBubble", () => {

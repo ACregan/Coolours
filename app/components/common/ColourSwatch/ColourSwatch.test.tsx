@@ -158,6 +158,14 @@ describe("ColourSwatch", () => {
       expect(screen.queryByTestId("add-swatch-0")).not.toBeInTheDocument();
       expect(screen.getByTestId("add-swatch-2")).toBeInTheDocument();
     });
+
+    it("applies the closerToWhite styling when the utility reports the colour is closer to white", () => {
+      const utilitiesMock = vi.mocked(utilities.isCloserToWhite, true);
+      utilitiesMock.mockReturnValue(true);
+      setup();
+      const swatch = screen.getByText("Red").closest("div");
+      expect(swatch?.className).toEqual(expect.stringContaining("closerToWhite"));
+    });
   });
 
   describe("color picker", () => {
