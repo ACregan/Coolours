@@ -126,7 +126,9 @@ const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
               label="Generate Colour Palette"
               onClick={() => getPaletteFromUrl()}
               darkMode={darkMode}
-              disabled={!imageUrl}
+              disabled={
+                !imageUrl || +numberOfSwatches === extractedPalette.length
+              }
             />
             {extractedPalette.length > 0 ? (
               <>
@@ -155,9 +157,12 @@ const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
                   )}
                   target="_blank"
                 >
-                  <button type="button" className={styles.openInNewTabButton}>
-                    Open In New Tab
-                  </button>
+                  <LittleBigButton
+                    size="little"
+                    svgIconName={SvgImageList.Link}
+                    label="Open In New Tab"
+                    darkMode={darkMode}
+                  />
                 </Link>
               </>
             ) : null}
@@ -213,7 +218,9 @@ const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
               label="Generate Colour Palette"
               onClick={() => getPaletteFromFile()}
               darkMode={darkMode}
-              disabled={!uploadedFile}
+              disabled={
+                !uploadedFile || +numberOfSwatches === extractedPalette.length
+              }
             />
             {extractedPalette.length > 0 ? (
               <>
@@ -242,9 +249,12 @@ const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
                   )}
                   target="_blank"
                 >
-                  <button type="button" className={styles.openInNewTabButton}>
-                    Open In New Tab
-                  </button>
+                  <LittleBigButton
+                    size="little"
+                    svgIconName={SvgImageList.Link}
+                    label="Open In New Tab"
+                    darkMode={darkMode}
+                  />
                 </Link>
               </>
             ) : null}
