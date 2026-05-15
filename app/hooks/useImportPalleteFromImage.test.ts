@@ -1,6 +1,6 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import usePaletteFromImage from "./usePaletteFromImage";
+import usePaletteFromImage from "./useImportPaletteFromImage";
 
 // ---------------------------------------------------------------------------
 // Module mocks

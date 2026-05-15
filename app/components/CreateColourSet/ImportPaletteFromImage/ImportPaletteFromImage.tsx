@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
-import {
-  extractPalette,
-  type ColorWithMetadata,
-} from "@jimmyclchu/image-palette";
-import styles from "./PaletteFromImage.module.css";
+import React from "react";
+
+import styles from "./ImportPaletteFromImage.module.css";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import Modal from "~/components/common/Modal/Modal";
 import { convertArrayOfHexesIntoUrlPath } from "~/utilities/utilities";
 import { Link } from "react-router";
-import { useToast } from "~/components/common/Toast/ToastProvider";
-import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
-import usePaletteFromimage from "~/hooks/usePaletteFromImage";
+import useImportPaletteFromImage from "~/hooks/useImportPaletteFromImage";
 import BigButton from "~/components/common/BigButton/BigButton";
 
 type PaletteFromImageModalProps = {
@@ -20,7 +15,7 @@ type PaletteFromImageModalProps = {
   setImportAs: Function;
 };
 
-const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
+const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
   modalOpen,
   onClose,
   importAs,
@@ -47,7 +42,7 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
     extractedPalette,
     setExtractedPalette,
     closeModalAndReset,
-  } = usePaletteFromimage({
+  } = useImportPaletteFromImage({
     onClose,
   });
 
@@ -260,4 +255,4 @@ const PaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
   );
 };
 
-export default PaletteFromImageModal;
+export default ImportPaletteFromImageModal;

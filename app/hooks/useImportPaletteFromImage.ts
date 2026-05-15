@@ -9,7 +9,9 @@ import { useToast } from "~/components/common/Toast/ToastProvider";
 type usePaletteFromImageModalProps = {
   onClose: Function;
 };
-const usePaletteFromimage = ({ onClose }: usePaletteFromImageModalProps) => {
+const useImportPaletteFromImage = ({
+  onClose,
+}: usePaletteFromImageModalProps) => {
   const { addToast } = useToast();
   const { darkMode } = useTheme();
 
@@ -130,4 +132,4 @@ const usePaletteFromimage = ({ onClose }: usePaletteFromImageModalProps) => {
   };
 };
 
-export default usePaletteFromimage;
+export default useImportPaletteFromImage;

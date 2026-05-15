@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import PaletteFromImageModal from "./PaletteFromImage";
+import ImportPaletteFromImageModal from "./ImportPaletteFromImage";
 
 // ---------------------------------------------------------------------------
 // Module mocks
@@ -100,7 +100,7 @@ function renderComponent(
   }> = {},
 ) {
   return render(
-    <PaletteFromImageModal
+    <ImportPaletteFromImageModal
       modalOpen={props.modalOpen ?? true}
       onClose={mockOnClose}
       importAs={props.importAs ?? null}

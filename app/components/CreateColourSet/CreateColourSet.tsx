@@ -5,7 +5,7 @@ import ColourSwatch from "../common/ColourSwatch/ColourSwatch";
 import ColourSwatchContainer from "../common/ColourSwatchContainer/ColourSwatchContainer";
 import type { swatchType } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
-import PaletteFromImageModal from "./PaletteFromImage/PaletteFromImage";
+import ImportPaletteFromImageModal from "./ImportPaletteFromImage/ImportPaletteFromImage";
 import ExportAsModal from "./ExportAsModal/ExportAsModal";
 import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
@@ -255,7 +255,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
         swatchesList={swatchesList}
       />
 
-      <PaletteFromImageModal
+      <ImportPaletteFromImageModal
         modalOpen={paletteFromImageModalOpen}
         onClose={closePaletteFromImageModal}
         importAs={importAs}
