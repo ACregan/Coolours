@@ -82,8 +82,14 @@ let hookState = {
   setImportAs: vi.fn(),
 };
 
-vi.mock("~/hooks/usePaletteFromImage", () => ({
+vi.mock("~/hooks/useImportPaletteFromImage", () => ({
   default: () => hookState,
+}));
+
+vi.mock("~/components/common/BigButton/BigButton", () => ({
+  default: ({ onClick, label }: any) => (
+    <button onClick={onClick}>{label}</button>
+  ),
 }));
 
 // ---------------------------------------------------------------------------

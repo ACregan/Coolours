@@ -101,7 +101,7 @@ vi.mock("./ExportAsModal/ExportAsModal", () => ({
     ) : null,
 }));
 
-vi.mock("./PaletteFromImage/PaletteFromImage", () => ({
+vi.mock("./ImportPaletteFromImage/ImportPaletteFromImage", () => ({
   default: ({ modalOpen, onClose }: any) =>
     modalOpen ? (
       <div data-testid="import-modal">
