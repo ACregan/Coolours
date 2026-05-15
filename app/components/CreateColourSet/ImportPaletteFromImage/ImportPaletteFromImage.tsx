@@ -166,7 +166,9 @@ const ImportPaletteFromImageModal: React.FC<PaletteFromImageModalProps> = ({
         {importAs === "FILE" && (
           <div className={styles.importFromURLContainer}>
             <div className={styles.importFormContainer}>
-              <label>Image URL</label>
+              <label>
+                <span>Select Image File</span>
+              </label>
               <input
                 type="file"
                 accept="image/*"
