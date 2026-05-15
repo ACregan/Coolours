@@ -49,8 +49,8 @@
   border: 0.2rem solid #808080;
   border-radius: 0.4rem;
 }
-.editableSwatchSetLabelInput:focus:hover,
-.editableSwatchSetLabelInput:focus {
+.editableSwatchSetLabelInput.darkMode:focus:hover,
+.editableSwatchSetLabelInput.darkMode:focus {
   border: 0.2rem solid white;
   border-radius: 0.4rem;
   outline: none;

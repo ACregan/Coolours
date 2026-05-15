@@ -240,12 +240,6 @@ function generateExportJS(colourList: swatchType[]) {
   return jsContent;
 }
 
-function convertArrayOfHexesIntoArrayOfObjects(arrayOfHexes: string[]) {
-  arrayOfHexes.map((hex: string) => {
-    return { hex: hex };
-  });
-}
-
 function convertArrayOfHexesIntoUrlPath(arrayOfHexes: string[]) {
   let urlString = `/create/`;
   arrayOfHexes.map((hex: string) => {
@@ -289,7 +283,6 @@ export {
   copyToClipboard,
   generateExportCSS,
   generateExportJS,
-  convertArrayOfHexesIntoArrayOfObjects,
   convertArrayOfHexesIntoUrlPath,
   generateUrlPath,
 };
