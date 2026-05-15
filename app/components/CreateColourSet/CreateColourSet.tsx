@@ -1,23 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  generateColorGradient,
-  generateRandomColor,
-  generateUrlPath,
-} from "~/utilities/utilities";
+import React from "react";
 import { GetColorName } from "hex-color-to-color-name";
 import styles from "./CreateColourSet.module.css";
 import ColourSwatch from "../common/ColourSwatch/ColourSwatch";
 import ColourSwatchContainer from "../common/ColourSwatchContainer/ColourSwatchContainer";
-import { useNavigate } from "react-router";
 import type { swatchType } from "~/types/commonTypes";
 import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import PaletteFromImageModal from "./PaletteFromImage/PaletteFromImage";
 import ExportAsModal from "./ExportAsModal/ExportAsModal";
 import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
-import { useTheme } from "../common/DarkMode/DarkModeContext";
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
-import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
-import { useToast } from "../common/Toast/ToastProvider";
 import OverwriteExistingPaletteModal from "./OverwriteExistingPaletteModal/OverwriteExistingPaletteModal";
 import DeletePaletteConfirmationModal from "./DeletePaletteConfirmationModal/DeletePaletteConfirmationModal";
 import useCreateColourSet from "~/hooks/useCreateColourSet";
@@ -25,10 +16,6 @@ import useCreateColourSet from "~/hooks/useCreateColourSet";
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
   swatchesNameFromUrl?: string;
-}
-
-interface savePaletteParams {
-  newPalette: swatchType[];
 }
 
 export const CreateColourSet: React.FC<CreateColourSetProps> = ({
