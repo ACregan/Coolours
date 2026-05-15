@@ -26,7 +26,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <ToastContext value={{ addToast }}>
+    <ToastContext.Provider value={{ addToast }}>
       {children}
       <div className={styles.toastContainer}>
         {toasts.map((toast) => (
@@ -35,7 +35,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
           </div>
         ))}
       </div>
-    </ToastContext>
+    </ToastContext.Provider>
   );
 };
 
