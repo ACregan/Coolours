@@ -51,14 +51,6 @@ export const links: Route.LinksFunction = () => [
 
 declare const __APP_VERSION__: string;
 
-export const meta = () => {
-  return [
-    { property: "og:title", content: "Coolours" },
-    { name: "msapplication-TileColor", content: "#0056e3" },
-    { name: "theme-color", content: "#0056e3" },
-    { name: "version", content: __APP_VERSION__ },
-  ];
-};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -67,6 +59,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <GoogleAnalyticsHead />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="Coolours" />
+        <meta name="msapplication-TileColor" content="#0056e3" />
+        <meta name="theme-color" content="#0056e3" />
+        <meta name="version" content={__APP_VERSION__} />
         <Meta />
         <Links />
       </head>
