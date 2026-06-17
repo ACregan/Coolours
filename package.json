@@ -1,5 +1,6 @@
 {
   "name": "cooler",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +10,10 @@
     "typecheck": "react-router typegen && tsc",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "version:patch": "npm version patch --no-git-tag-version",
+    "version:minor": "npm version minor --no-git-tag-version",
+    "version:major": "npm version major --no-git-tag-version"
   },
   "dependencies": {
     "@dnd-kit/helpers": "^0.4.0",
