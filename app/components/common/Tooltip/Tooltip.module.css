@@ -70,15 +70,15 @@
 .tooltipBubble.left:after {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 50%;
+  left: 0;
+  top: 50%;
   width: 0;
   height: 0;
   border: 10px solid transparent;
-  border-top-color: black;
-  border-bottom: 0;
+  border-right-color: black;
+  border-left: 0;
+  margin-top: -10px;
   margin-left: -10px;
-  margin-bottom: -10px;
 }
 
 .tooltipBubble.topRight:after {
