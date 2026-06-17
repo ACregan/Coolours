@@ -49,11 +49,14 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+declare const __APP_VERSION__: string;
+
 export const meta = () => {
   return [
     { property: "og:title", content: "Coolours" },
     { name: "msapplication-TileColor", content: "#0056e3" },
     { name: "theme-color", content: "#0056e3" },
+    { name: "version", content: __APP_VERSION__ },
   ];
 };
 
