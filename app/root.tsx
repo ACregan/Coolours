@@ -65,6 +65,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="version" content={__APP_VERSION__} />
         <Meta />
         <Links />
+        <script
+          defer
+          src="https://analytics.perpetualsummer.ltd/script.js"
+          data-website-id="3dab7c48-520f-4731-b389-a11896423f82"
+        ></script>
       </head>
       <body>
         {children}
