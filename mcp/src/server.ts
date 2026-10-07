@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { version } from "../package.json";
 import {
+  COOLOURS_ORIGIN,
   buildPaletteUrl,
   contrastPairs,
   exportCss,
@@ -77,8 +78,33 @@ const instructions = [
   "When the user shares a coolours.perpetualsummer.ltd/create/... URL, call parse_palette_link to read it.",
 ].join(" ");
 
+/**
+ * The Coolours mark (white # in a blue circle): the site's own favicons,
+ * served from the same domain as the server, which clients prefer for icons.
+ * server.json lists the same icons for the MCP Registry (a test keeps them equal).
+ */
+export const SERVER_ICONS = [
+  { size: 32, file: "favicon-32x32.png" },
+  { size: 96, file: "favicon-96x96.png" },
+  { size: 192, file: "android-chrome-192x192.png" },
+  { size: 512, file: "android-chrome-512x512.png" },
+].map(({ size, file }) => ({
+  src: `${COOLOURS_ORIGIN}/${file}`,
+  mimeType: "image/png",
+  sizes: [`${size}x${size}`],
+}));
+
 export function createServer() {
-  const server = new McpServer({ name: "coolours", version }, { instructions });
+  const server = new McpServer(
+    {
+      name: "coolours",
+      title: "Coolours",
+      version,
+      websiteUrl: COOLOURS_ORIGIN,
+      icons: SERVER_ICONS,
+    },
+    { instructions },
+  );
 
   server.registerTool(
     "create_palette_link",

@@ -18,7 +18,18 @@ beforeAll(async () => {
 
 describe("coolours MCP server", () => {
   it("reports the package version in the handshake", () => {
-    expect(client.getServerVersion()).toEqual({ name: "coolours", version });
+    expect(client.getServerVersion()).toMatchObject({
+      name: "coolours",
+      version,
+    });
+  });
+
+  it("sends the Coolours title and icons, which clients such as VS Code display", () => {
+    const info = client.getServerVersion();
+    expect(info?.title).toBe("Coolours");
+    expect(info?.icons?.map((icon) => icon.src)).toContain(
+      "https://coolours.perpetualsummer.ltd/android-chrome-192x192.png",
+    );
   });
 
   it("sends instructions in the handshake, which hosts load even when tools are deferred", () => {
