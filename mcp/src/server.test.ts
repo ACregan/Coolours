@@ -9,7 +9,8 @@ import { createServer } from "./server.js";
 let client: Client;
 
 beforeAll(async () => {
-  const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+  const [clientTransport, serverTransport] =
+    InMemoryTransport.createLinkedPair();
   await createServer().connect(serverTransport);
   client = new Client({ name: "test", version: "0.0.0" });
   await client.connect(clientTransport);
@@ -22,6 +23,8 @@ describe("coolours MCP server", () => {
 
   it("sends instructions in the handshake, which hosts load even when tools are deferred", () => {
     expect(client.getInstructions()).toMatch(/create_palette_link/);
+    // An agent once wrote its own CSS names (--lcars-orange) instead of Coolours'
+    expect(client.getInstructions()).toMatch(/css it returns exactly as given/);
   });
 
   it("advertises its three tools", async () => {
@@ -36,7 +39,10 @@ describe("coolours MCP server", () => {
   it("create_palette_link returns a URL and contrast data", async () => {
     const res = await client.callTool({
       name: "create_palette_link",
-      arguments: { colours: ["#0f172a", "white", "rgb(56, 189, 248)"], name: "Test" },
+      arguments: {
+        colours: ["#0f172a", "white", "rgb(56, 189, 248)"],
+        name: "Test",
+      },
     });
     expect(res.isError).toBeFalsy();
     expect(res.structuredContent).toMatchObject({
@@ -47,7 +53,12 @@ describe("coolours MCP server", () => {
         { hex: "#38BDF8", name: "Picton Blue" },
       ],
     });
-    expect((res.structuredContent as { contrast: unknown[] }).contrast).toHaveLength(3);
+    expect(
+      (res.structuredContent as { contrast: unknown[] }).contrast,
+    ).toHaveLength(3);
+    expect((res.structuredContent as { css: string }).css).toBe(
+      "--mirage: #0F172A;\n--white: #FFFFFF;\n--picton-blue: #38BDF8;\n",
+    );
   });
 
   it("returns a tool error (not a protocol error) for bad colours", async () => {
@@ -71,6 +82,7 @@ describe("coolours MCP server", () => {
         { hex: "#0F172A", name: "Mirage" },
         { hex: "#38BDF8", name: "Picton Blue" },
       ],
+      css: "--mirage: #0F172A;\n--picton-blue: #38BDF8;\n",
       name: "Ocean",
       ignored: [],
     });

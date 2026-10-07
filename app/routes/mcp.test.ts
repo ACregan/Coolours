@@ -72,6 +72,7 @@ describe("/mcp", () => {
         { hex: "#2F3A40", name: "Outer Space Light" },
         { hex: "#252F34", name: "Outer Space Dark" },
       ],
+      css: "--outer-space-light: #2F3A40;\n--outer-space-dark: #252F34;\n",
     });
   });
 
