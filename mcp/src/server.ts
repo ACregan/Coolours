@@ -23,6 +23,12 @@ const namedColourList = z
   .array(z.object({ hex: z.string(), name: z.string() }))
   .describe("Each colour with the name Coolours shows on its swatch");
 
+const cssExport = z
+  .string()
+  .describe(
+    "CSS custom properties exactly as Coolours exports them. Use as given; variable names match the Coolours UI",
+  );
+
 const contrastPairShape = z.object({
   foreground: z.string(),
   background: z.string(),
@@ -64,8 +70,10 @@ const instructions = [
   "Whenever you design, suggest or change a colour palette, scheme or theme colours, call create_palette_link",
   "with the colours and always give the user the returned URL, alongside anything else you produce,",
   "so they can preview and tweak the palette. Call it before presenting the palette, and name each colour",
-  "with the name it returns (the name Coolours shows), not one you invent; role labels such as \"background\" are fine alongside.",
+  'with the name it returns (the name Coolours shows), not one you invent; role labels such as "background" are fine alongside.',
   "Use its contrast ratios rather than calculating them yourself.",
+  "Whenever you show CSS for the palette, use the css it returns exactly as given: its variable names match the Coolours UI and export.",
+  "Don't rename them or write your own; to add semantic names, alias them, e.g. --background: var(--black);.",
   "When the user shares a coolours.perpetualsummer.ltd/create/... URL, call parse_palette_link to read it.",
 ].join(" ");
 
@@ -82,7 +90,9 @@ export function createServer() {
         "Use this whenever you propose a colour scheme, so the user can see it rather than read hex codes.",
         "Also returns WCAG contrast ratios for every pair of colours: check them before recommending",
         "a text/background pairing (4.5 or more for body text, 3 or more for large text and UI components).",
-        "Returns each colour's Coolours name: use those names when presenting the palette. Give the user the URL.",
+        "Returns each colour's Coolours name: use those names when presenting the palette.",
+        "Also returns the palette as CSS custom properties: whenever you show CSS, use it exactly as given rather than writing your own.",
+        "Give the user the URL.",
       ].join(" "),
       inputSchema: {
         colours: colourList,
@@ -95,6 +105,7 @@ export function createServer() {
       outputSchema: {
         url: z.string(),
         colours: namedColourList,
+        css: cssExport,
         contrast: z.array(contrastPairShape),
       },
       annotations: { readOnlyHint: true, openWorldHint: false },
@@ -105,6 +116,7 @@ export function createServer() {
         return result({
           url: buildPaletteUrl(hexes, name),
           colours: namedColours(hexes),
+          css: exportCss(hexes),
           contrast: contrastPairs(hexes),
         });
       } catch (error) {
@@ -127,10 +139,13 @@ export function createServer() {
       },
       outputSchema: {
         colours: namedColourList,
+        css: cssExport,
         name: z.string().optional(),
         ignored: z
           .array(z.string())
-          .describe("URL segments that are not valid swatches; the site ignores these too"),
+          .describe(
+            "URL segments that are not valid swatches; the site ignores these too",
+          ),
         contrast: z.array(contrastPairShape),
       },
       annotations: { readOnlyHint: true, openWorldHint: false },
@@ -140,6 +155,7 @@ export function createServer() {
         const { hexes, name, ignored } = parsePaletteUrl(url);
         return result({
           colours: namedColours(hexes),
+          css: exportCss(hexes),
           ...(name !== undefined && { name }),
           ignored,
           contrast: contrastPairs(hexes),
@@ -157,7 +173,8 @@ export function createServer() {
       description: [
         "Export a palette as CSS custom properties or a JavaScript object, with each colour named",
         "after its nearest named colour. Output matches Coolours' own Export feature.",
-        "Rename the variables to semantic names (--color-primary etc.) if the codebase uses them.",
+        "create_palette_link already returns the CSS; use this for the JS object, or for a palette you didn't create.",
+        "Use the output as given: its names match the Coolours UI.",
       ].join(" "),
       inputSchema: {
         colours: colourList,
@@ -171,7 +188,9 @@ export function createServer() {
     async ({ colours, format }) => {
       try {
         const hexes = colours.map(parseColour);
-        return result({ code: format === "css" ? exportCss(hexes) : exportJs(hexes) });
+        return result({
+          code: format === "css" ? exportCss(hexes) : exportJs(hexes),
+        });
       } catch (error) {
         return toolError(error);
       }
