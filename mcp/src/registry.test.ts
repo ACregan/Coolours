@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import serverJson from "../server.json";
 import packageJson from "../package.json";
 import { COOLOURS_ORIGIN } from "./colour.js";
+import { SERVER_ICONS } from "./server.js";
 
 // server.json is what the official MCP Registry lists (see README). Keep it
 // in step with the server it describes.
@@ -14,6 +15,10 @@ describe("server.json (MCP Registry listing)", () => {
     expect(serverJson.remotes).toEqual([
       { type: "streamable-http", url: `${COOLOURS_ORIGIN}/mcp` },
     ]);
+  });
+
+  it("lists the same icons as the server's handshake", () => {
+    expect(serverJson.icons).toEqual(SERVER_ICONS);
   });
 
   it("fits the registry's 100-character description limit", () => {

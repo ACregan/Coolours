@@ -53,11 +53,11 @@ esbuild bundles everything, including the site code and its copy of `hex-color-t
 
 ## Listing in the MCP Registry
 
-[`server.json`](server.json) describes the public server for the official [MCP Registry](https://registry.modelcontextprotocol.io) as `ltd.perpetualsummer/coolours`. A test keeps its version and URL in step with the code. When you change the server, bump the version in both `package.json` and `server.json`, then publish again.
+[`server.json`](server.json) describes the public server, including its icons (the site's favicons, the same ones the server sends in its handshake), for the official [MCP Registry](https://registry.modelcontextprotocol.io) as `ltd.perpetualsummer/coolours`. A test keeps its version and URL in step with the code. When you change the server, bump the version in both `package.json` and `server.json`, then publish again.
 
 Publishing proves you own perpetualsummer.ltd with a DNS record. The first time:
 
-1. Install `mcp-publisher`:
+1. Install `mcp-publisher`, the registry's official tool (a Go binary from its GitHub releases). **Don't `npm install mcp-publisher`**: that npm package is an unrelated third-party project.
    ```sh
    curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher && sudo mv mcp-publisher /usr/local/bin/
    ```
