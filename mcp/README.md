@@ -8,7 +8,7 @@ When you ask an agent for a colour scheme, it picks the colours and calls this s
 
 | Tool | What it does |
 | ---- | ------------ |
-| `create_palette_link` | Turns colours (hex, `rgb()`, CSS names) into a Coolours URL, with a contrast ratio for every pair |
+| `create_palette_link` | Turns colours (hex, `rgb()`, CSS names) into a Coolours URL. Returns each colour's Coolours name and a contrast ratio for every pair |
 | `parse_palette_link` | Reads a Coolours URL back into colours, for example after you've edited the palette on the site |
 | `export_palette` | Outputs the palette as CSS custom properties or a JS object, identical to the site's Export feature |
 
@@ -39,4 +39,4 @@ npm run inspect     # build, then open the MCP Inspector to call the tools by ha
 - `src/server.ts` registers the tools. Their descriptions are what agents read to decide when to call them.
 - `src/index.ts` connects the server to stdio.
 
-esbuild bundles the site code into `dist/index.js`. npm dependencies stay external and load from `mcp/node_modules`.
+esbuild bundles everything, including the site code and its copy of `hex-color-to-color-name`, into one self-contained `dist/index.js`. That library is deliberately not a dependency of `mcp/`: it resolves to the site's installed copy, so the colour names the tools return are exactly the ones the site shows on its swatches.

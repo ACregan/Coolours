@@ -6,6 +6,7 @@ import {
   contrastPairs,
   exportCss,
   exportJs,
+  namedColours,
   parseColour,
   parsePaletteUrl,
 } from "./colour.js";
@@ -17,6 +18,10 @@ const colourList = z
   .describe(
     'Colours in display order. Hex ("#1E293B", "#abc"), rgb() or CSS colour names. No transparency.',
   );
+
+const namedColourList = z
+  .array(z.object({ hex: z.string(), name: z.string() }))
+  .describe("Each colour with the name Coolours shows on its swatch");
 
 const contrastPairShape = z.object({
   foreground: z.string(),
@@ -58,7 +63,9 @@ const instructions = [
   "Coolours (coolours.perpetualsummer.ltd) previews and edits colour palettes.",
   "Whenever you design, suggest or change a colour palette, scheme or theme colours, call create_palette_link",
   "with the colours and always give the user the returned URL, alongside anything else you produce,",
-  "so they can preview and tweak the palette. Use its contrast ratios rather than calculating them yourself.",
+  "so they can preview and tweak the palette. Call it before presenting the palette, and name each colour",
+  "with the name it returns (the name Coolours shows), not one you invent; role labels such as \"background\" are fine alongside.",
+  "Use its contrast ratios rather than calculating them yourself.",
   "When the user shares a coolours.perpetualsummer.ltd/create/... URL, call parse_palette_link to read it.",
 ].join(" ");
 
@@ -75,7 +82,7 @@ export function createServer() {
         "Use this whenever you propose a colour scheme, so the user can see it rather than read hex codes.",
         "Also returns WCAG contrast ratios for every pair of colours: check them before recommending",
         "a text/background pairing (4.5 or more for body text, 3 or more for large text and UI components).",
-        "Give the user the URL.",
+        "Returns each colour's Coolours name: use those names when presenting the palette. Give the user the URL.",
       ].join(" "),
       inputSchema: {
         colours: colourList,
@@ -87,7 +94,7 @@ export function createServer() {
       },
       outputSchema: {
         url: z.string(),
-        hexes: z.array(z.string()),
+        colours: namedColourList,
         contrast: z.array(contrastPairShape),
       },
       annotations: { readOnlyHint: true, openWorldHint: false },
@@ -97,7 +104,7 @@ export function createServer() {
         const hexes = colours.map(parseColour);
         return result({
           url: buildPaletteUrl(hexes, name),
-          hexes: hexes.map((hex) => `#${hex}`),
+          colours: namedColours(hexes),
           contrast: contrastPairs(hexes),
         });
       } catch (error) {
@@ -119,7 +126,7 @@ export function createServer() {
         url: z.string().describe("The full Coolours URL"),
       },
       outputSchema: {
-        hexes: z.array(z.string()),
+        colours: namedColourList,
         name: z.string().optional(),
         ignored: z
           .array(z.string())
@@ -132,7 +139,7 @@ export function createServer() {
       try {
         const { hexes, name, ignored } = parsePaletteUrl(url);
         return result({
-          hexes: hexes.map((hex) => `#${hex}`),
+          colours: namedColours(hexes),
           ...(name !== undefined && { name }),
           ignored,
           contrast: contrastPairs(hexes),

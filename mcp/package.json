@@ -7,7 +7,7 @@
     "coolours-mcp": "dist/index.js"
   },
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/index.js",
+    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js",
     "typecheck": "tsc",
     "test": "vitest run",
     "inspect": "npm run build && npx @modelcontextprotocol/inspector node dist/index.js"
@@ -15,7 +15,6 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
     "color-name": "^2.1.1",
-    "hex-color-to-color-name": "^2.0.8",
     "zod": "^4.6.5"
   },
   "devDependencies": {

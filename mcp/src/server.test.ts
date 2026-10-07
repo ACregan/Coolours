@@ -41,7 +41,11 @@ describe("coolours MCP server", () => {
     expect(res.isError).toBeFalsy();
     expect(res.structuredContent).toMatchObject({
       url: "https://coolours.perpetualsummer.ltd/create/0F172A-FFFFFF-38BDF8?name=Test",
-      hexes: ["#0F172A", "#FFFFFF", "#38BDF8"],
+      colours: [
+        { hex: "#0F172A", name: "Mirage" },
+        { hex: "#FFFFFF", name: "White" },
+        { hex: "#38BDF8", name: "Picton Blue" },
+      ],
     });
     expect((res.structuredContent as { contrast: unknown[] }).contrast).toHaveLength(3);
   });
@@ -63,7 +67,10 @@ describe("coolours MCP server", () => {
       },
     });
     expect(res.structuredContent).toMatchObject({
-      hexes: ["#0F172A", "#38BDF8"],
+      colours: [
+        { hex: "#0F172A", name: "Mirage" },
+        { hex: "#38BDF8", name: "Picton Blue" },
+      ],
       name: "Ocean",
       ignored: [],
     });
