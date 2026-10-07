@@ -19,10 +19,7 @@ vi.mock("~/utilities/utilities", () => ({
   ),
   generateRandomColor: vi.fn(() => "randomised-hex"), // single stable value, never matches fixtures
   generateUrlPath: vi.fn(() => "/palette/test"),
-}));
-
-vi.mock("hex-color-to-color-name", () => ({
-  GetColorName: vi.fn(() => "Red"),
+  getColourNames: vi.fn((list: unknown[]) => list.map(() => "Red")),
 }));
 
 vi.mock("~/components/common/DarkMode/DarkModeContext", () => ({

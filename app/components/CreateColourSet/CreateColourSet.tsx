@@ -1,5 +1,4 @@
 import React from "react";
-import { GetColorName } from "hex-color-to-color-name";
 import styles from "./CreateColourSet.module.css";
 import ColourSwatch from "../common/ColourSwatch/ColourSwatch";
 import ColourSwatchContainer from "../common/ColourSwatchContainer/ColourSwatchContainer";
@@ -12,6 +11,7 @@ import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
 import OverwriteExistingPaletteModal from "./OverwriteExistingPaletteModal/OverwriteExistingPaletteModal";
 import DeletePaletteConfirmationModal from "./DeletePaletteConfirmationModal/DeletePaletteConfirmationModal";
 import useCreateColourSet from "~/hooks/useCreateColourSet";
+import { getColourNames } from "~/utilities/utilities";
 
 interface CreateColourSetProps {
   swatchesFromUrl?: swatchType[];
@@ -60,6 +60,8 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
     deletePaletteFromLocalStorage,
     currentSwatchesAreInLocalStorage,
   } = useCreateColourSet({ swatchesFromUrl, swatchesNameFromUrl });
+
+  const colourNames = getColourNames(swatchesList);
 
   return (
     <div className={styles.createContainer}>
@@ -224,8 +226,7 @@ export const CreateColourSet: React.FC<CreateColourSetProps> = ({
           setSwatchesList={setSwatchesList}
         >
           {swatchesList.map((colour, i) => {
-            const colorNamerNames = GetColorName(colour.hex);
-            const humanReadableColourName = colorNamerNames;
+            const humanReadableColourName = colourNames[i];
             const isLastSwatch = swatchesList.length === 1;
             return (
               <ColourSwatch

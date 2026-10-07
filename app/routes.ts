@@ -3,7 +3,6 @@ import {
   layout,
   index,
   route,
-  prefix,
 } from "@react-router/dev/routes";
 
 export default [
@@ -12,7 +11,3 @@ export default [
     route("create/:swatches?", "./routes/create/create.tsx"),
   ]),
 ] satisfies RouteConfig;
-
-// export default [
-//   index("routes/home.tsx")
-// ] satisfies RouteConfig;

@@ -6,47 +6,24 @@ A colour palette selection tool built for fun by [Anthony Cregan](https://www.an
 
 Visit [Coolours.perpetualsummer.ltd](https://coolours.perpetualsummer.ltd/)
 
-For usage details see React Router Framework docs below.
+## Development
 
----
-
-### Built With React Router Framework
-
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+Built with [React Router](https://reactrouter.com/) (framework mode, SSR).
 
 ```bash
 npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
+npm run dev        # dev server with HMR at http://localhost:5173
+npm test           # vitest
+npm run typecheck
 npm run build
 ```
 
-Built with ❤️ using React Router.
+## Deployment
+
+The manual `deploy` job in GitLab CI SSHes to the VPS and runs `~/server/deploy.sh coolours.perpetualsummer.ltd`. That script pulls this repo into a checkout on the VPS, runs `npm install` and `npm run build`, then restarts the PM2 process serving `build/` on port 3007. See the `vps-hosting` repo.
+
+## MCP server
+
+[`mcp/`](mcp/) is an MCP server that lets AI agents open the palettes they design in Coolours. It has its own `package.json` and is not part of the site build or deploy. See [mcp/README.md](mcp/README.md).
+
+Palette links (`/create/RRGGBB-RRGGBB?name=...`) are a public contract: agents build them through the MCP server. Don't change the `create/:swatches?` route or `generateUrlPath` without checking `mcp/`.

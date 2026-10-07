@@ -4,8 +4,11 @@ import styles from "./HomepagePalette.module.css";
 import { Link } from "react-router";
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
-import { GetColorName } from "hex-color-to-color-name";
-import { isCloserToWhite, normalizeHex } from "~/utilities/utilities";
+import {
+  getColourNames,
+  isCloserToWhite,
+  normalizeHex,
+} from "~/utilities/utilities";
 
 interface HomePagePalleteProps {
   title: string;
@@ -20,6 +23,8 @@ const HomePagePalette: React.FC<HomePagePalleteProps> = ({
   colours,
   darkMode,
 }) => {
+  const colourNames = getColourNames(colours);
+
   return (
     <div className={styles.swatchListItemContainer} key={title}>
       <div className={styles.swatchTitleContainer}>
@@ -41,9 +46,8 @@ const HomePagePalette: React.FC<HomePagePalleteProps> = ({
         ) : null}
       </div>
       <div className={styles.swatchesContainer}>
-        {colours.map((colour) => {
-          const colorNamerNames = GetColorName(colour.hex);
-          const humanReadableColourName = colorNamerNames;
+        {colours.map((colour, i) => {
+          const humanReadableColourName = colourNames[i];
 
           return (
             <div

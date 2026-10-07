@@ -44,6 +44,23 @@ unit:
         - "**/*.json"
         - ".gitlab-ci.yml"
 
+mcp:
+  stage: unit
+  script:
+    # The MCP server imports app/utilities, so it needs the site's dependencies too
+    - npm ci
+    - npm ci --prefix mcp
+    - npm run typecheck --prefix mcp
+    - npm test --prefix mcp
+    - npm run build --prefix mcp
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "mcp/**/*"
+        - "app/utilities/**/*"
+        - "app/types/**/*"
+        - ".gitlab-ci.yml"
+
 deploy:
   stage: deploy
   interruptible: false
