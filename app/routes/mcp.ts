@@ -59,7 +59,9 @@ async function logUsage(request: Request) {
     return; // Malformed bodies are rejected by the transport
   }
 
-  for (const message of (Array.isArray(body) ? body : [body]) as JsonRpcMessage[]) {
+  for (const message of (Array.isArray(body)
+    ? body
+    : [body]) as JsonRpcMessage[]) {
     if (message?.method === "initialize") {
       const client = message.params?.clientInfo;
       console.log(

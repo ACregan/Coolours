@@ -43,8 +43,13 @@ vi.mock("./McpButton/McpButton", () => ({
   default: () => <button data-testid="mcp-button">McpButton</button>,
 }));
 
+const mockLocation = { key: "home" };
+const mockNavigationType = { current: "PUSH" };
+
 vi.mock("react-router", () => ({
   Outlet: () => <div data-testid="outlet" />,
+  useLocation: () => mockLocation,
+  useNavigationType: () => mockNavigationType.current,
 }));
 
 vi.mock("~/hooks/useGoogleAnalytics", () => ({
@@ -141,5 +146,54 @@ describe("CoreLayout", () => {
     expect(trackClientAnalyticsEvent).toHaveBeenCalledWith(
       "header_toggle_dark_mode_on",
     );
+  });
+
+  describe("scroll position of <main>, the scrolling element", () => {
+    const renderAt = (key: string, navigationType: string) => {
+      mockLocation.key = key;
+      mockNavigationType.current = navigationType;
+    };
+
+    const renderScrolled = () => {
+      vi.mocked(useTheme).mockReturnValue({
+        darkMode: false,
+        toggleDarkMode: mockToggleDarkMode,
+      });
+      renderAt("home", "POP");
+      const view = render(<CoreLayout />);
+      const main = view.container.querySelector("main")!;
+      // jsdom has no layout, so stand in for a real scroll position
+      let scrollTop = 0;
+      Object.defineProperty(main, "scrollTop", {
+        get: () => scrollTop,
+        set: (value: number) => {
+          scrollTop = value;
+        },
+      });
+      const scrollTo = (value: number) => {
+        main.scrollTop = value;
+        fireEvent.scroll(main);
+      };
+      return { ...view, main, scrollTo };
+    };
+
+    it("starts new navigations at the top", () => {
+      const { rerender, main, scrollTo } = renderScrolled();
+      scrollTo(500);
+      renderAt("privacy", "PUSH");
+      rerender(<CoreLayout />);
+      expect(main.scrollTop).toBe(0);
+    });
+
+    it("returns to the saved position on back/forward", () => {
+      const { rerender, main, scrollTo } = renderScrolled();
+      scrollTo(500);
+      renderAt("privacy", "PUSH");
+      rerender(<CoreLayout />);
+      scrollTo(120);
+      renderAt("home", "POP");
+      rerender(<CoreLayout />);
+      expect(main.scrollTop).toBe(500);
+    });
   });
 });

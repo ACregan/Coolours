@@ -57,10 +57,10 @@ describe("TopMenuButton", () => {
     );
   });
 
-  it("renders nothing on an unmatched route", () => {
-    vi.mocked(useLocation).mockReturnValue({ pathname: "/other" } as any);
+  it("renders HOME on any other page, such as the privacy policy", () => {
+    vi.mocked(useLocation).mockReturnValue({ pathname: "/privacy" } as any);
 
-    const { container } = render(<TopMenuButton />);
-    expect(container.firstChild).toBeNull();
+    render(<TopMenuButton />);
+    expect(screen.getByText("HOME")).toBeInTheDocument();
   });
 });

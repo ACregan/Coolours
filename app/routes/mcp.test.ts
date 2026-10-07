@@ -45,12 +45,14 @@ describe("/mcp", () => {
   });
 
   it("lists the tools without a prior initialize (stateless)", async () => {
-    const { json } = await call({ jsonrpc: "2.0", id: 2, method: "tools/list" });
-    expect(json.result.tools.map((t: { name: string }) => t.name).sort()).toEqual([
-      "create_palette_link",
-      "export_palette",
-      "parse_palette_link",
-    ]);
+    const { json } = await call({
+      jsonrpc: "2.0",
+      id: 2,
+      method: "tools/list",
+    });
+    expect(
+      json.result.tools.map((t: { name: string }) => t.name).sort(),
+    ).toEqual(["create_palette_link", "export_palette", "parse_palette_link"]);
   });
 
   it("calls a tool", async () => {
@@ -80,10 +82,17 @@ describe("/mcp", () => {
       jsonrpc: "2.0",
       id: 4,
       method: "tools/call",
-      params: { name: "create_palette_link", arguments: { colours: ["#000", "#fff"] } },
+      params: {
+        name: "create_palette_link",
+        arguments: { colours: ["#000", "#fff"] },
+      },
     });
     expect(log.mock.calls.map(([line]) => JSON.parse(line))).toEqual([
-      { event: "mcp_initialize", client: "test-client", clientVersion: "1.2.3" },
+      {
+        event: "mcp_initialize",
+        client: "test-client",
+        clientVersion: "1.2.3",
+      },
       { event: "mcp_tool_call", tool: "create_palette_link", colours: 2 },
     ]);
   });
@@ -96,7 +105,9 @@ describe("/mcp", () => {
 
   it("answers DELETE with 405, as there are no sessions to end", async () => {
     const response = await action({
-      request: new Request("https://coolours.perpetualsummer.ltd/mcp", { method: "DELETE" }),
+      request: new Request("https://coolours.perpetualsummer.ltd/mcp", {
+        method: "DELETE",
+      }),
     } as never);
     expect(response.status).toBe(405);
   });

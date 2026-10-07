@@ -26,47 +26,77 @@ footer > div {
   flex: 1 1 0px;
 }
 
+/* Left: site links */
 .leftCell {
   display: flex;
   align-items: center;
 }
-.leftCell > a > svg {
+.footerLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.footerLinks > li > a,
+.footerLinks > li > button {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.footerLinks > li > a:hover,
+.footerLinks > li > button:hover {
+  text-decoration: underline;
+}
+
+/* Centre: Perpetual Summer logo */
+.centerCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.centerCell > a > svg {
   height: 10rem;
 }
-.centerCell {
-}
-.rightCell {
-  flex: 0 1 auto;
 
+/* Right: "A fun project by", pushed to the right edge. The left and right
+   columns share width equally so the logo sits in the true centre. */
+.rightCell {
+  display: flex;
+  justify-content: flex-end;
+}
+.rightCellContent {
   display: flex;
   flex-direction: column;
   color: white;
 }
-.rightCell > p {
+.rightCellContent > p {
   /* "A fun project by" */
   font-size: 1.2rem;
 }
-.rightCell > a {
+.rightCellContent > a {
   text-decoration: none;
 }
-.rightCell > a:hover {
+.rightCellContent > a:hover {
   text-decoration: underline;
   text-decoration-color: var(--anthony-cregan-lobster-red);
 }
-.rightCell > a > .acLogoContainer {
+.rightCellContent > a > .acLogoContainer {
   display: flex;
   flex-direction: row;
 }
-.rightCell > a > .acLogoContainer > .acLogoWrapper {
+.rightCellContent > a > .acLogoContainer > .acLogoWrapper {
   border-radius: 50%;
   overflow: hidden;
 }
-.rightCell > a > .acLogoContainer > .acLogoWrapper > svg {
+.rightCellContent > a > .acLogoContainer > .acLogoWrapper > svg {
   width: 6rem;
   height: 6rem;
   fill: var(--anthony-cregan-lobster-red);
 }
-.rightCell > a > .acLogoContainer > p {
+.rightCellContent > a > .acLogoContainer > p {
   margin-left: 1rem;
   font-size: 2rem;
   font-weight: 700;
@@ -83,4 +113,23 @@ footer > div {
 }
 .socialLinks > a > svg:hover {
   fill: var(--anthony-cregan-lobster-red);
+}
+
+/* Narrow screens: stack the columns */
+@media screen and (max-width: 600px) {
+  footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  footer > div {
+    flex: none;
+  }
+  .leftCell,
+  .rightCell {
+    justify-content: center;
+  }
+  .footerLinks {
+    text-align: center;
+  }
 }
