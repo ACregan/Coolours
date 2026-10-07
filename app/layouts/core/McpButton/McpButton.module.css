@@ -1,0 +1,19 @@
+.mcpButton {
+  composes: headerButton from "../TopMenuButton/TopMenuButton.module.css";
+  margin-left: 1rem;
+}
+
+.buttonIconContainer {
+  composes: buttonIconContainer from "../TopMenuButton/TopMenuButton.module.css";
+}
+
+.buttonTextContainer {
+  composes: buttonTextContainer from "../TopMenuButton/TopMenuButton.module.css";
+}
+
+/* Icon only on narrow screens */
+@media screen and (max-width: 600px) {
+  .buttonTextContainer {
+    display: none;
+  }
+}

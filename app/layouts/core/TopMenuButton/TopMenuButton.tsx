@@ -25,23 +25,22 @@ const TopMenuButton = () => {
       </button>
     );
   }
-  if (location.pathname.includes("/create")) {
-    return (
-      <button
-        className={styles.headerButton}
-        onClick={() => {
-          navigate("/");
-          trackClientAnalyticsEvent("header_click_home_button");
-        }}
-        type="button"
-      >
-        <div className={styles.buttonIconContainer}>
-          <SvgIcon name={SvgImageList.Home} />
-        </div>
-        <div className={styles.buttonTextContainer}>HOME</div>
-      </button>
-    );
-  }
+  // Every other page (create, privacy, not found) links back home
+  return (
+    <button
+      className={styles.headerButton}
+      onClick={() => {
+        navigate("/");
+        trackClientAnalyticsEvent("header_click_home_button");
+      }}
+      type="button"
+    >
+      <div className={styles.buttonIconContainer}>
+        <SvgIcon name={SvgImageList.Home} />
+      </div>
+      <div className={styles.buttonTextContainer}>HOME</div>
+    </button>
+  );
 };
 
 export default TopMenuButton;

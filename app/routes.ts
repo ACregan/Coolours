@@ -9,5 +9,8 @@ export default [
   layout("./layouts/core/core-layout.tsx", [
     index("./routes/home/home.tsx"),
     route("create/:swatches?", "./routes/create/create.tsx"),
+    route("privacy", "./routes/privacy/privacy.tsx"),
   ]),
+  // MCP endpoint for AI agents (resource route, no UI)
+  route("mcp", "./routes/mcp.ts"),
 ] satisfies RouteConfig;

@@ -14,7 +14,17 @@ When you ask an agent for a colour scheme, it picks the colours and calls this s
 
 Colours with transparency are rejected, because Coolours has no alpha channel.
 
-## Use with Claude Code
+## Use it
+
+The public server is `https://coolours.perpetualsummer.ltd/mcp` (Streamable HTTP, stateless). In Claude Code:
+
+```sh
+claude mcp add --transport http coolours https://coolours.perpetualsummer.ltd/mcp
+```
+
+The site's header MCP button has instructions for other clients.
+
+## Run it locally (stdio)
 
 From the repo root:
 
@@ -37,6 +47,6 @@ npm run inspect     # build, then open the MCP Inspector to call the tools by ha
 
 - `src/colour.ts` holds the colour logic, with no MCP code. URL building, URL validation and exports come straight from the site's `app/utilities/utilities.ts`, so they can't drift from the site.
 - `src/server.ts` registers the tools. Their descriptions are what agents read to decide when to call them.
-- `src/index.ts` connects the server to stdio.
+- `src/index.ts` connects the server to stdio. The site's `app/routes/mcp.ts` connects the same `createServer()` to HTTP.
 
 esbuild bundles everything, including the site code and its copy of `hex-color-to-color-name`, into one self-contained `dist/index.js`. That library is deliberately not a dependency of `mcp/`: it resolves to the site's installed copy, so the colour names the tools return are exactly the ones the site shows on its swatches.

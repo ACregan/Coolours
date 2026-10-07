@@ -8,6 +8,7 @@ import initialData from "./initialData";
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
 import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
 import HomePagePalette from "./HomepagePalette/HomepagePalette";
+import McpInstallModal from "../common/McpInstallModal/McpInstallModal";
 
 const HomePage = () => {
   const [palette] = useLocalStoragePalettes();
@@ -15,6 +16,8 @@ const HomePage = () => {
   const colourSwatchData = initialData.swatches;
 
   const { darkMode } = useTheme();
+
+  const [mcpModalOpen, setMcpModalOpen] = useState(false);
 
   return (
     <div
@@ -40,6 +43,31 @@ const HomePage = () => {
 
       <footer>
         <div className={styles.leftCell}>
+          <ul className={styles.footerLinks}>
+            <li>
+              <Link
+                to="/privacy"
+                onClick={() =>
+                  trackClientAnalyticsEvent("footer_click_privacy_policy")
+                }
+              >
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => {
+                  setMcpModalOpen(true);
+                  trackClientAnalyticsEvent("footer_click_mcp");
+                }}
+              >
+                MCP
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div className={styles.centerCell}>
           <Link
             to="https://perpetualsummer.ltd/"
             target="_blank"
@@ -50,67 +78,72 @@ const HomePage = () => {
             <SvgIcon name={SvgImageList.PerpetualSummer} fill="white" />
           </Link>
         </div>
-        <div className={styles.centerCell}></div>
         <div className={styles.rightCell}>
-          <p>A fun project by</p>
-          <Link
-            to="https://www.anthonycregan.co.uk/"
-            target="_blank"
-            onClick={() =>
-              trackClientAnalyticsEvent("click_anthony_cregan_site_link")
-            }
-          >
-            <div className={styles.acLogoContainer}>
-              <div className={styles.acLogoWrapper}>
-                <SvgIcon name={SvgImageList.AnthonyCregan} />
+          <div className={styles.rightCellContent}>
+            <p>A fun project by</p>
+            <Link
+              to="https://www.anthonycregan.co.uk/"
+              target="_blank"
+              onClick={() =>
+                trackClientAnalyticsEvent("click_anthony_cregan_site_link")
+              }
+            >
+              <div className={styles.acLogoContainer}>
+                <div className={styles.acLogoWrapper}>
+                  <SvgIcon name={SvgImageList.AnthonyCregan} />
+                </div>
+                <p>
+                  Anthony
+                  <br />
+                  Cregan
+                </p>
               </div>
-              <p>
-                Anthony
-                <br />
-                Cregan
-              </p>
+            </Link>
+            <div className={styles.socialLinks}>
+              <Link
+                to="https://github.com/acregan"
+                target="_blank"
+                onClick={() =>
+                  trackClientAnalyticsEvent("click_github_social_link")
+                }
+              >
+                <SvgIcon name={SvgImageList.Github} fill="white" />
+              </Link>
+              <Link
+                to="https://www.linkedin.com/in/anthony-cregan-64965267/"
+                target="_blank"
+                onClick={() =>
+                  trackClientAnalyticsEvent("click_linkedin_social_link")
+                }
+              >
+                <SvgIcon name={SvgImageList.LinkedIn} fill="white" />
+              </Link>
+              <Link
+                to="https://stackoverflow.com/users/3626334/anthony-cregan"
+                target="_blank"
+                onClick={() =>
+                  trackClientAnalyticsEvent("click_stackoverflow_social_link")
+                }
+              >
+                <SvgIcon name={SvgImageList.StackOverflow} fill="white" />
+              </Link>
+              <Link
+                to="https://bsky.app/profile/anthonycregan.dev"
+                target="_blank"
+                onClick={() =>
+                  trackClientAnalyticsEvent("click_bluesky_social_link")
+                }
+              >
+                <SvgIcon name={SvgImageList.BlueSky} fill="white" />
+              </Link>
             </div>
-          </Link>
-          <div className={styles.socialLinks}>
-            <Link
-              to="https://github.com/acregan"
-              target="_blank"
-              onClick={() =>
-                trackClientAnalyticsEvent("click_github_social_link")
-              }
-            >
-              <SvgIcon name={SvgImageList.Github} fill="white" />
-            </Link>
-            <Link
-              to="https://www.linkedin.com/in/anthony-cregan-64965267/"
-              target="_blank"
-              onClick={() =>
-                trackClientAnalyticsEvent("click_linkedin_social_link")
-              }
-            >
-              <SvgIcon name={SvgImageList.LinkedIn} fill="white" />
-            </Link>
-            <Link
-              to="https://stackoverflow.com/users/3626334/anthony-cregan"
-              target="_blank"
-              onClick={() =>
-                trackClientAnalyticsEvent("click_stackoverflow_social_link")
-              }
-            >
-              <SvgIcon name={SvgImageList.StackOverflow} fill="white" />
-            </Link>
-            <Link
-              to="https://bsky.app/profile/anthonycregan.dev"
-              target="_blank"
-              onClick={() =>
-                trackClientAnalyticsEvent("click_bluesky_social_link")
-              }
-            >
-              <SvgIcon name={SvgImageList.BlueSky} fill="white" />
-            </Link>
           </div>
         </div>
       </footer>
+      <McpInstallModal
+        open={mcpModalOpen}
+        onClose={() => setMcpModalOpen(false)}
+      />
     </div>
   );
 };

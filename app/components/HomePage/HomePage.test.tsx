@@ -14,6 +14,11 @@ vi.mock("~/components/common/SvgIcon/SvgIcon", () => ({
   },
 }));
 
+vi.mock("../common/McpInstallModal/McpInstallModal", () => ({
+  default: ({ open }: { open: boolean }) =>
+    open ? <div data-testid="mcp-install-modal" /> : null,
+}));
+
 vi.mock("./HomepagePalette/HomepagePalette", () => ({
   default: ({ title }: { title: string }) => (
     <div data-testid="homepage-palette">{title}</div>
@@ -140,6 +145,25 @@ describe("HomePage", () => {
   });
 
   describe("footer links", () => {
+    it("links to the privacy policy", () => {
+      render(<HomePage />);
+      fireEvent.click(screen.getByText("Privacy Policy"));
+      expect(document.querySelector('a[href="/privacy"]')).toBeInTheDocument();
+      expect(trackClientAnalyticsEvent).toHaveBeenCalledWith(
+        "footer_click_privacy_policy",
+      );
+    });
+
+    it("opens the MCP install modal", () => {
+      render(<HomePage />);
+      expect(screen.queryByTestId("mcp-install-modal")).not.toBeInTheDocument();
+      fireEvent.click(screen.getByRole("button", { name: "MCP" }));
+      expect(screen.getByTestId("mcp-install-modal")).toBeInTheDocument();
+      expect(trackClientAnalyticsEvent).toHaveBeenCalledWith(
+        "footer_click_mcp",
+      );
+    });
+
     it("renders the Perpetual Summer link", () => {
       render(<HomePage />);
       expect(

@@ -17,13 +17,18 @@
   border-radius: 1rem;
   z-index: 200;
 }
+/* Text colour is set here, not inherited: a modal can be rendered outside
+   <main> (the header's MCP modal is), where the inherited colour follows the
+   OS colour scheme rather than the site's light/dark toggle. */
 .modalWindow.lightMode {
   background: white;
+  color: black;
   box-shadow: 0 0 0.5rem inset #a7a7a7;
   border: 0.1rem solid rgb(186, 186, 186);
 }
 .modalWindow.darkMode {
   background: var(--background_dark);
+  color: var(--color_dark);
   box-shadow: 0 0 0.5rem inset #000000;
   border: 0.1rem solid rgb(45, 45, 45);
 }
