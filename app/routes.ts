@@ -10,4 +10,6 @@ export default [
     index("./routes/home/home.tsx"),
     route("create/:swatches?", "./routes/create/create.tsx"),
   ]),
+  // MCP endpoint for AI agents (resource route, no UI)
+  route("mcp", "./routes/mcp.ts"),
 ] satisfies RouteConfig;
