@@ -19,8 +19,8 @@ const PrivacyPolicy = () => (
     <h2>The short version</h2>
     <p>
       You don&apos;t need an account to use Coolours, and we don&apos;t ask for
-      your name or email. Palettes you save stay on your device. We use
-      analytics to see how the site is used.
+      your name or email. Palettes you save stay on your device. We don&apos;t
+      use cookies. We use our own analytics to see how the site is used.
     </p>
 
     <h2>What stays on your device</h2>
@@ -42,21 +42,11 @@ const PrivacyPolicy = () => (
     <h2>What we collect</h2>
     <ul>
       <li>
-        <strong>Google Analytics.</strong> We use Google Analytics to count
-        visits and see which features are used, such as which buttons are
-        clicked. Google Analytics sets cookies (named <code>_ga</code> and{" "}
-        <code>_ga_</code> followed by an ID) and collects information such as
-        your browser, device, approximate location and the pages you view.
-        Google processes your IP address to provide this. See{" "}
-        <a href="https://policies.google.com/privacy">
-          Google&apos;s privacy policy
-        </a>
-        .
-      </li>
-      <li>
-        <strong>Umami.</strong> We also run our own analytics service, Umami, at
-        analytics.perpetualsummer.ltd. It does not use cookies and records
-        totals such as page views, referring sites, browser types and countries.
+        <strong>Analytics.</strong> We run our own analytics service, Umami, at
+        analytics.perpetualsummer.ltd. It does not use cookies or store your IP
+        address. It records page views, referring sites, browser types and
+        countries, and which features are used, such as which buttons are
+        clicked.
       </li>
       <li>
         <strong>Server logs.</strong> Our server records each page request: the
@@ -101,16 +91,15 @@ const PrivacyPolicy = () => (
 
     <h2>Who we share it with</h2>
     <p>
-      Google (for Google Analytics and Google Fonts) and our hosting provider,
-      who process it on our behalf. We don&apos;t share it with anyone else
-      unless the law requires us to.
+      Google (for Google Fonts) and our hosting provider, who process it on our
+      behalf. We don&apos;t share it with anyone else unless the law requires us
+      to.
     </p>
 
     <h2>How long we keep it</h2>
     <p>
-      Server logs and Umami data are kept only as long as they are useful for
-      running and improving the site. Google Analytics keeps data for the
-      retention period set in our Google Analytics account.
+      Server logs and analytics data are kept only as long as they are useful
+      for running and improving the site.
     </p>
 
     <h2>Your rights</h2>

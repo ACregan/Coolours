@@ -41,7 +41,7 @@ vi.mock("react-router", () => ({
   ),
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 
@@ -72,7 +72,7 @@ vi.mock("./HomePage.module.css", () => ({
 
 import { useTheme } from "../common/DarkMode/DarkModeContext";
 import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 describe("HomePage", () => {
   beforeEach(() => {

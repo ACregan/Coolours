@@ -6,7 +6,7 @@ import LittleBigButton from "~/components/common/BigButton/LittleBigButton";
 import { useToast } from "~/components/common/Toast/ToastProvider";
 import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
 import { copyToClipboard } from "~/utilities/utilities";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 import { MCP_URL } from "~/constants";
 
 const CLAUDE_CODE_COMMAND = `claude mcp add --transport http coolours ${MCP_URL}`;

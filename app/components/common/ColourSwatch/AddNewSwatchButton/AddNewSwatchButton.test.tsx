@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import AddNewSwatchButton from "./AddNewSwatchButton";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 vi.mock("../../SvgIcon/SvgIcon", () => ({
   __esModule: true,
@@ -13,7 +13,7 @@ vi.mock("../../SvgIcon/SvgIcon", () => ({
   },
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 

@@ -42,7 +42,7 @@ vi.mock("react-router", () => ({
   ),
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 
@@ -54,7 +54,7 @@ vi.mock("~/utilities/utilities", () => ({
   ),
 }));
 
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 import { isCloserToWhite } from "~/utilities/utilities";
 
 const mockColours = [

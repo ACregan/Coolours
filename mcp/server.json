@@ -1,0 +1,14 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ltd.perpetualsummer/coolours",
+  "title": "Coolours",
+  "description": "Turn AI-designed colour palettes into Coolours links, with colour names, CSS and contrast checks",
+  "version": "0.2.0",
+  "websiteUrl": "https://coolours.perpetualsummer.ltd",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://coolours.perpetualsummer.ltd/mcp"
+    }
+  ]
+}

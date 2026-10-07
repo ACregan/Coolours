@@ -93,7 +93,7 @@ vi.mock("../common/Tooltip/Tooltip", () => ({
   TooltipBubble: ({ children }: any) => <>{children}</>,
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 

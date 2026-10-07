@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./AddNewSwatchButton.module.css";
 import SvgIcon, { SvgImageList } from "../../SvgIcon/SvgIcon";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 interface AddSwatchButtonProps {
   index: number;

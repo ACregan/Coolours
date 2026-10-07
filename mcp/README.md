@@ -50,3 +50,27 @@ npm run inspect     # build, then open the MCP Inspector to call the tools by ha
 - `src/index.ts` connects the server to stdio. The site's `app/routes/mcp.ts` connects the same `createServer()` to HTTP.
 
 esbuild bundles everything, including the site code and its copy of `hex-color-to-color-name`, into one self-contained `dist/index.js`. That library is deliberately not a dependency of `mcp/`: it resolves to the site's installed copy, so the colour names the tools return are exactly the ones the site shows on its swatches.
+
+## Listing in the MCP Registry
+
+[`server.json`](server.json) describes the public server for the official [MCP Registry](https://registry.modelcontextprotocol.io) as `ltd.perpetualsummer/coolours`. A test keeps its version and URL in step with the code. When you change the server, bump the version in both `package.json` and `server.json`, then publish again.
+
+Publishing proves you own perpetualsummer.ltd with a DNS record. The first time:
+
+1. Install `mcp-publisher`:
+   ```sh
+   curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher && sudo mv mcp-publisher /usr/local/bin/
+   ```
+2. Make a key pair **outside this repo**, and keep `key.pem` private:
+   ```sh
+   openssl genpkey -algorithm Ed25519 -out ~/mcp-registry-key.pem
+   echo "v=MCPv1; k=ed25519; p=$(openssl pkey -in ~/mcp-registry-key.pem -pubout -outform DER | tail -c 32 | base64)"
+   ```
+3. Add the printed line as a **TXT record on `perpetualsummer.ltd` itself**, not on a subdomain, and wait for it to propagate (`dig +short TXT perpetualsummer.ltd`).
+4. Log in and publish, from `mcp/`:
+   ```sh
+   mcp-publisher login dns --domain perpetualsummer.ltd --private-key "$(openssl pkey -in ~/mcp-registry-key.pem -noout -text | grep -A3 'priv:' | tail -n +2 | tr -d ' :\n')"
+   mcp-publisher publish
+   ```
+
+Later versions only need step 4. Check the listing at `https://registry.modelcontextprotocol.io/v0/servers?search=ltd.perpetualsummer/coolours`.

@@ -52,7 +52,7 @@ vi.mock("react-router", () => ({
   useNavigationType: () => mockNavigationType.current,
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 
@@ -62,7 +62,7 @@ vi.mock("~/components/common/DarkMode/DarkModeContext", () => ({
 }));
 
 import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 describe("CoreLayout", () => {
   beforeEach(() => {
