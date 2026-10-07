@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import { version } from "../package.json";
 import {
   buildPaletteUrl,
   contrastPairs,
@@ -48,7 +49,7 @@ function toolError(error: unknown) {
 }
 
 export function createServer() {
-  const server = new McpServer({ name: "coolours", version: "0.1.0" });
+  const server = new McpServer({ name: "coolours", version });
 
   server.registerTool(
     "create_palette_link",

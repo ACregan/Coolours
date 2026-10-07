@@ -1,6 +1,7 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { beforeAll, describe, expect, it } from "vitest";
+import { version } from "../package.json";
 import { createServer } from "./server.js";
 
 // A real MCP client talking to the server over an in-memory transport:
@@ -15,6 +16,10 @@ beforeAll(async () => {
 });
 
 describe("coolours MCP server", () => {
+  it("reports the package version in the handshake", () => {
+    expect(client.getServerVersion()).toEqual({ name: "coolours", version });
+  });
+
   it("advertises its three tools", async () => {
     const { tools } = await client.listTools();
     expect(tools.map((t) => t.name).sort()).toEqual([

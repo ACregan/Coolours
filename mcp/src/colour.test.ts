@@ -32,7 +32,7 @@ describe("parseColour", () => {
     },
   );
 
-  it.each(["", "#ggg", "notacolour", "hsl(0 0% 0%)", "#12345"])(
+  it.each(["", "#ggg", "notacolour", "hsl(0 0% 0%)", "#12345", "constructor", "__proto__"])(
     "rejects %j",
     (input) => {
       expect(() => parseColour(input)).toThrow(/Could not parse/);

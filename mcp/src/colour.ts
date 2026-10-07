@@ -52,7 +52,8 @@ export function parseColour(input: string): string {
     return rgbToHex(channels as [number, number, number]);
   }
 
-  if (value in colorNames) {
+  // hasOwn, not `in`: `in` also matches inherited keys like "constructor"
+  if (Object.hasOwn(colorNames, value)) {
     return rgbToHex(colorNames[value as keyof typeof colorNames]);
   }
 
