@@ -48,8 +48,22 @@ function toolError(error: unknown) {
   };
 }
 
+/**
+ * Sent in the initialize handshake. Hosts put this in the system prompt even
+ * when they defer tool definitions (Claude Code does, once many tools are
+ * installed), so it's how the model learns these tools exist before it would
+ * think to search for them. It costs tokens in every session: keep it short.
+ */
+const instructions = [
+  "Coolours (coolours.perpetualsummer.ltd) previews and edits colour palettes.",
+  "Whenever you design, suggest or change a colour palette, scheme or theme colours, call create_palette_link",
+  "with the colours and always give the user the returned URL, alongside anything else you produce,",
+  "so they can preview and tweak the palette. Use its contrast ratios rather than calculating them yourself.",
+  "When the user shares a coolours.perpetualsummer.ltd/create/... URL, call parse_palette_link to read it.",
+].join(" ");
+
 export function createServer() {
-  const server = new McpServer({ name: "coolours", version });
+  const server = new McpServer({ name: "coolours", version }, { instructions });
 
   server.registerTool(
     "create_palette_link",

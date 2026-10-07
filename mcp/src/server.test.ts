@@ -20,6 +20,10 @@ describe("coolours MCP server", () => {
     expect(client.getServerVersion()).toEqual({ name: "coolours", version });
   });
 
+  it("sends instructions in the handshake, which hosts load even when tools are deferred", () => {
+    expect(client.getInstructions()).toMatch(/create_palette_link/);
+  });
+
   it("advertises its three tools", async () => {
     const { tools } = await client.listTools();
     expect(tools.map((t) => t.name).sort()).toEqual([
