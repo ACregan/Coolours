@@ -5,6 +5,7 @@ import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
 import DarkModeSwitch from "./DarkModeSwitch/DarkModeSwitch";
 import TopMenuButton from "./TopMenuButton/TopMenuButton";
+import McpButton from "./McpButton/McpButton";
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
 
 export default function CoreLayout() {
@@ -19,6 +20,7 @@ export default function CoreLayout() {
         <SvgIcon name={SvgImageList.CooloursLogo_v2} />
         <div className={styles.headerButtonContainer}>
           <TopMenuButton />
+          <McpButton />
           <DarkModeSwitch
             toggleDarkMode={() => {
               toggleDarkMode();

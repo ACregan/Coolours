@@ -39,6 +39,10 @@ vi.mock("./TopMenuButton/TopMenuButton", () => ({
   default: () => <button data-testid="top-menu-button">TopMenuButton</button>,
 }));
 
+vi.mock("./McpButton/McpButton", () => ({
+  default: () => <button data-testid="mcp-button">McpButton</button>,
+}));
+
 vi.mock("react-router", () => ({
   Outlet: () => <div data-testid="outlet" />,
 }));
@@ -90,6 +94,23 @@ describe("CoreLayout", () => {
     expect(screen.getByTestId("top-menu-button")).toBeInTheDocument();
     expect(screen.getByTestId("dark-mode-switch")).toBeInTheDocument();
     expect(screen.getByTestId("outlet")).toBeInTheDocument();
+  });
+
+  it("places the MCP button between the menu button and the dark mode switch", () => {
+    vi.mocked(useTheme).mockReturnValue({
+      darkMode: false,
+      toggleDarkMode: mockToggleDarkMode,
+    });
+
+    render(<CoreLayout />);
+    const order = screen
+      .getAllByRole("button")
+      .map((button) => button.dataset.testid);
+    expect(order).toEqual([
+      "top-menu-button",
+      "mcp-button",
+      "dark-mode-switch",
+    ]);
   });
 
   it("calls toggleDarkMode and tracks event with dark mode off when darkMode is true", () => {

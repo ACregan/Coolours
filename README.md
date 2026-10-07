@@ -24,6 +24,10 @@ The manual `deploy` job in GitLab CI SSHes to the VPS and runs `~/server/deploy.
 
 ## MCP server
 
-[`mcp/`](mcp/) is an MCP server that lets AI agents open the palettes they design in Coolours. It has its own `package.json` and is not part of the site build or deploy. See [mcp/README.md](mcp/README.md).
+[`mcp/`](mcp/) is an MCP server that lets AI agents open the palettes they design in Coolours. See [mcp/README.md](mcp/README.md).
+
+It's served publicly at `https://coolours.perpetualsummer.ltd/mcp` by the resource route [`app/routes/mcp.ts`](app/routes/mcp.ts), so the site build includes it and the site depends on the MCP SDK. The header's MCP button explains how to install it. Each initialize and tool call logs one JSON line (`mcp_initialize` / `mcp_tool_call`) to the PM2 logs. Rate limiting is in nginx (`vps-hosting`).
+
+`mcp/` also has its own `package.json` and a stdio build for local development.
 
 Palette links (`/create/RRGGBB-RRGGBB?name=...`) are a public contract: agents build them through the MCP server. Don't change the `create/:swatches?` route or `generateUrlPath` without checking `mcp/`.
