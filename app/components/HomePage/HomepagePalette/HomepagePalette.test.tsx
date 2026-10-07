@@ -46,13 +46,12 @@ vi.mock("~/hooks/useGoogleAnalytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 
-vi.mock("hex-color-to-color-name", () => ({
-  GetColorName: vi.fn(() => "Mock Color Name"),
-}));
-
 vi.mock("~/utilities/utilities", () => ({
   isCloserToWhite: vi.fn(),
   normalizeHex: vi.fn((hex: string) => hex.toUpperCase()),
+  getColourNames: vi.fn((colours: unknown[]) =>
+    colours.map(() => "Mock Color Name"),
+  ),
 }));
 
 import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";

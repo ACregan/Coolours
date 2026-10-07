@@ -1,12 +1,9 @@
 import colorNames from "color-name";
-// Deliberately not a dependency of mcp/: this resolves to the site's own copy
-// in ../node_modules, and the build bundles it, so names always match what the
-// site shows on its swatches (CreateColourSet calls GetColorName(hex) directly).
-import { GetColorName } from "hex-color-to-color-name";
 import {
   generateExportCSS,
   generateExportJS,
   generateUrlPath,
+  getColourNames,
   isValidHexColor,
 } from "../../app/utilities/utilities";
 
@@ -83,9 +80,16 @@ function rgbToHex([r, g, b]: readonly [number, number, number]) {
 
 /* -= NAMES =- */
 
-/** Each colour with the name Coolours displays on its swatch. */
+/**
+ * Each colour with the name Coolours displays on its swatch, from the site's
+ * own getColourNames (so similar colours get the same Light/Dark suffixes).
+ * Its naming library, hex-color-to-color-name, is deliberately not a
+ * dependency of mcp/: it resolves to the site's copy and is bundled, so names
+ * can't drift from the site's version.
+ */
 export function namedColours(hexes: string[]) {
-  return hexes.map((hex) => ({ hex: `#${hex}`, name: GetColorName(hex) }));
+  const names = getColourNames(toSwatches(hexes));
+  return hexes.map((hex, i) => ({ hex: `#${hex}`, name: names[i] }));
 }
 
 /* -= URLS =- */

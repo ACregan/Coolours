@@ -144,6 +144,75 @@ function normalizeHex(hex: string) {
   throw new Error(`Invalid hex color: "${hex}"`);
 }
 
+/**
+ * Relative luminance of a hex colour as defined by WCAG 2.x: 0 for black, 1 for white.
+ *
+ * @param hex - A 3- or 6-digit hex colour, with or without '#'.
+ */
+function relativeLuminance(hex: string): number {
+  const full = normalizeHex(hex);
+  const [r, g, b] = [0, 2, 4].map((i) => {
+    const channel = parseInt(full.slice(i, i + 2), 16) / 255;
+    return channel <= 0.04045
+      ? channel / 12.92
+      : ((channel + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+const LIGHT_SUFFIXES = ["Lightest", "Lighter", "Light"];
+const DARK_SUFFIXES = ["Dark", "Darker", "Darkest"];
+
+/**
+ * Suffixes for `count` colours that share a name, lightest first: Light/Dark,
+ * Light/Mid/Dark, Lighter/Light/Dark/Darker, and so on up to seven. Beyond
+ * that the words run out, so the colours are numbered instead.
+ */
+function lightnessSuffixes(count: number): string[] {
+  const perSide = Math.floor(count / 2);
+  if (perSide > LIGHT_SUFFIXES.length) {
+    return Array.from({ length: count }, (_, i) => String(i + 1));
+  }
+  return [
+    ...LIGHT_SUFFIXES.slice(LIGHT_SUFFIXES.length - perSide),
+    ...(count % 2 ? ["Mid"] : []),
+    ...DARK_SUFFIXES.slice(0, perSide),
+  ];
+}
+
+/**
+ * Names each colour after its nearest named colour. Similar colours often
+ * share a name (#2F3A40 and #252F34 are both "Outer Space"), so those get a
+ * lightness suffix ("Outer Space Light", "Outer Space Dark") to keep every
+ * name, and every exported variable, distinct.
+ *
+ * @param colourList - The swatches to name.
+ * @returns The names, in the same order as `colourList`.
+ */
+function getColourNames(colourList: swatchType[]): string[] {
+  const names = colourList.map((colour) => GetColorName(colour.hex));
+
+  const indexesByName = new Map<string, number[]>();
+  names.forEach((name, i) => {
+    indexesByName.set(name, [...(indexesByName.get(name) ?? []), i]);
+  });
+
+  for (const [name, indexes] of indexesByName) {
+    if (indexes.length < 2) continue;
+    // Sort is stable, so identical colours keep their palette order
+    const lightestFirst = [...indexes].sort(
+      (a, b) =>
+        relativeLuminance(colourList[b].hex) -
+        relativeLuminance(colourList[a].hex),
+    );
+    lightnessSuffixes(indexes.length).forEach((suffix, rank) => {
+      names[lightestFirst[rank]] = `${name} ${suffix}`;
+    });
+  }
+
+  return names;
+}
+
 /* -= GENERAL UTILITIES =- */
 
 /**
@@ -210,9 +279,10 @@ function isValidHexColor(hex: string): boolean {
  * @returns A string containing CSS custom properties in the format '--colour-name: #hex;'.
  */
 function generateExportCSS(colourList: swatchType[]) {
+  const colourNames = getColourNames(colourList);
   let cssContent = "";
-  colourList.map((colour) => {
-    const colourName = GetColorName(colour.hex)
+  colourList.map((colour, i) => {
+    const colourName = colourNames[i]
       .replace(/[^0-9a-z-A-Z ]/g, "") // Remove all non-alphabet-chars
       .replaceAll(" ", "-") // Remove all spaces and replace with dash
       .toLowerCase(); // convert to lower case as is convention in css custom properties
@@ -229,9 +299,10 @@ function generateExportCSS(colourList: swatchType[]) {
  * @returns A string containing a JavaScript object literal with color names as keys and hex values as values.
  */
 function generateExportJS(colourList: swatchType[]) {
+  const colourNames = getColourNames(colourList);
   let jsContent = "{\n";
-  colourList.map((colour) => {
-    const colourName = GetColorName(colour.hex)
+  colourList.map((colour, i) => {
+    const colourName = colourNames[i]
       .replace(/[^0-9a-z-A-Z ]/g, "")
       .replaceAll(" ", "");
     jsContent = `${jsContent}    "${colourName}": "#${normalizeHex(colour.hex)}",\n`;
@@ -279,6 +350,8 @@ export {
   generateColorGradient,
   isValidHexColor,
   normalizeHex,
+  relativeLuminance,
+  getColourNames,
   debounce,
   copyToClipboard,
   generateExportCSS,

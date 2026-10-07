@@ -5,6 +5,7 @@ import {
   contrastRatio,
   exportCss,
   exportJs,
+  namedColours,
   parseColour,
   parsePaletteUrl,
 } from "./colour.js";
@@ -98,9 +99,25 @@ describe("contrast", () => {
   });
 });
 
+describe("namedColours", () => {
+  it("uses the site's names, suffixing similar colours by lightness", () => {
+    expect(namedColours(["252F34", "FF6347", "2F3A40"])).toEqual([
+      { hex: "#252F34", name: "Outer Space Dark" },
+      { hex: "#FF6347", name: "Persimmon" },
+      { hex: "#2F3A40", name: "Outer Space Light" },
+    ]);
+  });
+});
+
 describe("exports", () => {
   it("produces CSS custom properties named after the nearest colour", () => {
     expect(exportCss(["000000", "FFFFFF"])).toBe("--black: #000000;\n--white: #FFFFFF;\n");
+  });
+
+  it("never repeats a variable name for similar colours", () => {
+    expect(exportCss(["2F3A40", "252F34"])).toBe(
+      "--outer-space-light: #2F3A40;\n--outer-space-dark: #252F34;\n",
+    );
   });
 
   it("produces the site's JS object format", () => {

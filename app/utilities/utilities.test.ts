@@ -1,4 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { GetColorName } from "hex-color-to-color-name";
 import {
   isCloserToWhite,
   generateRandomColor,
@@ -11,6 +12,8 @@ import {
   generateExportJS,
   convertArrayOfHexesIntoUrlPath,
   generateUrlPath,
+  relativeLuminance,
+  getColourNames,
 } from "./utilities";
 
 vi.mock("hex-color-to-color-name", () => ({
@@ -281,5 +284,76 @@ describe("generateUrlPath", () => {
   it("encodes special characters in the name", () => {
     const result = generateUrlPath([{ hex: "ff0000", id: "1" }], "A & B");
     expect(result).toContain("name=A%20%26%20B");
+  });
+});
+
+describe("relativeLuminance", () => {
+  it("is 0 for black and 1 for white", () => {
+    expect(relativeLuminance("000000")).toBe(0);
+    expect(relativeLuminance("#fff")).toBeCloseTo(1, 10);
+  });
+
+  it("weights green over red over blue", () => {
+    expect(relativeLuminance("00ff00")).toBeGreaterThan(relativeLuminance("ff0000"));
+    expect(relativeLuminance("ff0000")).toBeGreaterThan(relativeLuminance("0000ff"));
+  });
+});
+
+describe("getColourNames", () => {
+  const swatches = (...hexes: string[]) =>
+    hexes.map((hex, i) => ({ hex, id: String(i) }));
+  // Greys, lightest first, all named "Grey" by the mock below
+  const greys = ["eeeeee", "cccccc", "aaaaaa", "888888", "666666", "444444", "222222", "111111"];
+
+  beforeEach(() => {
+    vi.mocked(GetColorName).mockImplementation((hex: string) =>
+      ({ "2f3a40": "Outer Space", "252f34": "Outer Space", ff0000: "Red" })[
+        hex.toLowerCase()
+      ] ?? "Grey",
+    );
+  });
+
+  afterEach(() => {
+    vi.mocked(GetColorName).mockImplementation(() => "Mock Color");
+  });
+
+  it("leaves unique names alone", () => {
+    expect(getColourNames(swatches("ff0000", "2f3a40"))).toEqual(["Red", "Outer Space"]);
+  });
+
+  it("suffixes a shared name by lightness, not palette order", () => {
+    expect(getColourNames(swatches("252f34", "ff0000", "2f3a40"))).toEqual([
+      "Outer Space Dark",
+      "Red",
+      "Outer Space Light",
+    ]);
+  });
+
+  it.each([
+    [3, ["Light", "Mid", "Dark"]],
+    [4, ["Lighter", "Light", "Dark", "Darker"]],
+    [5, ["Lighter", "Light", "Mid", "Dark", "Darker"]],
+    [6, ["Lightest", "Lighter", "Light", "Dark", "Darker", "Darkest"]],
+    [7, ["Lightest", "Lighter", "Light", "Mid", "Dark", "Darker", "Darkest"]],
+    [8, ["1", "2", "3", "4", "5", "6", "7", "8"]],
+  ])("uses the %i-colour ladder", (count, suffixes) => {
+    const shuffled = greys.slice(0, count).reverse();
+    expect(getColourNames(swatches(...shuffled))).toEqual(
+      suffixes.map((suffix) => `Grey ${suffix}`).reverse(),
+    );
+  });
+
+  it("keeps palette order for identical colours", () => {
+    expect(getColourNames(swatches("888888", "888888"))).toEqual(["Grey Light", "Grey Dark"]);
+  });
+
+  it("gives the exports distinct names", () => {
+    const list = swatches("2f3a40", "252f34");
+    expect(generateExportCSS(list)).toBe(
+      "--outer-space-light: #2F3A40;\n--outer-space-dark: #252F34;\n",
+    );
+    expect(generateExportJS(list)).toBe(
+      '{\n    "OuterSpaceLight": "#2F3A40",\n    "OuterSpaceDark": "#252F34",\n}',
+    );
   });
 });
