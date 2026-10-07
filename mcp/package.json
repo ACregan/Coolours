@@ -1,0 +1,32 @@
+{
+  "name": "coolours-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that turns agent-chosen colour palettes into shareable coolours.perpetualsummer.ltd links",
+  "type": "module",
+  "bin": {
+    "coolours-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/index.js",
+    "typecheck": "tsc",
+    "test": "vitest run",
+    "inspect": "npm run build && npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "color-name": "^2.1.1",
+    "hex-color-to-color-name": "^2.0.8",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/color-name": "^2.0.0",
+    "@types/node": "^22.20.5",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.3"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  }
+}
