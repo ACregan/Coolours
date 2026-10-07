@@ -6,7 +6,7 @@ import { useTheme } from "~/components/common/DarkMode/DarkModeContext";
 import DarkModeSwitch from "./DarkModeSwitch/DarkModeSwitch";
 import TopMenuButton from "./TopMenuButton/TopMenuButton";
 import McpButton from "./McpButton/McpButton";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 export default function CoreLayout() {
   const { darkMode, toggleDarkMode } = useTheme();

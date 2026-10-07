@@ -2,7 +2,7 @@ import React from "react";
 import type { swatchType } from "~/types/commonTypes";
 import styles from "./HomepagePalette.module.css";
 import { Link } from "react-router";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import {
   getColourNames,

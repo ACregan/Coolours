@@ -7,7 +7,7 @@ import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import ImportPaletteFromImageModal from "./ImportPaletteFromImage/ImportPaletteFromImage";
 import ExportAsModal from "./ExportAsModal/ExportAsModal";
 import Tooltip, { TooltipBubble } from "../common/Tooltip/Tooltip";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 import OverwriteExistingPaletteModal from "./OverwriteExistingPaletteModal/OverwriteExistingPaletteModal";
 import DeletePaletteConfirmationModal from "./DeletePaletteConfirmationModal/DeletePaletteConfirmationModal";
 import useCreateColourSet from "~/hooks/useCreateColourSet";

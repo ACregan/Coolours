@@ -16,7 +16,7 @@ import { useToast } from "../Toast/ToastProvider";
 import { useSortable } from "@dnd-kit/react/sortable";
 import SwatchButton from "./SwatchButton/SwatchButton";
 import AddSwatchButton from "./AddNewSwatchButton/AddNewSwatchButton";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 interface ColourSwatchProps {
   id: string;

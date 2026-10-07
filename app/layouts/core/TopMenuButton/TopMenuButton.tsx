@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./TopMenuButton.module.css";
 import { useLocation, useNavigate } from "react-router";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 const TopMenuButton = () => {
   const navigate = useNavigate();

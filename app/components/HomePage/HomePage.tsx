@@ -5,7 +5,7 @@ import SvgIcon, { SvgImageList } from "../common/SvgIcon/SvgIcon";
 import { Link } from "react-router";
 import { useTheme } from "../common/DarkMode/DarkModeContext";
 import initialData from "./initialData";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 import useLocalStoragePalettes from "~/hooks/useLocalStoragePalettes.client";
 import HomePagePalette from "./HomepagePalette/HomepagePalette";
 import McpInstallModal from "../common/McpInstallModal/McpInstallModal";

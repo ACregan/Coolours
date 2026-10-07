@@ -21,12 +21,12 @@ vi.mock("react-router", () => ({
   useLocation: vi.fn(),
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 
 import { useLocation } from "react-router";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 describe("TopMenuButton", () => {
   it("renders CREATE button on '/' and navigates to /create on click", () => {

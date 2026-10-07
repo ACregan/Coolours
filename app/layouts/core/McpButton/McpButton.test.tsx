@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import McpButton from "./McpButton";
 import { copyToClipboard } from "~/utilities/utilities";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 const mockAddToast = vi.fn();
 
@@ -23,7 +23,7 @@ vi.mock("~/utilities/utilities", () => ({
   copyToClipboard: vi.fn(),
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 

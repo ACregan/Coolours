@@ -8,7 +8,7 @@ import {
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import ColourSwatch from "./ColourSwatch";
 import { useClickOutside } from "~/hooks/useClickOutside";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 import * as utilities from "~/utilities/utilities";
 import { useToast } from "../Toast/ToastProvider";
 
@@ -31,7 +31,7 @@ vi.mock("~/hooks/useClickOutside", () => ({
   }),
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 

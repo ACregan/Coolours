@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./McpButton.module.css";
 import SvgIcon, { SvgImageList } from "~/components/common/SvgIcon/SvgIcon";
 import McpInstallModal from "~/components/common/McpInstallModal/McpInstallModal";
-import { trackClientAnalyticsEvent } from "~/hooks/useGoogleAnalytics";
+import { trackClientAnalyticsEvent } from "~/hooks/analytics";
 
 const McpButton = () => {
   const [modalOpen, setModalOpen] = useState(false);

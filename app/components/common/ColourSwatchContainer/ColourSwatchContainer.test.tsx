@@ -42,7 +42,7 @@ vi.mock("~/hooks/useClickOutside", () => ({
   }),
 }));
 
-vi.mock("~/hooks/useGoogleAnalytics", () => ({
+vi.mock("~/hooks/analytics", () => ({
   trackClientAnalyticsEvent: vi.fn(),
 }));
 
